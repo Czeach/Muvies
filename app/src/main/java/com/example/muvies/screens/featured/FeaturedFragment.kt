@@ -47,8 +47,13 @@ class FeaturedFragment : Fragment() {
             binding.executePendingBindings()
         }
 
+
         viewModel.upcomingLiveData.observe(viewLifecycleOwner, Observer {
             upcomingAdapter.updateUpcomingList(it)
+        })
+
+        viewModel.popularLiveData.observe(viewLifecycleOwner, Observer {
+            test.text = it.toString()
         })
 
         return binding.root

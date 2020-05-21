@@ -1,5 +1,6 @@
 package com.example.muvies.network
 
+import com.example.muvies.model.PopularMovies
 import com.example.muvies.model.UpcomingMovies
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -24,6 +25,13 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<UpcomingMovies>>
+
+    @GET("movie/popular")
+    fun getPopularMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<PopularMovies>>
 }
 
 object MoviesApi {

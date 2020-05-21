@@ -3,8 +3,8 @@ package com.example.muvies.screens.featured
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muvies.model.Result
-import com.example.muvies.model.UpcomingMovies
+import com.example.muvies.model.PopularResult
+import com.example.muvies.model.UpcomingResult
 import com.example.muvies.network.MoviesApi
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope
@@ -26,21 +26,37 @@ class FeaturedViewModel : ViewModel() {
 
     private val repository: MoviesRepository = MoviesRepository(MoviesApi.retrofitService)
 
-    private var _upcomingLiveData = MutableLiveData<MutableList<Result>>()
+    private var _upcomingLiveData = MutableLiveData<MutableList<UpcomingResult>>()
 
-    val upcomingLiveData: LiveData<MutableList<Result>>
+    val upcomingLiveData: LiveData<MutableList<UpcomingResult>>
     get() = _upcomingLiveData
+
+    private var _popularLiveData = MutableLiveData<MutableList<PopularResult>>()
+
+    val popularLiveData: LiveData<MutableList<PopularResult>>
+    get() = _popularLiveData
 
     init {
         getUpcomingList()
+        getPopularList()
     }
 
     private fun getUpcomingList() {
         coroutineScope.launch {
             val upcoming = repository.getUpcomingMovies()
             try {
-//                upcomingLiveData.postValue(upcoming)
-                _upcomingLiveData.value =upcoming
+                _upcomingLiveData.value = upcoming
+            } catch (e: Exception) {
+                _response.value = "Failure " + e.message
+            }
+        }
+    }
+
+    private fun getPopularList() {
+        coroutineScope.launch {
+            val popular = repository.getPopulatMovies()
+            try {
+                _popularLiveData.value = popular
             } catch (e: Exception) {
                 _response.value = "Failure " + e.message
             }

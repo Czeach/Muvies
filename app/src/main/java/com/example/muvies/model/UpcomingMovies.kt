@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UpcomingMovies(
-    val results: List<Result>,
+    val results: List<UpcomingResult>,
     val page: Int,
     @SerializedName("total_results")
     val totalResults: Int,
@@ -17,7 +17,7 @@ data class UpcomingMovies(
 ): Parcelable
 
 @Parcelize
-data class Result(
+data class UpcomingResult(
     val popularity: Double,
     @SerializedName("vote_count")
     val voteCount: Int,
