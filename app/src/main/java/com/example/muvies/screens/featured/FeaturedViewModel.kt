@@ -31,11 +31,6 @@ class FeaturedViewModel : ViewModel() {
     val upcomingLiveData: LiveData<MutableList<UpcomingResult>>
     get() = _upcomingLiveData
 
-    private var _popularLiveData = MutableLiveData<MutableList<PopularResult>>()
-
-    val popularLiveData: LiveData<MutableList<PopularResult>>
-    get() = _popularLiveData
-
     init {
         getUpcomingList()
         getPopularList()
@@ -51,6 +46,11 @@ class FeaturedViewModel : ViewModel() {
             }
         }
     }
+
+    private var _popularLiveData = MutableLiveData<MutableList<PopularResult>>()
+
+    val popularLiveData: LiveData<MutableList<PopularResult>>
+        get() = _popularLiveData
 
     private fun getPopularList() {
         coroutineScope.launch {

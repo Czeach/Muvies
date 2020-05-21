@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.MainActivity
 
 import com.example.muvies.R
+import com.example.muvies.adapters.PopularListAdapter
 import com.example.muvies.adapters.UpcomingListAdapter
 import com.example.muvies.databinding.FeaturedFragmentBinding
 import kotlinx.android.synthetic.main.featured_fragment.*
@@ -30,6 +31,9 @@ class FeaturedFragment : Fragment() {
     private var upcomingAdapter =
         UpcomingListAdapter(arrayListOf())
 
+    private var popularAdapter =
+        PopularListAdapter(arrayListOf())
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
@@ -40,21 +44,25 @@ class FeaturedFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.featuredViewModel = viewModel
 
-        binding.upcomingListRecycler.apply {
-            layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-            adapter = upcomingAdapter
-
-            binding.executePendingBindings()
+        binding.apply {
+            popularListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = popularAdapter
+            }
+            upcomingListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = upcomingAdapter
+            }
         }
 
-
-        viewModel.upcomingLiveData.observe(viewLifecycleOwner, Observer {
-            upcomingAdapter.updateUpcomingList(it)
-        })
-
-        viewModel.popularLiveData.observe(viewLifecycleOwner, Observer {
-            test.text = it.toString()
-        })
+        viewModel.apply {
+            upcomingLiveData.observe(viewLifecycleOwner, Observer {
+                upcomingAdapter.updateUpcomingList(it)
+            })
+            popularLiveData.observe(viewLifecycleOwner, Observer {
+                popularAdapter.updatePopularList(it)
+            })
+        }
 
         return binding.root
     }
