@@ -67,14 +67,14 @@
                     app:layout_constraintStart_toStartOf="@+id/upcoming_title"
                     app:layout_constraintTop_toBottomOf="@+id/upcoming_list_recycler" />
 
-                <TextView
-                    android:id="@+id/test"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popular_list_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="16dp"
-                    android:text=""
-                    android:textColor="@color/colorAccent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/popular_title" />
 
