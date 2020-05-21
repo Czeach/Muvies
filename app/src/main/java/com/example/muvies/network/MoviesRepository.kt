@@ -2,6 +2,7 @@ package com.example.muvies.network
 
 import com.example.muvies.BuildConfig
 import com.example.muvies.model.PopularResult
+import com.example.muvies.model.TopRatedResult
 import com.example.muvies.model.UpcomingResult
 
 class MoviesRepository(private val apiService: MoviesApiService): BaseRepository() {
@@ -13,11 +14,19 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
         return upcomingMoviesResponse?.results!!.toMutableList()
     }
 
-    suspend fun getPopulatMovies(): MutableList<PopularResult> {
+    suspend fun getPopularMovies(): MutableList<PopularResult> {
         val popularMoviesResponse = safeCall(
             call = {apiService.getPopularMovies(BuildConfig.API_KEY, "", 1).await()},
             error = "Error fetching popular movies"
         )
         return popularMoviesResponse?.results!!.toMutableList()
+    }
+
+    suspend fun getTopRatedMovies(): MutableList<TopRatedResult> {
+        val topRatedMoviesResponse = safeCall(
+            call = {apiService.getTopRatedMovies(BuildConfig.API_KEY, "", 1).await()},
+            error = "Error fetching top rated movies"
+        )
+        return topRatedMoviesResponse?.results!!.toMutableList()
     }
 }
