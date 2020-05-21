@@ -19,11 +19,11 @@ private val retrofit = Retrofit.Builder()
 
 interface MoviesApiService {
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(
+    fun getUpcomingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<ArrayList<UpcomingMovies>>
+    ): Deferred<Response<UpcomingMovies>>
 }
 
 object MoviesApi {

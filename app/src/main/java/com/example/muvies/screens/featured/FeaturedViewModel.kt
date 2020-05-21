@@ -1,17 +1,16 @@
 package com.example.muvies.screens.featured
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muvies.BuildConfig
+import com.example.muvies.model.Result
 import com.example.muvies.model.UpcomingMovies
 import com.example.muvies.network.MoviesApi
+import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.await
 import java.lang.Exception
 
 class FeaturedViewModel : ViewModel() {
@@ -21,14 +20,16 @@ class FeaturedViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
-    private val _upcoming = MutableLiveData<ArrayList<UpcomingMovies>>()
-
-    val upcoming: LiveData<ArrayList<UpcomingMovies>>
-    get() = _upcoming
-
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    private val repository: MoviesRepository = MoviesRepository(MoviesApi.retrofitService)
+
+    private var _upcomingLiveData = MutableLiveData<MutableList<Result>>()
+
+    val upcomingLiveData: LiveData<MutableList<Result>>
+    get() = _upcomingLiveData
 
     init {
         getUpcomingList()
@@ -36,13 +37,12 @@ class FeaturedViewModel : ViewModel() {
 
     private fun getUpcomingList() {
         coroutineScope.launch {
-            val upcomingList = MoviesApi.retrofitService.getUpcomingMovies(BuildConfig.API_KEY, "en-US", 1).await()
+            val upcoming = repository.getUpcomingMovies()
             try {
-                _upcoming.value = upcomingList
-                Log.v("Upcoming", "Network call successful")
-            }catch (t: Throwable) {
-                _response.value = "Failure: " + t.message
-                Log.v("Upcoming", "Network call unsuccessful")
+//                upcomingLiveData.postValue(upcoming)
+                _upcomingLiveData.value =upcoming
+            } catch (e: Exception) {
+                _response.value = "Failure " + e.message
             }
         }
     }
