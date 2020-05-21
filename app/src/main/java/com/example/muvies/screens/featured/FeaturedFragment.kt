@@ -62,6 +62,9 @@ class FeaturedFragment : Fragment() {
             popularLiveData.observe(viewLifecycleOwner, Observer {
                 popularAdapter.updatePopularList(it)
             })
+            topReatedLiveData.observe(viewLifecycleOwner, Observer {
+                test.text = it.toString()
+            })
         }
 
         return binding.root

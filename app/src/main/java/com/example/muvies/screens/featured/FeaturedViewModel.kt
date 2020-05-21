@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muvies.model.PopularResult
+import com.example.muvies.model.TopRatedResult
 import com.example.muvies.model.UpcomingResult
 import com.example.muvies.network.MoviesApi
 import com.example.muvies.network.MoviesRepository
@@ -34,6 +35,7 @@ class FeaturedViewModel : ViewModel() {
     init {
         getUpcomingList()
         getPopularList()
+        getTopRatedList()
     }
 
     private fun getUpcomingList() {
@@ -54,9 +56,25 @@ class FeaturedViewModel : ViewModel() {
 
     private fun getPopularList() {
         coroutineScope.launch {
-            val popular = repository.getPopulatMovies()
+            val popular = repository.getPopularMovies()
             try {
                 _popularLiveData.value = popular
+            } catch (e: Exception) {
+                _response.value = "Failure " + e.message
+            }
+        }
+    }
+
+    private var _topRatedLiveData = MutableLiveData<MutableList<TopRatedResult>>()
+
+    val topReatedLiveData: LiveData<MutableList<TopRatedResult>>
+    get() = _topRatedLiveData
+
+    private fun getTopRatedList() {
+        coroutineScope.launch {
+            val topRated = repository.getTopRatedMovies()
+            try {
+                _topRatedLiveData.value = topRated
             } catch (e: Exception) {
                 _response.value = "Failure " + e.message
             }
