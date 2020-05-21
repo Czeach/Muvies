@@ -2,6 +2,8 @@ package com.example.muvies.network
 
 import com.example.muvies.model.UpcomingMovies
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Deferred
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,11 +19,11 @@ private val retrofit = Retrofit.Builder()
 
 interface MoviesApiService {
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(
+    fun getUpcomingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): ArrayList<UpcomingMovies>
+    ): Deferred<Response<UpcomingMovies>>
 }
 
 object MoviesApi {

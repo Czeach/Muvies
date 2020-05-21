@@ -7,43 +7,43 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UpcomingMovies(
-    val results: List<Result?>? = null,
-    val page: Int? = null,
+    val results: List<Result>,
+    val page: Int,
     @SerializedName("total_results")
-    val totalResults: Int? = null,
-    val dates: Dates? = null,
+    val totalResults: Int,
+    val dates: Dates,
     @SerializedName("total_pages")
-    val totalPages: Int? = null
-): Parcelable {
-    @Parcelize
-    data class Result(
-        val popularity: Double? = null,
-        @SerializedName("vote_count")
-        val voteCount: Int? = null,
-        val video: Boolean? = null,
-        @SerializedName("poster_path")
-        val posterPath: String? = null,
-        val id: Int? = null,
-        val adult: Boolean? = null,
-        @SerializedName("backdrop_path")
-        val backdropPath: String? = null,
-        @SerializedName("original_language")
-        val originalLanguage: String? = null,
-        @SerializedName("original_title")
-        val originalTitle: String? = null,
-        @SerializedName("genre_ids")
-        val genreIds: List<Int?>? = null,
-        val title: String? = null,
-        @SerializedName("vote_average")
-        val voteAverage: Double? = null,
-        val overview: String? = null,
-        @SerializedName("release_date")
-        val releaseDate: String? = null
-    ): Parcelable
+    val totalPages: Int
+): Parcelable
 
-    @Parcelize
-    data class Dates(
-        val maximum: String? = null,
-        val minimum: String? = null
-    ): Parcelable
-}
+@Parcelize
+data class Result(
+    val popularity: Double,
+    @SerializedName("vote_count")
+    val voteCount: Int,
+    val video: Boolean,
+    @SerializedName("poster_path")
+    val posterPath: String,
+    val id: Int,
+    val adult: Boolean,
+    @SerializedName("backdrop_path")
+    val backdropPath: String,
+    @SerializedName("original_language")
+    val originalLanguage: String,
+    @SerializedName("original_title")
+    val originalTitle: String,
+    @SerializedName("genre_ids")
+    val genreIds: List<Int>,
+    val title: String,
+    @SerializedName("vote_average")
+    val voteAverage: Double,
+    val overview: String,
+    @SerializedName("release_date")
+    val releaseDate: String
+): Parcelable
+
+@Parcelize
+data class Dates(
+    val maximum: String,
+    val minimum: String
+): Parcelable
