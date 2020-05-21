@@ -2,18 +2,15 @@ package com.example.muvies.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.R
 import com.example.muvies.databinding.UpcomingListBinding
-import com.example.muvies.model.Result
+import com.example.muvies.model.UpcomingResult
 import kotlinx.android.synthetic.main.upcoming_list.view.*
-import java.util.zip.Inflater
 
-class UpcomingListAdapter(private var list: MutableList<Result>):
+class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
     RecyclerView.Adapter<UpcomingListAdapter.UpcomingListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingListViewHolder {
@@ -25,12 +22,12 @@ class UpcomingListAdapter(private var list: MutableList<Result>):
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: UpcomingListViewHolder, position: Int) {
-        val movie: Result = list[position]
+        val movie: UpcomingResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updateUpcomingList(movieList: MutableList<Result>) {
+    fun updateUpcomingList(movieList: MutableList<UpcomingResult>) {
         list = movieList
         notifyDataSetChanged()
     }
@@ -52,7 +49,7 @@ class UpcomingListAdapter(private var list: MutableList<Result>):
             }
         }
 
-        fun bind(movie: Result) {
+        fun bind(movie: UpcomingResult) {
             binding.upcomingListViewModel = movie
 
             mTextView?.text = movie.title
