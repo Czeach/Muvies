@@ -27,7 +27,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/poster_image"
+                    android:id="@+id/popular_recycler_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
                     app:srcCompat="@drawable/ic_launcher_foreground" />
 
                 <TextView
-                    android:id="@+id/popular_title_text"
+                    android:id="@+id/popular_recycler_text"
                     android:layout_width="80dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="16dp"
