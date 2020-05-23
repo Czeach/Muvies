@@ -42,8 +42,8 @@ class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
 
         init {
             binding.apply {
-                mImageView = itemView.upcoming_backdrop_image
-                mTextView = itemView.upcoming_title_text
+                mImageView = itemView.upcoming_recycler_image
+                mTextView = itemView.upcoming_recycler_text
 
                 invalidateAll()
             }

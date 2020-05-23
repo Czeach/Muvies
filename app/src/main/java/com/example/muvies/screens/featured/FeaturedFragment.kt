@@ -16,6 +16,7 @@ import com.example.muvies.MainActivity
 
 import com.example.muvies.R
 import com.example.muvies.adapters.PopularListAdapter
+import com.example.muvies.adapters.TopRatedListAdapter
 import com.example.muvies.adapters.UpcomingListAdapter
 import com.example.muvies.databinding.FeaturedFragmentBinding
 import kotlinx.android.synthetic.main.featured_fragment.*
@@ -33,6 +34,9 @@ class FeaturedFragment : Fragment() {
 
     private var popularAdapter =
         PopularListAdapter(arrayListOf())
+
+    private var topRatedAdapter =
+        TopRatedListAdapter(arrayListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -53,6 +57,10 @@ class FeaturedFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
                 adapter = upcomingAdapter
             }
+            topRatedListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = topRatedAdapter
+            }
         }
 
         viewModel.apply {
@@ -63,7 +71,7 @@ class FeaturedFragment : Fragment() {
                 popularAdapter.updatePopularList(it)
             })
             topReatedLiveData.observe(viewLifecycleOwner, Observer {
-                test.text = it.toString()
+                topRatedAdapter.updateTopRatedList(it)
             })
         }
 

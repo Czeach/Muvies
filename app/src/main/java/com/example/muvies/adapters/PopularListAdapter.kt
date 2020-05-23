@@ -3,7 +3,6 @@ package com.example.muvies.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.R
@@ -43,8 +42,8 @@ class PopularListAdapter(private var list: MutableList<PopularResult>):
 
         init {
             binding.apply {
-                mImageView = itemView.poster_image
-                mTextView = itemView.popular_title_text
+                mImageView = itemView.popular_recycler_image
+                mTextView = itemView.popular_recycler_text
 
                 invalidateAll()
             }

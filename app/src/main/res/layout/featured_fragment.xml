@@ -14,8 +14,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:background="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,16 +87,15 @@
                     app:layout_constraintStart_toStartOf="@+id/popular_title"
                     app:layout_constraintTop_toBottomOf="@+id/popular_list_recycler" />
 
-                <TextView
-                    android:id="@+id/test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_rated_list_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_marginTop="16dp"
-                    android:text=""
-                    android:textColor="@color/colorPrimary"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/top_rated_title" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
