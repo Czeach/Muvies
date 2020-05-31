@@ -1,12 +1,8 @@
 package com.example.muvies.network
 
-import com.example.muvies.model.PopularMovies
-import com.example.muvies.model.TopRatedMovies
-import com.example.muvies.model.TopRatedResult
-import com.example.muvies.model.UpcomingMovies
+import com.example.muvies.model.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,25 +18,32 @@ private val retrofit = Retrofit.Builder()
 
 interface MoviesApiService {
     @GET("movie/upcoming")
-    fun getUpcomingMovies(
+    fun getUpcomingMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<UpcomingMovies>>
 
     @GET("movie/popular")
-    fun getPopularMovies(
+    fun getPopularMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<PopularMovies>>
 
     @GET("movie/top_rated")
-    fun getTopRatedMovies(
+    fun getTopRatedMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<TopRatedMovies>>
+
+    @GET("movie/now_playing")
+    fun getInTheatresMoviesAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<InTheatresMovies>>
 }
 
 object MoviesApi {

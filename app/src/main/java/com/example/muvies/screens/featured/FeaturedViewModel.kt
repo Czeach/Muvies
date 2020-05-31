@@ -3,6 +3,7 @@ package com.example.muvies.screens.featured
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.muvies.model.InTheatresResult
 import com.example.muvies.model.PopularResult
 import com.example.muvies.model.TopRatedResult
 import com.example.muvies.model.UpcomingResult
@@ -36,6 +37,7 @@ class FeaturedViewModel : ViewModel() {
         getUpcomingList()
         getPopularList()
         getTopRatedList()
+        getInTheatresList()
     }
 
     private fun getUpcomingList() {
@@ -67,7 +69,7 @@ class FeaturedViewModel : ViewModel() {
 
     private var _topRatedLiveData = MutableLiveData<MutableList<TopRatedResult>>()
 
-    val topReatedLiveData: LiveData<MutableList<TopRatedResult>>
+    val topRatedLiveData: LiveData<MutableList<TopRatedResult>>
     get() = _topRatedLiveData
 
     private fun getTopRatedList() {
@@ -75,6 +77,22 @@ class FeaturedViewModel : ViewModel() {
             val topRated = repository.getTopRatedMovies()
             try {
                 _topRatedLiveData.value = topRated
+            } catch (e: Exception) {
+                _response.value = "Failure " + e.message
+            }
+        }
+    }
+
+    private var _inTheatresLiveData = MutableLiveData<MutableList<InTheatresResult>>()
+
+    val inTheatresLiveData: LiveData<MutableList<InTheatresResult>>
+    get() = _inTheatresLiveData
+
+    private fun getInTheatresList() {
+        coroutineScope.launch {
+            val inTheatres = repository.getInTheatresMovies()
+            try {
+                _inTheatresLiveData.value = inTheatres
             } catch (e: Exception) {
                 _response.value = "Failure " + e.message
             }

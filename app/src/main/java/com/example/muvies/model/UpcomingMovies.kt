@@ -11,7 +11,7 @@ data class UpcomingMovies(
     val page: Int,
     @SerializedName("total_results")
     val totalResults: Int,
-    val dates: Dates,
+    val dates: UpcomingDates,
     @SerializedName("total_pages")
     val totalPages: Int
 ): Parcelable
@@ -43,7 +43,7 @@ data class UpcomingResult(
 ): Parcelable
 
 @Parcelize
-data class Dates(
+data class UpcomingDates(
     val maximum: String,
     val minimum: String
 ): Parcelable
