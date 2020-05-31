@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.MainActivity
+import com.example.muvies.adapters.InTheatresListAdapter
 
 import com.example.muvies.adapters.PopularListAdapter
 import com.example.muvies.adapters.TopRatedListAdapter
@@ -24,6 +25,9 @@ class FeaturedFragment : Fragment() {
     }
 
     private lateinit var viewModel: FeaturedViewModel
+
+    private var inTheatresAdapter =
+        InTheatresListAdapter(arrayListOf())
 
     private var upcomingAdapter =
         UpcomingListAdapter(arrayListOf())
@@ -45,6 +49,10 @@ class FeaturedFragment : Fragment() {
         binding.featuredViewModel = viewModel
 
         binding.apply {
+            inTheatresListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = inTheatresAdapter
+            }
             popularListRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
                 adapter = popularAdapter
@@ -70,7 +78,7 @@ class FeaturedFragment : Fragment() {
                 topRatedAdapter.updateTopRatedList(it)
             })
             inTheatresLiveData.observe(viewLifecycleOwner, Observer {
-
+                inTheatresAdapter.updateInTheatreList(it)
             })
         }
 
