@@ -3,7 +3,7 @@ package com.example.muvies.screens.featured
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muvies.model.InTheatresResult
+import com.example.muvies.model.InTheatersResult
 import com.example.muvies.model.PopularResult
 import com.example.muvies.model.TopRatedResult
 import com.example.muvies.model.UpcomingResult
@@ -37,7 +37,7 @@ class FeaturedViewModel : ViewModel() {
         getUpcomingList()
         getPopularList()
         getTopRatedList()
-        getInTheatresList()
+        getInTheatersList()
     }
 
     private fun getUpcomingList() {
@@ -83,16 +83,16 @@ class FeaturedViewModel : ViewModel() {
         }
     }
 
-    private var _inTheatresLiveData = MutableLiveData<MutableList<InTheatresResult>>()
+    private var _inTheatersLiveData = MutableLiveData<MutableList<InTheatersResult>>()
 
-    val inTheatresLiveData: LiveData<MutableList<InTheatresResult>>
-    get() = _inTheatresLiveData
+    val inTheatersLiveData: LiveData<MutableList<InTheatersResult>>
+    get() = _inTheatersLiveData
 
-    private fun getInTheatresList() {
+    private fun getInTheatersList() {
         coroutineScope.launch {
-            val inTheatres = repository.getInTheatresMovies()
+            val inTheaters = repository.getInTheatersMovies()
             try {
-                _inTheatresLiveData.value = inTheatres
+                _inTheatersLiveData.value = inTheaters
             } catch (e: Exception) {
                 _response.value = "Failure " + e.message
             }

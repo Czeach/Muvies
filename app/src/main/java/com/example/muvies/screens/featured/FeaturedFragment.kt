@@ -10,13 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.MainActivity
-import com.example.muvies.adapters.InTheatresListAdapter
+import com.example.muvies.adapters.InTheatersListAdapter
 
 import com.example.muvies.adapters.PopularListAdapter
 import com.example.muvies.adapters.TopRatedListAdapter
 import com.example.muvies.adapters.UpcomingListAdapter
 import com.example.muvies.databinding.FeaturedFragmentBinding
-import kotlinx.android.synthetic.main.featured_fragment.*
 
 class FeaturedFragment : Fragment() {
 
@@ -26,8 +25,8 @@ class FeaturedFragment : Fragment() {
 
     private lateinit var viewModel: FeaturedViewModel
 
-    private var inTheatresAdapter =
-        InTheatresListAdapter(arrayListOf())
+    private var inTheatersAdapter =
+        InTheatersListAdapter(arrayListOf())
 
     private var upcomingAdapter =
         UpcomingListAdapter(arrayListOf())
@@ -49,9 +48,9 @@ class FeaturedFragment : Fragment() {
         binding.featuredViewModel = viewModel
 
         binding.apply {
-            inTheatresListRecycler.apply {
+            inTheatersListRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-                adapter = inTheatresAdapter
+                adapter = inTheatersAdapter
             }
             popularListRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
@@ -77,8 +76,8 @@ class FeaturedFragment : Fragment() {
             topRatedLiveData.observe(viewLifecycleOwner, Observer {
                 topRatedAdapter.updateTopRatedList(it)
             })
-            inTheatresLiveData.observe(viewLifecycleOwner, Observer {
-                inTheatresAdapter.updateInTheatreList(it)
+            inTheatersLiveData.observe(viewLifecycleOwner, Observer {
+                inTheatersAdapter.updateInTheatreList(it)
             })
         }
 

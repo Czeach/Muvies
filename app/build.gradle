@@ -84,4 +84,7 @@ dependencies {
     // ViewPager2 $ TabLayout
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "com.google.android.material:material:1.2.0-alpha06"
+
+    // Material design
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
 }

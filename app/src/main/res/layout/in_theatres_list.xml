@@ -6,7 +6,7 @@
     <data>
         <variable
             name="inTheatresViewModel"
-            type="com.example.muvies.model.InTheatresResult" />
+            type="com.example.muvies.model.InTheatersResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
