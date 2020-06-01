@@ -39,11 +39,11 @@ interface MoviesApiService {
     ): Deferred<Response<TopRatedMovies>>
 
     @GET("movie/now_playing")
-    fun getInTheatresMoviesAsync(
+    fun getInTheatersMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<InTheatresMovies>>
+    ): Deferred<Response<InTheatersMovies>>
 }
 
 object MoviesApi {

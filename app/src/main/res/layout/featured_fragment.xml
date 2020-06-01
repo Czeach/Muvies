@@ -24,7 +24,6 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -42,7 +41,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/in_theatres_list_recycler"
+                    android:id="@+id/in_theaters_list_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
@@ -60,7 +59,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/in_theatres_title"
-                    app:layout_constraintTop_toBottomOf="@+id/in_theatres_list_recycler" />
+                    app:layout_constraintTop_toBottomOf="@+id/in_theaters_list_recycler" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/upcoming_list_recycler"

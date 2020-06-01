@@ -1,7 +1,7 @@
 package com.example.muvies.network
 
 import com.example.muvies.BuildConfig
-import com.example.muvies.model.InTheatresResult
+import com.example.muvies.model.InTheatersResult
 import com.example.muvies.model.PopularResult
 import com.example.muvies.model.TopRatedResult
 import com.example.muvies.model.UpcomingResult
@@ -31,9 +31,9 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
         return topRatedMoviesResponse?.results!!.toMutableList()
     }
 
-    suspend fun getInTheatresMovies(): MutableList<InTheatresResult> {
+    suspend fun getInTheatersMovies(): MutableList<InTheatersResult> {
         val inTheatresResponse = safeCall(
-            call = {apiService.getInTheatresMoviesAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            call = {apiService.getInTheatersMoviesAsync(BuildConfig.API_KEY, "en-US", 1).await()},
             error = "Error fetching in theatres movies"
         )
 

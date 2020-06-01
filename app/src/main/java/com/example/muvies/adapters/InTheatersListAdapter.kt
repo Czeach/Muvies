@@ -2,38 +2,37 @@ package com.example.muvies.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.R
 import com.example.muvies.databinding.InTheatresListBinding
-import com.example.muvies.model.InTheatresResult
+import com.example.muvies.model.InTheatersResult
 import kotlinx.android.synthetic.main.in_theatres_list.view.*
 
-class InTheatresListAdapter(private var list: MutableList<InTheatresResult>):
-    RecyclerView.Adapter<InTheatresListAdapter.InTheatresListViewHolder>() {
+class InTheatersListAdapter(private var list: MutableList<InTheatersResult>):
+    RecyclerView.Adapter<InTheatersListAdapter.InTheatersListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatresListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return InTheatresListViewHolder(inflater, parent)
+        return InTheatersListViewHolder(inflater, parent)
     }
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: InTheatresListViewHolder, position: Int) {
-        val movie: InTheatresResult = list[position]
+    override fun onBindViewHolder(holder: InTheatersListViewHolder, position: Int) {
+        val movie: InTheatersResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updateInTheatreList(movieList: MutableList<InTheatresResult>) {
+    fun updateInTheatreList(movieList: MutableList<InTheatersResult>) {
         list = movieList
         notifyDataSetChanged()
     }
 
-    class InTheatresListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+    class InTheatersListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
         RecyclerView.ViewHolder(inflater.inflate(R.layout.in_theatres_list, parent, false)) {
 
         private val binding = InTheatresListBinding.inflate(inflater)
@@ -50,7 +49,7 @@ class InTheatresListAdapter(private var list: MutableList<InTheatresResult>):
             }
         }
 
-        fun bind(movie: InTheatresResult) {
+        fun bind(movie: InTheatersResult) {
             binding.inTheatresViewModel = movie
 
             mTextView?.text = movie.title
