@@ -11,113 +11,11 @@
             type="com.example.muvies.screens.featured.FeaturedViewModel" />
     </data>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/in_theatres_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="In Theatres"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/in_theaters_list_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_theatres_title" />
-
-                <TextView
-                    android:id="@+id/upcoming_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Upcoming"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/in_theatres_title"
-                    app:layout_constraintTop_toBottomOf="@+id/in_theaters_list_recycler" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/upcoming_list_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/upcoming_title"/>
-
-                <TextView
-                    android:id="@+id/popular_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Popular"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/in_theatres_title"
-                    app:layout_constraintTop_toBottomOf="@+id/upcoming_list_recycler" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/popular_list_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/popular_title" />
-
-                <TextView
-                    android:id="@+id/top_rated_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Top Rated"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/popular_title"
-                    app:layout_constraintTop_toBottomOf="@+id/popular_list_recycler" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/top_rated_list_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/top_rated_title" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </ScrollView>
+    </ScrollView>
 
 </layout>

@@ -19,23 +19,7 @@ import com.example.muvies.databinding.FeaturedFragmentBinding
 
 class FeaturedFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = FeaturedFragment()
-    }
-
     private lateinit var viewModel: FeaturedViewModel
-
-    private var inTheatersAdapter =
-        InTheatersListAdapter(arrayListOf())
-
-    private var upcomingAdapter =
-        UpcomingListAdapter(arrayListOf())
-
-    private var popularAdapter =
-        PopularListAdapter(arrayListOf())
-
-    private var topRatedAdapter =
-        TopRatedListAdapter(arrayListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -48,37 +32,9 @@ class FeaturedFragment : Fragment() {
         binding.featuredViewModel = viewModel
 
         binding.apply {
-            inTheatersListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-                adapter = inTheatersAdapter
-            }
-            popularListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-                adapter = popularAdapter
-            }
-            upcomingListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-                adapter = upcomingAdapter
-            }
-            topRatedListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-                adapter = topRatedAdapter
-            }
         }
 
         viewModel.apply {
-            upcomingLiveData.observe(viewLifecycleOwner, Observer {
-                upcomingAdapter.updateUpcomingList(it)
-            })
-            popularLiveData.observe(viewLifecycleOwner, Observer {
-                popularAdapter.updatePopularList(it)
-            })
-            topRatedLiveData.observe(viewLifecycleOwner, Observer {
-                topRatedAdapter.updateTopRatedList(it)
-            })
-            inTheatersLiveData.observe(viewLifecycleOwner, Observer {
-                inTheatersAdapter.updateInTheatreList(it)
-            })
         }
 
         return binding.root
