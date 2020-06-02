@@ -11,4 +11,9 @@
         android:name="com.example.muvies.screens.featured.FeaturedFragment"
         android:label="featured_fragment"
         tools:layout="@layout/featured_fragment" />
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.example.muvies.screens.movies.MoviesFragment"
+        android:label="movies_fragment"
+        tools:layout="@layout/movies_fragment" />
 </navigation>
