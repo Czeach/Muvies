@@ -3,7 +3,7 @@
 
     <item android:id="@+id/featured_nav"
         android:title="Featured"
-        android:icon="@drawable/home_icon"/>
+        android:icon="@drawable/home"/>
 
     <item android:id="@+id/movies_nav"
         android:title="Movies"
@@ -11,6 +11,6 @@
 
     <item android:id="@+id/tv_shows_nav"
         android:title="TV Shows"
-        android:icon="@drawable/tv_shows_icon"/>
+        android:icon="@drawable/tv_shows"/>
 
 </menu>
