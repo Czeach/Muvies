@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.R
 import com.example.muvies.adapters.AiringTodayListAdapter
+import com.example.muvies.adapters.OnAirListAdapter
 import com.example.muvies.databinding.TvShowsFragmentBinding
 
 class TvShowsFragment : Fragment() {
@@ -24,6 +25,9 @@ class TvShowsFragment : Fragment() {
 
     private var airingTodayAdapter =
         AiringTodayListAdapter(arrayListOf())
+
+    private var onAirAdapter =
+        OnAirListAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +44,18 @@ class TvShowsFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
                 adapter = airingTodayAdapter
             }
+            onAirListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = onAirAdapter
+            }
         }
 
         viewModel.apply {
             airingTodayLiveData.observe(viewLifecycleOwner, Observer {
                 airingTodayAdapter.updateAiringTodayList(it)
+            })
+            onAirLiveData.observe(viewLifecycleOwner, Observer {
+                onAirAdapter.updateOnAirList(it)
             })
         }
 
