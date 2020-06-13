@@ -1,13 +1,10 @@
 package com.example.muvies.network
 
 import com.example.muvies.BuildConfig
-import com.example.muvies.model.InTheatersResult
-import com.example.muvies.model.PopularResult
-import com.example.muvies.model.TopRatedResult
-import com.example.muvies.model.UpcomingResult
+import com.example.muvies.model.*
 
 class MoviesRepository(private val apiService: MoviesApiService): BaseRepository() {
-    suspend fun getUpcomingMovies(): MutableList<UpcomingResult> {
+    suspend fun getUpcomingMovies(): MutableList<UpcomingResult>? {
         val upcomingMoviesResponse = safeCall(
             call = {apiService.getUpcomingMoviesAsync(BuildConfig.API_KEY, "en-US", 1).await()},
             error = "Error fetching upcoming movies"
@@ -32,11 +29,47 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
     }
 
     suspend fun getInTheatersMovies(): MutableList<InTheatersResult> {
-        val inTheatresResponse = safeCall(
+        val inTheatresMoviesResponse = safeCall(
             call = {apiService.getInTheatersMoviesAsync(BuildConfig.API_KEY, "en-US", 1).await()},
             error = "Error fetching in theatres movies"
         )
 
-        return  inTheatresResponse?.results!!.toMutableList()
+        return  inTheatresMoviesResponse?.results!!.toMutableList()
+    }
+
+    suspend fun getAiringTodayTV(): MutableList<AiringTodayTvResult> {
+        val airingTodayTvResponse = safeCall(
+            call = {apiService.getAiringTodayTVAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            error = "Error fetching airing today TV shows"
+        )
+
+        return  airingTodayTvResponse?.results!!.toMutableList()
+    }
+
+    suspend fun getOnAirTV(): MutableList<OnAirTVResult> {
+        val onAirTvResponse = safeCall(
+            call = {apiService.getOnAirTvAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            error = "Error fetching on air TV shows"
+        )
+
+        return onAirTvResponse?.results!!.toMutableList()
+    }
+
+    suspend fun getPopularTv(): MutableList<PopularTVResult> {
+        val popularTvResponse = safeCall(
+            call = {apiService.getPopularTVAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            error = "Error fetching popular TV shows"
+        )
+
+        return popularTvResponse?.results!!.toMutableList()
+    }
+
+    suspend fun getTopRatedTv(): MutableList<TopRatedTVResult>? {
+        val topRatedTvResponse = safeCall(
+            call = {apiService.getTopRatedTVAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            error = "Error fetching top rated TV shows"
+        )
+
+        return topRatedTvResponse?.results!!.toMutableList()
     }
 }

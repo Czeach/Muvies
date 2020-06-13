@@ -44,6 +44,34 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<InTheatersMovies>>
+
+    @GET("tv/airing_today")
+    fun getAiringTodayTVAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<AiringTodayTV>>
+
+    @GET("tv/on_the_air")
+    fun getOnAirTvAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<OnAirTV>>
+
+    @GET("tv/popular")
+    fun getPopularTVAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<PopularTV>>
+
+    @GET("tv/top_rated")
+    fun getTopRatedTVAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<TopRatedTV>>
 }
 
 object MoviesApi {
