@@ -7,43 +7,43 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UpcomingMovies(
-    val results: List<UpcomingResult>,
-    val page: Int,
+    val results: List<UpcomingResult?>?,
+    val page: Int?,
     @SerializedName("total_results")
-    val totalResults: Int,
-    val dates: UpcomingDates,
+    val totalResults: Int?,
+    val dates: UpcomingDates?,
     @SerializedName("total_pages")
-    val totalPages: Int
+    val totalPages: Int?
 ): Parcelable
 
 @Parcelize
 data class UpcomingResult(
-    val popularity: Double,
+    val popularity: Double?,
     @SerializedName("vote_count")
-    val voteCount: Int,
-    val video: Boolean,
+    val voteCount: Int?,
+    val video: Boolean?,
     @SerializedName("poster_path")
-    val posterPath: String,
-    val id: Int,
-    val adult: Boolean,
+    val posterPath: String?,
+    val id: Int?,
+    val adult: Boolean?,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String?,
     @SerializedName("original_title")
-    val originalTitle: String,
+    val originalTitle: String?,
     @SerializedName("genre_ids")
-    val genreIds: List<Int>,
-    val title: String,
+    val genreIds: List<Int?>?,
+    val title: String?,
     @SerializedName("vote_average")
-    val voteAverage: Double,
-    val overview: String,
+    val voteAverage: Double?,
+    val overview: String?,
     @SerializedName("release_date")
-    val releaseDate: String
+    val releaseDate: String?
 ): Parcelable
 
 @Parcelize
 data class UpcomingDates(
-    val maximum: String,
-    val minimum: String
+    val maximum: String?,
+    val minimum: String?
 ): Parcelable
