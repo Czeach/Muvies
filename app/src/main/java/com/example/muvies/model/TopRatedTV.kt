@@ -9,7 +9,7 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class TopRatedTV(
     val page: Int? = 0,
-    val results: List<TopRatedTVResult?>? = listOf(),
+    val results: List<TopRatedTVResult>? = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int? = 0,
     @SerializedName("total_results")

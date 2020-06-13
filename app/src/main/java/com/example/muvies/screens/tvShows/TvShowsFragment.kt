@@ -14,6 +14,7 @@ import com.example.muvies.R
 import com.example.muvies.adapters.AiringTodayListAdapter
 import com.example.muvies.adapters.OnAirListAdapter
 import com.example.muvies.adapters.PopularTvListAdapter
+import com.example.muvies.adapters.TopRatedTvListAdapter
 import com.example.muvies.databinding.TvShowsFragmentBinding
 
 class TvShowsFragment : Fragment() {
@@ -32,6 +33,9 @@ class TvShowsFragment : Fragment() {
 
     private var popularTvAdapter =
         PopularTvListAdapter(arrayListOf())
+
+    private var topRatedTvAdapter =
+        TopRatedTvListAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +60,10 @@ class TvShowsFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
                 adapter = popularTvAdapter
             }
+            topRatedTvListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = topRatedTvAdapter
+            }
         }
 
         viewModel.apply {
@@ -67,6 +75,9 @@ class TvShowsFragment : Fragment() {
             })
             popularTvLiveData.observe(viewLifecycleOwner, Observer {
                 popularTvAdapter.updatePopularTvList(it)
+            })
+            topRatedTvLiveData.observe(viewLifecycleOwner, Observer {
+              topRatedTvAdapter.updateTopRatedTvList(it)
             })
         }
 

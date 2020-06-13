@@ -4,7 +4,7 @@ import com.example.muvies.BuildConfig
 import com.example.muvies.model.*
 
 class MoviesRepository(private val apiService: MoviesApiService): BaseRepository() {
-    suspend fun getUpcomingMovies(): MutableList<UpcomingResult> {
+    suspend fun getUpcomingMovies(): MutableList<UpcomingResult>? {
         val upcomingMoviesResponse = safeCall(
             call = {apiService.getUpcomingMoviesAsync(BuildConfig.API_KEY, "en-US", 1).await()},
             error = "Error fetching upcoming movies"
@@ -62,5 +62,14 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
         )
 
         return popularTvResponse?.results!!.toMutableList()
+    }
+
+    suspend fun getTopRatedTv(): MutableList<TopRatedTVResult>? {
+        val topRatedTvResponse = safeCall(
+            call = {apiService.getTopRatedTVAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            error = "Error fetching top rated TV shows"
+        )
+
+        return topRatedTvResponse?.results!!.toMutableList()
     }
 }
