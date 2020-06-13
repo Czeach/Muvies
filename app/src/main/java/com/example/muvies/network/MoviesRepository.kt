@@ -54,4 +54,13 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
 
         return onAirTvResponse?.results!!.toMutableList()
     }
+
+    suspend fun getPopularTv(): MutableList<PopularTVResult> {
+        val popularTvResponse = safeCall(
+            call = {apiService.getPopularTVAsync(BuildConfig.API_KEY, "en-US", 1).await()},
+            error = "Error fetching popular TV shows"
+        )
+
+        return popularTvResponse?.results!!.toMutableList()
+    }
 }

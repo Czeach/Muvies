@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muvies.model.AiringTodayTvResult
 import com.example.muvies.model.OnAirTVResult
+import com.example.muvies.model.PopularTVResult
 import com.example.muvies.network.MoviesApi
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +29,7 @@ class TvShowsViewModel : ViewModel() {
     init {
         getAiringTodayList()
         getOnAirList()
+        getPopularTvList()
     }
 
     private var _airingTodayLiveData = MutableLiveData<MutableList<AiringTodayTvResult>>()
@@ -56,6 +58,22 @@ class TvShowsViewModel : ViewModel() {
             val onAir = repository.getOnAirTV()
             try {
                 _onAirLiveData.value = onAir
+            } catch (e: Exception) {
+                _response.value = "Failure " + e.message
+            }
+        }
+    }
+
+    private var _popularTvLiveData = MutableLiveData<MutableList<PopularTVResult>>()
+
+    val popularTvLiveData: LiveData<MutableList<PopularTVResult>>
+        get() = _popularTvLiveData
+
+    private fun getPopularTvList() {
+        coroutineScope.launch {
+            val popularTv = repository.getPopularTv()
+            try {
+                _popularTvLiveData.value = popularTv
             } catch (e: Exception) {
                 _response.value = "Failure " + e.message
             }

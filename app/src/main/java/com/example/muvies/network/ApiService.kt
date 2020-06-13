@@ -58,6 +58,13 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<OnAirTV>>
+
+    @GET("tv/popular")
+    fun getPopularTVAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Deferred<Response<PopularTV>>
 }
 
 object MoviesApi {
