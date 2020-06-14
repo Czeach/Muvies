@@ -11,10 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.R
-import com.example.muvies.adapters.AiringTodayListAdapter
-import com.example.muvies.adapters.OnAirListAdapter
-import com.example.muvies.adapters.PopularTvListAdapter
-import com.example.muvies.adapters.TopRatedTvListAdapter
+import com.example.muvies.adapters.*
 import com.example.muvies.databinding.TvShowsFragmentBinding
 
 class TvShowsFragment : Fragment() {
@@ -36,6 +33,9 @@ class TvShowsFragment : Fragment() {
 
     private var topRatedTvAdapter =
         TopRatedTvListAdapter(arrayListOf())
+
+    private var trendingTvAdapter =
+        TrendingTvListAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +64,10 @@ class TvShowsFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = topRatedTvAdapter
             }
+            trendingTvRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = trendingTvAdapter
+            }
         }
 
         viewModel.apply {
@@ -78,6 +82,9 @@ class TvShowsFragment : Fragment() {
             })
             topRatedTvLiveData.observe(viewLifecycleOwner, Observer {
               topRatedTvAdapter.updateTopRatedTvList(it)
+            })
+            trendingTvLiveData.observe(viewLifecycleOwner, Observer {
+                trendingTvAdapter.updateTrendingTvList(it)
             })
         }
 

@@ -82,9 +82,14 @@ interface MoviesApiService {
     ): Deferred<Response<Discover>>
 
     @GET("trending/movie/day")
-    fun getTrendingAsync(
+    fun getTrendingMoviesAsync(
         @Query("api_key") apiKey: String
     ): Deferred<Response<TrendingMovies>>
+
+    @GET("trending/tv/day")
+    fun getTrendingTVAsync(
+        @Query("api_key") apiKey: String
+    ): Deferred<Response<TrendingTV>>
 }
 
 object MoviesApi {

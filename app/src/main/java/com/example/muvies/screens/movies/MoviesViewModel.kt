@@ -104,7 +104,7 @@ class MoviesViewModel : ViewModel() {
 
     private fun getTrendingMovies() {
         coroutineScope.launch {
-            val trending = repository.getTrending()
+            val trending = repository.getTrendingMovies()
             try {
                 _trendingMoviesLiveData.value = trending
             } catch (e: Exception) {
