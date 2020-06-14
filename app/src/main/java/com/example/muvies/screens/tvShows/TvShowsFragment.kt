@@ -49,19 +49,19 @@ class TvShowsFragment : Fragment() {
 
         binding.apply {
             airingTodayListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = airingTodayAdapter
             }
             onAirListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = onAirAdapter
             }
             popularTvListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = popularTvAdapter
             }
             topRatedTvListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = topRatedTvAdapter
             }
         }

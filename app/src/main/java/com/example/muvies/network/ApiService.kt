@@ -80,6 +80,11 @@ interface MoviesApiService {
         @Query("sort_by") sortBy: String,
         @Query("page") page: Int
     ): Deferred<Response<Discover>>
+
+    @GET("trending/movie/day")
+    fun getTrendingAsync(
+        @Query("api_key") apiKey: String
+    ): Deferred<Response<TrendingMovies>>
 }
 
 object MoviesApi {

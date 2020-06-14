@@ -76,9 +76,18 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
     suspend fun getDiscover(): MutableList<DiscoverResult>? {
         val discover = safeCall(
             call = {apiService.getDiscoverAsync(BuildConfig.API_KEY, "en-US", "vote_average.desc", 1).await()},
-            error = "Error fetching top rated TV shows"
+            error = "Error fetching discover list"
         )
 
         return discover?.results!!.toMutableList()
+    }
+
+    suspend fun getTrending(): MutableList<TrendingMoviesResult>? {
+        val trending = safeCall(
+            call = {apiService.getTrendingAsync(BuildConfig.API_KEY).await()},
+            error = "Error fetching trending today list"
+        )
+
+        return trending?.results!!.toMutableList()
     }
 }

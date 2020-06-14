@@ -117,6 +117,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/top_rated_title" />
 
+            <TextView
+                android:id="@+id/trending_movies_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Trending Movies"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/top_rated_title"
+                app:layout_constraintTop_toBottomOf="@+id/top_rated_list_recycler" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trending_movies_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trending_movies_title" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
