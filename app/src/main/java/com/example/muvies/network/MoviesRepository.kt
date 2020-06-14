@@ -72,4 +72,13 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
 
         return topRatedTvResponse?.results!!.toMutableList()
     }
+
+    suspend fun getDiscover(): MutableList<DiscoverResult>? {
+        val discover = safeCall(
+            call = {apiService.getDiscoverAsync(BuildConfig.API_KEY, "en-US", "vote_average.desc", 1).await()},
+            error = "Error fetching top rated TV shows"
+        )
+
+        return discover?.results!!.toMutableList()
+    }
 }

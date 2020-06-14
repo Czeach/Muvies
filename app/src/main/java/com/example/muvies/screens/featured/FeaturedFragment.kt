@@ -10,16 +10,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muvies.MainActivity
-import com.example.muvies.adapters.InTheatersListAdapter
+import com.example.muvies.adapters.*
 
-import com.example.muvies.adapters.PopularListAdapter
-import com.example.muvies.adapters.TopRatedListAdapter
-import com.example.muvies.adapters.UpcomingListAdapter
 import com.example.muvies.databinding.FeaturedFragmentBinding
 
 class FeaturedFragment : Fragment() {
 
     private lateinit var viewModel: FeaturedViewModel
+
+    private var discoverAdapter =
+        DiscoverListAdapter(arrayListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -32,9 +32,16 @@ class FeaturedFragment : Fragment() {
         binding.featuredViewModel = viewModel
 
         binding.apply {
+            discoverListRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                adapter = discoverAdapter
+            }
         }
 
         viewModel.apply {
+            discoverLiveData.observe(viewLifecycleOwner, Observer {
+                discoverAdapter.updateDiscoverList(it)
+            })
         }
 
         return binding.root
@@ -47,8 +54,6 @@ class FeaturedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
-
     }
 
 }
