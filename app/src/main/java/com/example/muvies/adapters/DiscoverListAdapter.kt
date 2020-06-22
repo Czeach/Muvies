@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.DiscoverListBinding
 import com.example.muvies.model.DiscoverResult
@@ -14,16 +16,16 @@ class DiscoverListAdapter(private var list: MutableList<DiscoverResult>):
     RecyclerView.Adapter<DiscoverListAdapter.DiscoverListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscoverListViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
 
-        return DiscoverListViewHolder(inflater, parent)
+        return DiscoverListViewHolder(DiscoverListBinding.inflate(
+            LayoutInflater.from(parent.context)
+        ))
     }
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: DiscoverListViewHolder, position: Int) {
         val movie: DiscoverResult = list[position]
-
         holder.bind(movie)
     }
 
@@ -32,23 +34,23 @@ class DiscoverListAdapter(private var list: MutableList<DiscoverResult>):
         notifyDataSetChanged()
     }
 
-    class DiscoverListViewHolder(layoutInflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.discover_list, parent, false)) {
+    inner class DiscoverListViewHolder(private var binding: DiscoverListBinding):
+        RecyclerView.ViewHolder(binding.root) {
 
-        val binding = DiscoverListBinding.inflate(layoutInflater)
-
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            mImageView = itemView.discover_recycler_image
-            mTextView = itemView.discover_recycler_text
-        }
+        private var poster: ImageView = itemView.discover_recycler_image
+        private var title: TextView = itemView.discover_recycler_text
 
         fun bind(movie: DiscoverResult) {
             binding.discoverViewModel = movie
 
-            mTextView?.text = movie.title
+            title.text = movie.title
+
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            binding.executePendingBindings()
         }
 
     }

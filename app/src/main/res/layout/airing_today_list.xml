@@ -12,11 +12,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="320dp"
-            android:layout_height="180dp"
+            android:layout_width="340dp"
+            android:layout_height="210dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

@@ -19,6 +19,8 @@ import com.example.muvies.screens.tvShows.TvShowsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
+const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w780"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

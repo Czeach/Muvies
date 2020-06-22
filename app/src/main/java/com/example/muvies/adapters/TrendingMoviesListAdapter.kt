@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.TrendingMoviesListBinding
 import com.example.muvies.model.TrendingMoviesResult
@@ -37,20 +39,17 @@ class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResu
 
         val binding = TrendingMoviesListBinding.inflate(layoutInflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
+        private var poster: ImageView = itemView.trending_movies_recycler_image
+        private var title: TextView = itemView.trending_movies_recycler_text
 
-        init {
-            binding.apply {
-                mImageView = itemView.trending_movies_recycler_image
-                mTextView = itemView.trending_movies_recycler_text
-            }
-        }
+        fun bind(movie: TrendingMoviesResult) {
+            binding.trendingMoviesViewModel = movie
 
-        fun bind(movies: TrendingMoviesResult) {
-            binding.trendingMoviesViewModel = movies
-
-            mTextView?.text = movies.title
+            title.text = movie.title
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
 
     }

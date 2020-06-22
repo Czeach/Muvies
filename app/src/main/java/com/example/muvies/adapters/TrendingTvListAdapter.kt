@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.TrendingTvListBinding
 import com.example.muvies.model.TrendingTvResult
@@ -38,20 +39,17 @@ class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>):
 
         val binding = TrendingTvListBinding.inflate(layoutInflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            binding.apply {
-                mImageView = itemView.trending_tv_recycler_image
-                mTextView = itemView.trending_tv_recycler_text
-            }
-        }
+        private var poster: ImageView = itemView.trending_tv_recycler_image
+        private var name: TextView = itemView.trending_tv_recycler_text
 
         fun bind(tv: TrendingTvResult) {
             binding.trendingTvViewModel = tv
 
-            mTextView?.text = tv.name
+            name.text = tv.name
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${tv.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
 
     }

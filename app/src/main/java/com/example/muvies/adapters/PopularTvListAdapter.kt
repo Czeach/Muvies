@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.PopularTvListBinding
 import com.example.muvies.model.PopularTVResult
@@ -37,20 +39,17 @@ class PopularTvListAdapter(private var list: MutableList<PopularTVResult>):
 
         val binding = PopularTvListBinding.inflate(inflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            binding.apply {
-                mImageView = itemView.popular_tv_recycler_image
-                mTextView = itemView.popular_tv_recycler_text
-            }
-        }
+        private var poster: ImageView = itemView.popular_tv_recycler_image
+        private var name: TextView = itemView.popular_tv_recycler_text
 
         fun bind(tv: PopularTVResult) {
             binding.popularTvViewModel = tv
 
-            mTextView?.text = tv.name
+            name.text = tv.name
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${tv.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
 
     }

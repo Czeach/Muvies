@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.OnAirListBinding
 import com.example.muvies.model.OnAirTVResult
@@ -37,20 +39,17 @@ class OnAirListAdapter(private var list: MutableList<OnAirTVResult>):
 
         val binding = OnAirListBinding.inflate(inflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            binding.apply {
-                mImageView = itemView.on_air_recycler_image
-                mTextView = itemView.on_air_recycler_text
-            }
-        }
+        private var poster: ImageView = itemView.on_air_recycler_image
+        private var name: TextView = itemView.on_air_recycler_text
 
         fun bind(tv: OnAirTVResult) {
             binding.onAirViewModel = tv
 
-            mTextView?.text = tv.name
+            name.text = tv.name
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${tv.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
     }
 }

@@ -30,21 +30,29 @@
 
             <TextView
                 android:id="@+id/airing_today_title"
+                style="@style/TextAppearance.AppCompat.ListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Airing Today"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:text="AIRING TODAY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="SEE ALL"
+                style="@style/TextAppearance.AppCompat.SeeAll"
+                app:layout_constraintBottom_toTopOf="@+id/airing_today_list_recycler"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/airing_today_list_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,20 +60,28 @@
 
             <TextView
                 android:id="@+id/on_air_title"
+                style="@style/TextAppearance.AppCompat.ListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="On Air"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:text="ON AIR"
                 app:layout_constraintStart_toStartOf="@+id/airing_today_title"
                 app:layout_constraintTop_toBottomOf="@+id/airing_today_list_recycler" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="SEE ALL"
+                style="@style/TextAppearance.AppCompat.SeeAll"
+                app:layout_constraintBottom_toTopOf="@+id/on_air_list_recycler"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/on_air_list_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,20 +89,28 @@
 
             <TextView
                 android:id="@+id/popular_tv_title"
+                style="@style/TextAppearance.AppCompat.ListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Popular"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:text="POPULAR SHOWS"
                 app:layout_constraintStart_toStartOf="@+id/airing_today_title"
                 app:layout_constraintTop_toBottomOf="@+id/on_air_list_recycler" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="SEE ALL"
+                style="@style/TextAppearance.AppCompat.SeeAll"
+                app:layout_constraintBottom_toTopOf="@+id/popular_tv_list_recycler"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_tv_list_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,20 +118,28 @@
 
             <TextView
                 android:id="@+id/top_rated_tv_title"
+                style="@style/TextAppearance.AppCompat.ListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Top Rated"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:text="TOP RATED SHOWS"
                 app:layout_constraintStart_toStartOf="@+id/popular_tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/popular_tv_list_recycler" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="SEE ALL"
+                style="@style/TextAppearance.AppCompat.SeeAll"
+                app:layout_constraintBottom_toTopOf="@+id/top_rated_tv_list_recycler"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_rated_tv_list_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -116,20 +148,28 @@
 
             <TextView
                 android:id="@+id/trending_tv_title"
+                style="@style/TextAppearance.AppCompat.ListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Trending TV Shows"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:text="TRENDING TV SHOWS"
                 app:layout_constraintStart_toStartOf="@+id/top_rated_tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/top_rated_tv_list_recycler" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="SEE ALL"
+                style="@style/TextAppearance.AppCompat.SeeAll"
+                app:layout_constraintBottom_toTopOf="@+id/trending_tv_recycler"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trending_tv_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

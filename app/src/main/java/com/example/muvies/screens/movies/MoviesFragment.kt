@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muvies.adapters.*
 import com.example.muvies.databinding.MoviesFragmentBinding
@@ -50,7 +51,7 @@ class MoviesFragment : Fragment() {
                 adapter = upcomingAdapter
             }
             inTheatersListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 adapter = inTheatersAdapter
             }
             popularListRecycler.apply {
