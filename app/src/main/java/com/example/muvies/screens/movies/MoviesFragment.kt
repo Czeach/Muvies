@@ -7,13 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.muvies.R
-import com.example.muvies.adapters.InTheatersListAdapter
-import com.example.muvies.adapters.PopularListAdapter
-import com.example.muvies.adapters.TopRatedListAdapter
-import com.example.muvies.adapters.UpcomingListAdapter
+import com.example.muvies.adapters.*
 import com.example.muvies.databinding.MoviesFragmentBinding
 
 class MoviesFragment : Fragment() {
@@ -36,6 +32,9 @@ class MoviesFragment : Fragment() {
     private var topRatedAdapter =
         TopRatedListAdapter(arrayListOf())
 
+    private var trendingMoviesAdapter =
+        TrendingMoviesListAdapter(arrayListOf())
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,21 +47,24 @@ class MoviesFragment : Fragment() {
 
         binding.apply {
             upcomingListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = upcomingAdapter
             }
             inTheatersListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 adapter = inTheatersAdapter
             }
             popularListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = popularAdapter
             }
-
             topRatedListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = topRatedAdapter
+            }
+            trendingMoviesRecycler.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = trendingMoviesAdapter
             }
         }
 
@@ -78,6 +80,9 @@ class MoviesFragment : Fragment() {
             })
             inTheatersLiveData.observe(viewLifecycleOwner, Observer {
                 inTheatersAdapter.updateInTheatreList(it)
+            })
+            trendingMoviesLiveData.observe(viewLifecycleOwner, Observer {
+                trendingMoviesAdapter.updateTrendingMoviesList(it)
             })
         }
 

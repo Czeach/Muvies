@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.InTheatresListBinding
 import com.example.muvies.model.InTheatersResult
@@ -23,7 +25,6 @@ class InTheatersListAdapter(private var list: MutableList<InTheatersResult>):
 
     override fun onBindViewHolder(holder: InTheatersListViewHolder, position: Int) {
         val movie: InTheatersResult = list[position]
-
         holder.bind(movie)
     }
 
@@ -37,22 +38,20 @@ class InTheatersListAdapter(private var list: MutableList<InTheatersResult>):
 
         private val binding = InTheatresListBinding.inflate(inflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
+        private var poster: ImageView = itemView.in_theatre_recycler_image
+        private var title: TextView = itemView.in_theatre_recycler_text
 
-        init {
-            binding.apply {
-                mImageView = itemView.in_theatre_recycler_image
-                mTextView = itemView.in_theatre_recycler_text
-
-                invalidateAll()
-            }
-        }
 
         fun bind(movie: InTheatersResult) {
             binding.inTheatresViewModel = movie
 
-            mTextView?.text = movie.title
+            title.text = movie.title
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            binding.executePendingBindings()
         }
     }
 }

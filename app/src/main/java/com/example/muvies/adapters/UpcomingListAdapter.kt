@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.UpcomingListBinding
 import com.example.muvies.model.UpcomingResult
@@ -37,22 +39,17 @@ class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
 
         private val binding = UpcomingListBinding.inflate(inflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            binding.apply {
-                mImageView = itemView.upcoming_recycler_image
-                mTextView = itemView.upcoming_recycler_text
-
-                invalidateAll()
-            }
-        }
+        private var poster: ImageView = itemView.upcoming_recycler_image
+        private var title: TextView = itemView.upcoming_recycler_text
 
         fun bind(movie: UpcomingResult) {
             binding.upcomingListViewModel = movie
 
-            mTextView?.text = movie.title
+            title.text = movie.title
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
     }
 }

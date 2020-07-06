@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextAppearance.AppCompat.ListTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">22sp</item>
+        <item name="fontFamily">@font/baloo_da</item>
+        <item name="android:textColor">@color/colorAccentDark</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.SeeAll" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontFamily">@font/convergence</item>
+    </style>
 </resources>

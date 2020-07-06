@@ -3,10 +3,7 @@ package com.example.muvies.screens.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muvies.model.InTheatersResult
-import com.example.muvies.model.PopularResult
-import com.example.muvies.model.TopRatedResult
-import com.example.muvies.model.UpcomingResult
+import com.example.muvies.model.*
 import com.example.muvies.network.MoviesApi
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope
@@ -38,6 +35,7 @@ class MoviesViewModel : ViewModel() {
         getPopularList()
         getTopRatedList()
         getInTheatersList()
+        getTrendingMovies()
     }
 
     private fun getUpcomingList() {
@@ -93,6 +91,22 @@ class MoviesViewModel : ViewModel() {
             val inTheaters = repository.getInTheatersMovies()
             try {
                 _inTheatersLiveData.value = inTheaters
+            } catch (e: Exception) {
+                _response.value = "Failure " + e.message
+            }
+        }
+    }
+
+    private var _trendingMoviesLiveData = MutableLiveData<MutableList<TrendingMoviesResult>>()
+
+    val trendingMoviesLiveData: LiveData<MutableList<TrendingMoviesResult>>
+        get() = _trendingMoviesLiveData
+
+    private fun getTrendingMovies() {
+        coroutineScope.launch {
+            val trending = repository.getTrendingMovies()
+            try {
+                _trendingMoviesLiveData.value = trending
             } catch (e: Exception) {
                 _response.value = "Failure " + e.message
             }

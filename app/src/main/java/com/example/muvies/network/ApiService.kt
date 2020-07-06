@@ -72,6 +72,24 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<TopRatedTV>>
+
+    @GET("discover/movie")
+    fun getDiscoverAsync(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("sort_by") sortBy: String,
+        @Query("page") page: Int
+    ): Deferred<Response<Discover>>
+
+    @GET("trending/movie/day")
+    fun getTrendingMoviesAsync(
+        @Query("api_key") apiKey: String
+    ): Deferred<Response<TrendingMovies>>
+
+    @GET("trending/tv/day")
+    fun getTrendingTVAsync(
+        @Query("api_key") apiKey: String
+    ): Deferred<Response<TrendingTV>>
 }
 
 object MoviesApi {

@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.TopRatedTvListBinding
 import com.example.muvies.model.TopRatedTVResult
@@ -37,20 +39,17 @@ class TopRatedTvListAdapter(private var list: MutableList<TopRatedTVResult>):
 
         val binding = TopRatedTvListBinding.inflate(inflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            binding.apply {
-                mImageView = itemView.top_rated_tv_recycler_image
-                mTextView = itemView.top_rated_tv_recycler_text
-            }
-        }
+        private var poster: ImageView = itemView.top_rated_tv_recycler_image
+        private var name: TextView = itemView.top_rated_tv_recycler_text
 
         fun bind(tv: TopRatedTVResult) {
             binding.topRatedTvViewModel = tv
 
-            mTextView?.text = tv.name
+            name.text = tv.name
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${tv.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
     }
 

@@ -2,13 +2,13 @@ package com.example.muvies.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.TopRatedListBinding
-import com.example.muvies.databinding.UpcomingListBinding
 import com.example.muvies.model.TopRatedResult
 import kotlinx.android.synthetic.main.top_rated_list.view.*
 
@@ -39,20 +39,17 @@ class TopRatedListAdapter(private var list: MutableList<TopRatedResult>):
 
         private val binding = TopRatedListBinding.inflate(inflater)
 
-        private var mImageView: ImageView? = null
-        private var mTextView: TextView? = null
-
-        init {
-            binding.apply {
-                mImageView = itemView.top_rated_recycler_image
-                mTextView = itemView.top_rated_recycler_text
-            }
-        }
+        private var poster: ImageView = itemView.top_rated_recycler_image
+        private var title: TextView = itemView.top_rated_recycler_text
 
         fun bind(movie: TopRatedResult) {
             binding.topRatedViewModel = movie
 
-            mTextView?.text = movie.title
+            title.text = movie.title
+            Glide.with(itemView)
+                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
         }
 
     }
