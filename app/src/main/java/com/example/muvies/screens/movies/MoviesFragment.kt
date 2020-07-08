@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.movies_fragment.*
 class MoviesFragment : Fragment() {
 
     private lateinit var viewModel: MoviesViewModel
+    private lateinit var binding: MoviesFragmentBinding
 
     private var upcomingAdapter =
         UpcomingListAdapter(arrayListOf())
@@ -48,7 +49,7 @@ class MoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = MoviesFragmentBinding.inflate(inflater)
+        binding = MoviesFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
         binding.lifecycleOwner = this
         binding.moviesViewModel = viewModel
@@ -100,8 +101,8 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        in_theaters_see_all?.setOnClickListener {
-            it.findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
+        binding.inTheatersSeeAll.setOnClickListener {
+            findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
             Log.d(TAG, "Clicked")
             Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_LONG).show()
         }
