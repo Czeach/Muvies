@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.tvShows.TvShowsFragment">
+    tools:context=".fragments.TvShowsFragment">
 
     <data>
         <variable
             name="tvShowsViewModel"
-            type="com.example.muvies.screens.tvShows.TvShowsViewModel" />
+            type="com.example.muvies.viewModels.TvShowsViewModel" />
     </data>
 
     <ScrollView
@@ -34,7 +34,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:text="AIRING TODAY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

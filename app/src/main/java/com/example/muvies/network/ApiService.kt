@@ -1,6 +1,6 @@
 package com.example.muvies.network
 
-import com.example.muvies.model.*
+import com.example.muvies.models.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Response

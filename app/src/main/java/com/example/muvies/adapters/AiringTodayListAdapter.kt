@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.AiringTodayListBinding
-import com.example.muvies.model.AiringTodayTvResult
+import com.example.muvies.models.AiringTodayTvResult
 import kotlinx.android.synthetic.main.airing_today_list.view.*
 
 class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>):
@@ -47,7 +47,7 @@ class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>)
 
             name.text = tv.name
             Glide.with(itemView)
-                .load("$BASE_IMAGE_PATH${tv.backdropPath}")
+                .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
         }

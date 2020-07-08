@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/featured_nav"
+    <item android:id="@+id/featuredFragment"
         android:title="Featured"
         android:icon="@drawable/home"/>
 
-    <item android:id="@+id/movies_nav"
+    <item android:id="@+id/moviesFragment"
         android:title="Movies"
         android:icon="@drawable/movies_icon"/>
 
-    <item android:id="@+id/tv_shows_nav"
+    <item android:id="@+id/tvShowsFragment"
         android:title="TV Shows"
         android:icon="@drawable/tv_shows"/>
 

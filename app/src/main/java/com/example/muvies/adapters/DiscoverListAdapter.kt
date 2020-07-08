@@ -6,10 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.DiscoverListBinding
-import com.example.muvies.model.DiscoverResult
+import com.example.muvies.models.DiscoverResult
 import kotlinx.android.synthetic.main.discover_list.view.*
 
 class DiscoverListAdapter(private var list: MutableList<DiscoverResult>):
@@ -46,7 +45,7 @@ class DiscoverListAdapter(private var list: MutableList<DiscoverResult>):
             title.text = movie.title
 
             Glide.with(itemView)
-                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .load("https://image.tmdb.org/t/p/w780${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
 

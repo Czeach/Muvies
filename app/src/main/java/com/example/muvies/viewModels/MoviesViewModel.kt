@@ -1,9 +1,9 @@
-package com.example.muvies.screens.movies
+package com.example.muvies.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muvies.model.*
+import com.example.muvies.models.*
 import com.example.muvies.network.MoviesApi
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope

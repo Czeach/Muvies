@@ -1,4 +1,4 @@
-package com.example.muvies.model
+package com.example.muvies.models
 
 
 import android.os.Parcelable
@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PopularTV(
+data class OnAirTV(
     val page: Int = 0,
-    val results: List<PopularTVResult> = listOf(),
+    val results: List<OnAirTVResult> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
@@ -16,7 +16,7 @@ data class PopularTV(
 ): Parcelable
 
 @Parcelize
-data class PopularTVResult(
+data class OnAirTVResult(
     @SerializedName("backdrop_path")
     val backdropPath: String = "",
     @SerializedName("first_air_date")

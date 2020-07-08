@@ -8,23 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
-import com.example.muvies.databinding.InTheatresListBinding
-import com.example.muvies.model.InTheatersResult
-import kotlinx.android.synthetic.main.in_theatres_list.view.*
+import com.example.muvies.databinding.InTheatersMainListBinding
+import com.example.muvies.databinding.InTheatresMiniListBinding
+import com.example.muvies.models.InTheatersResult
+import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 
-class InTheatersListAdapter(private var list: MutableList<InTheatersResult>):
-    RecyclerView.Adapter<InTheatersListAdapter.InTheatersListViewHolder>() {
+class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>):
+    RecyclerView.Adapter<InTheatersMiniListAdapter.InTheatersMiniListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMiniListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return InTheatersListViewHolder(inflater, parent)
+        return InTheatersMiniListViewHolder(inflater, parent)
     }
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: InTheatersListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: InTheatersMiniListViewHolder, position: Int) {
         val movie: InTheatersResult = list[position]
+
         holder.bind(movie)
     }
 
@@ -33,17 +35,17 @@ class InTheatersListAdapter(private var list: MutableList<InTheatersResult>):
         notifyDataSetChanged()
     }
 
-    class InTheatersListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.in_theatres_list, parent, false)) {
+    inner class InTheatersMiniListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.in_theatres_mini_list, parent, false)) {
 
-        private val binding = InTheatresListBinding.inflate(inflater)
+        private val binding = InTheatresMiniListBinding.inflate(inflater)
 
         private var poster: ImageView = itemView.in_theatre_recycler_image
         private var title: TextView = itemView.in_theatre_recycler_text
 
 
         fun bind(movie: InTheatersResult) {
-            binding.inTheatresViewModel = movie
+            binding.inTheatresMini = movie
 
             title.text = movie.title
             Glide.with(itemView)
@@ -54,4 +56,8 @@ class InTheatersListAdapter(private var list: MutableList<InTheatersResult>):
             binding.executePendingBindings()
         }
     }
+
+}
+
+class InTheatersMainListAdapter(private var list: MutableList<InTheatersResult>) {
 }

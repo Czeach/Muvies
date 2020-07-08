@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.TrendingTvListBinding
-import com.example.muvies.model.TrendingTvResult
+import com.example.muvies.models.TrendingTvResult
 import kotlinx.android.synthetic.main.trending_tv_list.view.*
 
 class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>):

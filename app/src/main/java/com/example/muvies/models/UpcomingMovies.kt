@@ -1,4 +1,4 @@
-package com.example.muvies.model
+package com.example.muvies.models
 
 
 import android.os.Parcelable

@@ -1,30 +1,32 @@
-package com.example.muvies.screens.movies
+package com.example.muvies.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.muvies.R
 import com.example.muvies.adapters.*
 import com.example.muvies.databinding.MoviesFragmentBinding
+import com.example.muvies.viewModels.MoviesViewModel
 
 class MoviesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MoviesFragment()
-    }
-
     private lateinit var viewModel: MoviesViewModel
+    private lateinit var binding: MoviesFragmentBinding
 
     private var upcomingAdapter =
         UpcomingListAdapter(arrayListOf())
 
     private var inTheatersAdapter =
-        InTheatersListAdapter(arrayListOf())
+        InTheatersMiniListAdapter(arrayListOf())
 
     private var popularAdapter =
         PopularListAdapter(arrayListOf())
@@ -35,12 +37,14 @@ class MoviesFragment : Fragment() {
     private var trendingMoviesAdapter =
         TrendingMoviesListAdapter(arrayListOf())
 
+    private var  TAG = "MoviesFragment"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = MoviesFragmentBinding.inflate(inflater)
+        binding = MoviesFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
         binding.lifecycleOwner = this
         binding.moviesViewModel = viewModel
@@ -50,7 +54,7 @@ class MoviesFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = upcomingAdapter
             }
-            inTheatersListRecycler.apply {
+            inTheatersMiniListRecycler.apply {
                 layoutManager = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 adapter = inTheatersAdapter
             }
@@ -89,9 +93,14 @@ class MoviesFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding.inTheatersSeeAll.setOnClickListener {
+            findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
+            Log.d(TAG, "Clicked")
+            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_LONG).show()
+        }
     }
 
 }

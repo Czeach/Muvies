@@ -8,12 +8,26 @@
 
     <fragment
         android:id="@+id/featuredFragment"
-        android:name="com.example.muvies.screens.featured.FeaturedFragment"
-        android:label="featured_fragment"
+        android:name="com.example.muvies.fragments.FeaturedFragment"
+        android:label="Featured"
         tools:layout="@layout/featured_fragment" />
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.example.muvies.screens.movies.MoviesFragment"
-        android:label="movies_fragment"
-        tools:layout="@layout/movies_fragment" />
+        android:name="com.example.muvies.fragments.MoviesFragment"
+        android:label="Movies"
+        tools:layout="@layout/movies_fragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_inTheatersFragment"
+            app:destination="@id/inTheatersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowsFragment"
+        android:name="com.example.muvies.fragments.TvShowsFragment"
+        android:label="Tv Shows"
+        tools:layout="@layout/tv_shows_fragment" />
+    <fragment
+        android:id="@+id/inTheatersFragment"
+        android:name="com.example.muvies.fragments.InTheatersFragment"
+        android:label="In Theaters"
+        tools:layout="@layout/in_theaters_fragment" />
 </navigation>

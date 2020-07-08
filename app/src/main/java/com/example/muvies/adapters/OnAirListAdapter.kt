@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.OnAirListBinding
-import com.example.muvies.model.OnAirTVResult
+import com.example.muvies.models.OnAirTVResult
 import kotlinx.android.synthetic.main.on_air_list.view.*
 
 class OnAirListAdapter(private var list: MutableList<OnAirTVResult>):

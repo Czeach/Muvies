@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.TopRatedListBinding
-import com.example.muvies.model.TopRatedResult
+import com.example.muvies.models.TopRatedResult
 import kotlinx.android.synthetic.main.top_rated_list.view.*
 
 class TopRatedListAdapter(private var list: MutableList<TopRatedResult>):
