@@ -9,12 +9,12 @@
     <fragment
         android:id="@+id/featuredFragment"
         android:name="com.example.muvies.screens.featured.FeaturedFragment"
-        android:label="featured_fragment"
+        android:label="Featured"
         tools:layout="@layout/featured_fragment" />
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.example.muvies.screens.movies.MoviesFragment"
-        android:label="movies_fragment"
+        android:label="Movies"
         tools:layout="@layout/movies_fragment" >
         <action
             android:id="@+id/action_moviesFragment_to_inTheatersFragment"
@@ -23,11 +23,11 @@
     <fragment
         android:id="@+id/tvShowsFragment"
         android:name="com.example.muvies.screens.tvShows.TvShowsFragment"
-        android:label="tv_shows_fragment"
+        android:label="Tv Shows"
         tools:layout="@layout/tv_shows_fragment" />
     <fragment
         android:id="@+id/inTheatersFragment"
         android:name="com.example.muvies.screens.seeAll.InTheatersFragment"
-        android:label="in_theaters_fragment"
+        android:label="In Theaters"
         tools:layout="@layout/in_theaters_fragment" />
 </navigation>

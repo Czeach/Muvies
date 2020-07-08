@@ -7,20 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muvies.R
 import com.example.muvies.adapters.*
 import com.example.muvies.databinding.MoviesFragmentBinding
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.movies_fragment.*
 
 class MoviesFragment : Fragment() {
 
@@ -31,7 +25,7 @@ class MoviesFragment : Fragment() {
         UpcomingListAdapter(arrayListOf())
 
     private var inTheatersAdapter =
-        InTheatersListAdapter(arrayListOf())
+        InTheatersMiniListAdapter(arrayListOf())
 
     private var popularAdapter =
         PopularListAdapter(arrayListOf())

@@ -35,20 +35,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
                 android:text="IN THEATERS"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
+            <TextView
                 android:id="@+id/in_theaters_see_all"
+                style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/arrow_right"
-                android:background="@color/colorBackground"
-                app:layout_constraintBottom_toTopOf="@+id/in_theaters_mini_list_recycler"
+                android:text="SEE ALL"
+                app:layout_constraintBottom_toBottomOf="@+id/in_theatres_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -72,13 +71,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/in_theaters_mini_list_recycler" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/upcoming_list_recycler"
+                app:layout_constraintBottom_toBottomOf="@+id/upcoming_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -102,13 +101,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/upcoming_list_recycler" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/popular_list_recycler"
+                app:layout_constraintBottom_toBottomOf="@+id/popular_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -132,13 +131,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/popular_list_recycler" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/top_rated_list_recycler"
+                app:layout_constraintBottom_toBottomOf="@+id/top_rated_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -161,13 +160,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/top_rated_list_recycler" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/trending_movies_recycler"
+                app:layout_constraintBottom_toBottomOf="@+id/trending_movies_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
