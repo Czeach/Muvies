@@ -1,4 +1,4 @@
-package com.example.muvies.screens.featured
+package com.example.muvies.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muvies.MainActivity
 import com.example.muvies.adapters.*
 
 import com.example.muvies.databinding.FeaturedFragmentBinding
+import com.example.muvies.viewModels.FeaturedViewModel
 
 class FeaturedFragment : Fragment() {
 

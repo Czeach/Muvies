@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.movies.MoviesFragment">
+    tools:context=".fragments.MoviesFragment">
 
     <data>
         <variable
             name="moviesViewModel"
-            type="com.example.muvies.screens.movies.MoviesViewModel" />
+            type="com.example.muvies.viewModels.MoviesViewModel" />
     </data>
 
     <ScrollView

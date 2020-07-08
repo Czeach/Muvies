@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".screens.seeAll.InTheatersFragment">
+    tools:context=".fragments.InTheatersFragment">
 
     <data>
         <variable
             name="inTheatersVieModel"
-            type="com.example.muvies.screens.seeAll.InTheatersViewModel" />
+            type="com.example.muvies.viewModels.InTheatersViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

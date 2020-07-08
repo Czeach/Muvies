@@ -1,4 +1,4 @@
-package com.example.muvies.screens.tvShows
+package com.example.muvies.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.muvies.R
 import com.example.muvies.adapters.*
 import com.example.muvies.databinding.TvShowsFragmentBinding
+import com.example.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
 

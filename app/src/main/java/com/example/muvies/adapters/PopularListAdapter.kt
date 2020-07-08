@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.PopularListBinding
-import com.example.muvies.model.PopularResult
+import com.example.muvies.models.PopularResult
 import kotlinx.android.synthetic.main.popular_list.view.*
 
 class PopularListAdapter(private var list: MutableList<PopularResult>):

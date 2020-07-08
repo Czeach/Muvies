@@ -6,7 +6,7 @@
     <data>
         <variable
             name="trendingTvViewModel"
-            type="com.example.muvies.model.TrendingTvResult" />
+            type="com.example.muvies.models.TrendingTvResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

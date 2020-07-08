@@ -6,7 +6,7 @@
     <data>
         <variable
             name="topRatedTvViewModel"
-            type="com.example.muvies.model.TopRatedTVResult" />
+            type="com.example.muvies.models.TopRatedTVResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

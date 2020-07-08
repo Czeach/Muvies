@@ -1,4 +1,4 @@
-package com.example.muvies.screens.seeAll
+package com.example.muvies.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muvies.MainActivity
 import com.example.muvies.adapters.InTheatersMiniListAdapter
 import com.example.muvies.databinding.InTheatersFragmentBinding
+import com.example.muvies.viewModels.InTheatersViewModel
 
 class InTheatersFragment : Fragment() {
 

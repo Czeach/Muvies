@@ -1,4 +1,4 @@
-package com.example.muvies.screens.movies
+package com.example.muvies.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muvies.R
 import com.example.muvies.adapters.*
 import com.example.muvies.databinding.MoviesFragmentBinding
+import com.example.muvies.viewModels.MoviesViewModel
 
 class MoviesFragment : Fragment() {
 

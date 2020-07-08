@@ -1,9 +1,9 @@
-package com.example.muvies.screens.seeAll
+package com.example.muvies.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muvies.model.InTheatersResult
+import com.example.muvies.models.InTheatersResult
 import com.example.muvies.network.MoviesApi
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope

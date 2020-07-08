@@ -1,7 +1,7 @@
 package com.example.muvies.network
 
 import com.example.muvies.BuildConfig
-import com.example.muvies.model.*
+import com.example.muvies.models.*
 
 class MoviesRepository(private val apiService: MoviesApiService): BaseRepository() {
     suspend fun getUpcomingMovies(): MutableList<UpcomingResult>? {

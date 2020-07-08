@@ -1,4 +1,4 @@
-package com.example.muvies.model
+package com.example.muvies.models
 
 
 import android.os.Parcelable
@@ -6,18 +6,17 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class InTheatersMovies(
-    val results: List<InTheatersResult> = listOf(),
+data class PopularMovies(
     val page: Int = 0,
     @SerializedName("total_results")
     val totalResults: Int = 0,
-    val dates: InTheatersDates = InTheatersDates(),
     @SerializedName("total_pages")
-    val totalPages: Int = 0
+    val totalPages: Int = 0,
+    val results: List<PopularResult> = listOf()
 ): Parcelable
 
 @Parcelize
-data class InTheatersResult(
+data class PopularResult(
     val popularity: Double = 0.0,
     @SerializedName("vote_count")
     val voteCount: Int = 0,
@@ -40,10 +39,4 @@ data class InTheatersResult(
     val overview: String = "",
     @SerializedName("release_date")
     val releaseDate: String = ""
-): Parcelable
-
-@Parcelize
-data class InTheatersDates(
-    val maximum: String = "",
-    val minimum: String = ""
 ): Parcelable

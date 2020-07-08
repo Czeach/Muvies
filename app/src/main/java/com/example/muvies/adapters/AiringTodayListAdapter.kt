@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.AiringTodayListBinding
-import com.example.muvies.model.AiringTodayTvResult
+import com.example.muvies.models.AiringTodayTvResult
 import kotlinx.android.synthetic.main.airing_today_list.view.*
 
 class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>):

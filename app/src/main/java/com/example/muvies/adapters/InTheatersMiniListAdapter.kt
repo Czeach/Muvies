@@ -1,7 +1,6 @@
 package com.example.muvies.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,9 +10,7 @@ import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.InTheatersMainListBinding
 import com.example.muvies.databinding.InTheatresMiniListBinding
-import com.example.muvies.model.InTheatersResult
-import com.example.muvies.model.PopularResult
-import kotlinx.android.synthetic.main.in_theaters_main_list.view.*
+import com.example.muvies.models.InTheatersResult
 import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 
 class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>):

@@ -8,12 +8,12 @@
 
     <fragment
         android:id="@+id/featuredFragment"
-        android:name="com.example.muvies.screens.featured.FeaturedFragment"
+        android:name="com.example.muvies.fragments.FeaturedFragment"
         android:label="Featured"
         tools:layout="@layout/featured_fragment" />
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.example.muvies.screens.movies.MoviesFragment"
+        android:name="com.example.muvies.fragments.MoviesFragment"
         android:label="Movies"
         tools:layout="@layout/movies_fragment" >
         <action
@@ -22,12 +22,12 @@
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
-        android:name="com.example.muvies.screens.tvShows.TvShowsFragment"
+        android:name="com.example.muvies.fragments.TvShowsFragment"
         android:label="Tv Shows"
         tools:layout="@layout/tv_shows_fragment" />
     <fragment
         android:id="@+id/inTheatersFragment"
-        android:name="com.example.muvies.screens.seeAll.InTheatersFragment"
+        android:name="com.example.muvies.fragments.InTheatersFragment"
         android:label="In Theaters"
         tools:layout="@layout/in_theaters_fragment" />
 </navigation>

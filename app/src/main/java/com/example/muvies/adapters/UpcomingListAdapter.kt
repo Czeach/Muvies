@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.databinding.UpcomingListBinding
-import com.example.muvies.model.UpcomingResult
+import com.example.muvies.models.UpcomingResult
 import kotlinx.android.synthetic.main.upcoming_list.view.*
 
 class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
