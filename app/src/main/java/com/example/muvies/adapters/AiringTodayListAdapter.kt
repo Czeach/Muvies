@@ -47,7 +47,7 @@ class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>)
 
             name.text = tv.name
             Glide.with(itemView)
-                .load("$BASE_IMAGE_PATH${tv.backdropPath}")
+                .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
         }

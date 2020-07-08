@@ -46,7 +46,7 @@ class DiscoverListAdapter(private var list: MutableList<DiscoverResult>):
             title.text = movie.title
 
             Glide.with(itemView)
-                .load("$BASE_IMAGE_PATH${movie.posterPath}")
+                .load("https://image.tmdb.org/t/p/w780${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
 

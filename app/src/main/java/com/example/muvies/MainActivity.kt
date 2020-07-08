@@ -29,12 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+//        val navController = findNavController(R.id.nav_host_fragment)
+//        val appBarConfiguration = AppBarConfiguration(navController.graph)
 
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 
-        bottom_nav.setupWithNavController(navController)
+//        bottom_nav.setupWithNavController(navController)
 
         FeaturedFragment()
         supportFragmentManager

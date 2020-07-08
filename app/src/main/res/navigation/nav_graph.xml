@@ -15,5 +15,19 @@
         android:id="@+id/moviesFragment"
         android:name="com.example.muvies.screens.movies.MoviesFragment"
         android:label="movies_fragment"
-        tools:layout="@layout/movies_fragment" />
+        tools:layout="@layout/movies_fragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_inTheatersFragment"
+            app:destination="@id/inTheatersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowsFragment"
+        android:name="com.example.muvies.screens.tvShows.TvShowsFragment"
+        android:label="tv_shows_fragment"
+        tools:layout="@layout/tv_shows_fragment" />
+    <fragment
+        android:id="@+id/inTheatersFragment"
+        android:name="com.example.muvies.screens.seeAll.InTheatersFragment"
+        android:label="in_theaters_fragment"
+        tools:layout="@layout/in_theaters_fragment" />
 </navigation>
