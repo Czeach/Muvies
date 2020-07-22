@@ -71,6 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/in_theaters_mini_list_recycler" />
 
             <TextView
+                android:id="@+id/upcoming_see_all"
                 style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

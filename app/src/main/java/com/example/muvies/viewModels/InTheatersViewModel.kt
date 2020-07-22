@@ -3,8 +3,15 @@ package com.example.muvies.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.example.muvies.BuildConfig
+import com.example.muvies.dataSources.InTheatersDataSource
+import com.example.muvies.dataSources.InTheatersDataSourceFactory
 import com.example.muvies.models.InTheatersResult
 import com.example.muvies.network.MoviesApi
+import com.example.muvies.network.MoviesApiService
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,23 +19,20 @@ import kotlinx.coroutines.Job
 
 class InTheatersViewModel : ViewModel() {
 
-    private val _response = MutableLiveData<String>()
-
-    val response: LiveData<String>
-        get() = _response
-
-    private var viewModelJob = Job()
-
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-    private val repository: MoviesRepository = MoviesRepository(MoviesApi.retrofitService)
+    private val apiService = MoviesApiService.getService()
+    private var inTheatersList: LiveData<PagedList<InTheatersResult>>
+    private val pageSize = 50
+    private val inTheatersDataSourceFactory: InTheatersDataSourceFactory
 
     init {
-
+        inTheatersDataSourceFactory = InTheatersDataSourceFactory(apiService, Dispatchers.IO)
+        val config = PagedList.Config.Builder()
+            .setPageSize(31)
+            .setEnablePlaceholders(false)
+            .build()
+        inTheatersList = LivePagedListBuilder<Int, InTheatersResult>(inTheatersDataSourceFactory, config).build()
     }
 
-    private var _inTheatersLiveData = MutableLiveData<MutableList<InTheatersResult>>()
+    fun getInTheatersList(): LiveData<PagedList<InTheatersResult>> = inTheatersList
 
-    val inTheatersLiveData: LiveData<MutableList<InTheatersResult>>
-        get() = _inTheatersLiveData
 }

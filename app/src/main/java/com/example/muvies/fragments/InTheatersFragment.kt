@@ -12,37 +12,40 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muvies.MainActivity
 import com.example.muvies.adapters.InTheatersMiniListAdapter
 import com.example.muvies.databinding.InTheatersFragmentBinding
+import com.example.muvies.pagedAdapters.InTheatersMainListAdapter
 import com.example.muvies.viewModels.InTheatersViewModel
 
 class InTheatersFragment : Fragment() {
 
     private lateinit var viewModel: InTheatersViewModel
+    private lateinit var binding: InTheatersFragmentBinding
 
-    private var thisAdapter =
-        InTheatersMiniListAdapter(arrayListOf())
+    private val inTheatersAdapter = InTheatersMainListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        val binding = InTheatersFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(InTheatersViewModel::class.java)
+        binding = InTheatersFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(this).get(InTheatersViewModel::class.java)
         binding.inTheatersVieModel = viewModel
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             inTheatersMainListRecycler.apply {
-                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                adapter = thisAdapter
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                adapter = inTheatersAdapter
             }
         }
 
-        viewModel.apply {
-            inTheatersLiveData.observe(viewLifecycleOwner, Observer {
-                thisAdapter.updateInTheatreList(it)
-            })
-        }
-
-        return binding.root
+        viewModel.getInTheatersList().observe(viewLifecycleOwner, Observer {
+            inTheatersAdapter.submitList(it)
+        })
     }
 
     override fun onAttach(context: Context) {

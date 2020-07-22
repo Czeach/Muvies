@@ -24,8 +24,6 @@ class FeaturedFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        (requireActivity() as MainActivity).title = "Muvies"
-
         val binding = FeaturedFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
         binding.lifecycleOwner = this
@@ -38,22 +36,16 @@ class FeaturedFragment : Fragment() {
             }
         }
 
-        viewModel.apply {
-            discoverLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.discoverLiveData.observe(viewLifecycleOwner, Observer {
                 discoverAdapter.updateDiscoverList(it)
             })
-        }
+
 
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        (requireActivity() as MainActivity).title = "Muvies"
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
 }

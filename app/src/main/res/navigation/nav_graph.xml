@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_inTheatersFragment"
             app:destination="@id/inTheatersFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_upcomingFragment"
+            app:destination="@id/upcomingFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -30,4 +33,9 @@
         android:name="com.example.muvies.fragments.InTheatersFragment"
         android:label="In Theaters"
         tools:layout="@layout/in_theaters_fragment" />
+    <fragment
+        android:id="@+id/upcomingFragment"
+        android:name="com.example.muvies.fragments.UpcomingFragment"
+        android:label="UpcomingFragment"
+        tools:layout="@layout/upcoming_fragment"/>
 </navigation>

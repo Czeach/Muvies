@@ -1,5 +1,9 @@
 package com.example.muvies.network
 
+import android.os.Build
+import com.example.muvies.BuildConfig
+import com.example.muvies.LANGUAGE
+import com.example.muvies.models.InTheatersMovies
 import com.example.muvies.models.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -9,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.themoviedb.org/3/"
+const val BASE_URL = "https://api.themoviedb.org/3/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
@@ -17,6 +21,18 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL).build()
 
 interface MoviesApiService {
+
+    companion object {
+        fun getService(): MoviesApiService {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            return  retrofit.create(MoviesApiService::class.java)
+        }
+    }
+
     @GET("movie/upcoming")
     fun getUpcomingMoviesAsync(
         @Query("api_key") apiKey: String,
@@ -44,6 +60,13 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Deferred<Response<InTheatersMovies>>
+
+    @GET("movie/now_playing")
+    suspend fun getPagedInTheatersList(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<InTheatersMovies>
 
     @GET("tv/airing_today")
     fun getAiringTodayTVAsync(
