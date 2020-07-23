@@ -36,7 +36,11 @@
         android:id="@+id/tvShowsFragment"
         android:name="com.example.muvies.fragments.TvShowsFragment"
         android:label="Tv Shows"
-        tools:layout="@layout/tv_shows_fragment" />
+        tools:layout="@layout/tv_shows_fragment" >
+        <action
+            android:id="@+id/action_tvShowsFragment_to_airingTodayFragment"
+            app:destination="@id/airingTodayFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
         android:name="com.example.muvies.fragments.InTheatersFragment"
@@ -62,4 +66,9 @@
         android:name="com.example.muvies.fragments.TrendingMoviesFragment"
         android:label="Trending Movies"
         tools:layout="@layout/trending_movies_fragment"/>
+    <fragment
+        android:id="@+id/airingTodayFragment"
+        android:name="com.example.muvies.fragments.AiringTodayFragment"
+        android:label="Airing Today"
+        tools:layout="@layout/airing_today_fragment"/>
 </navigation>
