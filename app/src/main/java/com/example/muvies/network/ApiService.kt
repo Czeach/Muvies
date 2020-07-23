@@ -40,6 +40,13 @@ interface MoviesApiService {
         @Query("page") page: Int
     ): Deferred<Response<UpcomingMovies>>
 
+    @GET("movie/upcoming")
+    suspend fun getPagedUpcomingList(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<UpcomingMovies>
+
     @GET("movie/popular")
     fun getPopularMoviesAsync(
         @Query("api_key") apiKey: String,

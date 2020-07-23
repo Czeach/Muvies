@@ -21,13 +21,13 @@ class InTheatersViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
     private var inTheatersList: LiveData<PagedList<InTheatersResult>>
-    private val pageSize = 50
+    private val pageSize = 1000
     private val inTheatersDataSourceFactory: InTheatersDataSourceFactory
 
     init {
         inTheatersDataSourceFactory = InTheatersDataSourceFactory(apiService, Dispatchers.IO)
         val config = PagedList.Config.Builder()
-            .setPageSize(31)
+            .setPageSize(pageSize)
             .setEnablePlaceholders(false)
             .build()
         inTheatersList = LivePagedListBuilder<Int, InTheatersResult>(inTheatersDataSourceFactory, config).build()

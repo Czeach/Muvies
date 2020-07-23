@@ -96,10 +96,16 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.inTheatersSeeAll.setOnClickListener {
-            findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
-            Log.d(TAG, "Clicked")
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_LONG).show()
+        binding.apply {
+            inTheatersSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
+                Log.d(TAG, "Clicked")
+                Toast.makeText(requireContext(), "In theaters ", Toast.LENGTH_LONG).show()
+            }
+            upcomingSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_moviesFragment_to_upcomingFragment)
+                Toast.makeText(requireContext(), "Upcoming", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

@@ -21,7 +21,7 @@
             app:destination="@id/inTheatersFragment" />
         <action
             android:id="@+id/action_moviesFragment_to_upcomingFragment"
-            app:destination="@id/upcomingFragment" />
+            app:destination="@id/upcoming" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -34,7 +34,7 @@
         android:label="In Theaters"
         tools:layout="@layout/in_theaters_fragment" />
     <fragment
-        android:id="@+id/upcomingFragment"
+        android:id="@+id/upcoming"
         android:name="com.example.muvies.fragments.UpcomingFragment"
         android:label="UpcomingFragment"
         tools:layout="@layout/upcoming_fragment"/>
