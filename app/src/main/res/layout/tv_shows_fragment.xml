@@ -69,6 +69,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/airing_today_list_recycler" />
 
             <TextView
+                android:id="@+id/on_air_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

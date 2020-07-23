@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_tvShowsFragment_to_airingTodayFragment"
             app:destination="@id/airingTodayFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_onAirFragment"
+            app:destination="@id/onAirFragment" />
     </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
@@ -71,4 +74,9 @@
         android:name="com.example.muvies.fragments.AiringTodayFragment"
         android:label="Airing Today"
         tools:layout="@layout/airing_today_fragment"/>
+    <fragment
+        android:id="@+id/onAirFragment"
+        android:name="com.example.muvies.fragments.OnAirFragment"
+        android:label="On Air"
+        tools:layout="@layout/on_air_fragment"/>
 </navigation>

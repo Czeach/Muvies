@@ -95,6 +95,9 @@ class TvShowsFragment : Fragment() {
             airingTodaySeeAll.setOnClickListener {
                 findNavController().navigate(R.id.action_tvShowsFragment_to_airingTodayFragment)
             }
+            onAirSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_onAirFragment)
+            }
         }
     }
 
