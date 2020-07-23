@@ -124,6 +124,13 @@ interface MoviesApiService {
         @Query("page") page: Int
     ): Deferred<Response<PopularTV>>
 
+    @GET("tv/popular")
+    suspend fun getPagedPopularTVList(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<PopularTV>
+
     @GET("tv/top_rated")
     fun getTopRatedTVAsync(
         @Query("api_key") apiKey: String,

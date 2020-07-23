@@ -98,6 +98,9 @@ class TvShowsFragment : Fragment() {
             onAirSeeAll.setOnClickListener {
                 findNavController().navigate(R.id.action_tvShowsFragment_to_onAirFragment)
             }
+            popularSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_popularShowsFragment)
+            }
         }
     }
 

@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_tvShowsFragment_to_onAirFragment"
             app:destination="@id/onAirFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_popularShowsFragment"
+            app:destination="@id/popularShowsFragment" />
     </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
@@ -79,4 +82,9 @@
         android:name="com.example.muvies.fragments.OnAirFragment"
         android:label="On Air"
         tools:layout="@layout/on_air_fragment"/>
+    <fragment
+        android:id="@+id/popularShowsFragment"
+        android:name="com.example.muvies.fragments.PopularShowsFragment"
+        android:label="Popular Shows"
+        tools:layout="@layout/popular_shows_fragment"/>
 </navigation>
