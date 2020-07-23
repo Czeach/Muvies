@@ -32,6 +32,12 @@ class PopularFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PopularViewModel::class.java)
         binding.popularVieModel = viewModel
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.popularMainList.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = popularAdapter
@@ -40,12 +46,6 @@ class PopularFragment : Fragment() {
         viewModel.getPopularList().observe(viewLifecycleOwner, Observer {
             popularAdapter.submitList(it)
         })
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
 }
