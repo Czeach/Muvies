@@ -133,6 +133,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/popular_list_recycler" />
 
             <TextView
+                android:id="@+id/top_rated_see_all"
                 style="@style/TextAppearance.AppCompat.SeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

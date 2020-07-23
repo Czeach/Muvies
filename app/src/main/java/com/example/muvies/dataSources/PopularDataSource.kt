@@ -52,7 +52,6 @@ class PopularDataSource(private val apiService: MoviesApiService,
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, PopularResult>) {
-
     }
 
     override fun invalidate() {

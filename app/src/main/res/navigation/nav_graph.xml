@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_popularFragment"
             app:destination="@id/popular" />
+        <action
+            android:id="@+id/action_moviesFragment_to_topRatedMoviesFragment"
+            app:destination="@id/topRatedMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -46,4 +49,9 @@
         android:name="com.example.muvies.fragments.PopularFragment"
         android:label="Popular"
         tools:layout="@layout/popular_fragment"/>
+    <fragment
+        android:id="@+id/topRatedMoviesFragment"
+        android:name="com.example.muvies.fragments.TopRatedMoviesFragment"
+        android:label="Top Rated"
+        tools:layout="@layout/top_rated_movies_fragment"/>
 </navigation>

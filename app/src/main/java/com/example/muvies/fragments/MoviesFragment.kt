@@ -106,6 +106,9 @@ class MoviesFragment : Fragment() {
             popularSeeAll.setOnClickListener {
                 findNavController().navigate(R.id.action_moviesFragment_to_popularFragment)
             }
+            topRatedSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_moviesFragment_to_topRatedMoviesFragment)
+            }
         }
     }
 
