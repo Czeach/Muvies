@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="upcomingVieModel"
-            type="com.example.muvies.viewModels.UpcomingViewModel" />
+            name="popularVieModel"
+            type="com.example.muvies.viewModels.PopularViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,12 +19,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/upcoming_title"
+            android:id="@+id/popular_title"
             style="@style/TextAppearance.AppCompat.ListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="UPCOMING"
+            android:text="POPULAR"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,12 +34,12 @@
             android:layout_width="40dp"
             android:layout_height="2dp"
             android:src="@drawable/selected"
-            app:layout_constraintEnd_toEndOf="@+id/upcoming_title"
-            app:layout_constraintStart_toStartOf="@+id/upcoming_title"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming_title" />
+            app:layout_constraintEnd_toEndOf="@+id/popular_title"
+            app:layout_constraintStart_toStartOf="@+id/popular_title"
+            app:layout_constraintTop_toBottomOf="@+id/popular_title" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcoming_main_list"
+            android:id="@+id/popular_main_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"

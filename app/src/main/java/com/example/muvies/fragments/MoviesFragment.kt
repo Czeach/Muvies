@@ -99,12 +99,12 @@ class MoviesFragment : Fragment() {
         binding.apply {
             inTheatersSeeAll.setOnClickListener {
                 findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
-                Log.d(TAG, "Clicked")
-                Toast.makeText(requireContext(), "In theaters ", Toast.LENGTH_LONG).show()
             }
             upcomingSeeAll.setOnClickListener {
                 findNavController().navigate(R.id.action_moviesFragment_to_upcomingFragment)
-                Toast.makeText(requireContext(), "Upcoming", Toast.LENGTH_LONG).show()
+            }
+            popularSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_moviesFragment_to_popularFragment)
             }
         }
     }

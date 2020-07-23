@@ -11,39 +11,40 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
-import com.example.muvies.models.UpcomingResult
+import com.example.muvies.models.PopularResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class UpcomingMainAdapter: PagedListAdapter<UpcomingResult, UpcomingMainAdapter.UpcomingMainViewHolder>(diffUtilCallBack){
+class PopularMainAdapter: PagedListAdapter<PopularResult, PopularMainAdapter.PopularMainViewHolder>(diffUtil)  {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingMainViewHolder {
-        return UpcomingMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMainViewHolder {
+        return PopularMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
     }
 
-    override fun onBindViewHolder(holder: UpcomingMainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PopularMainViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
         }
     }
 
     companion object {
-        private val diffUtilCallBack = object : DiffUtil.ItemCallback<UpcomingResult>()  {
-            override fun areItemsTheSame(oldItem: UpcomingResult, newItem: UpcomingResult): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<PopularResult>() {
+
+            override fun areItemsTheSame(oldItem: PopularResult, newItem: PopularResult): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: UpcomingResult, newItem: UpcomingResult): Boolean {
+            override fun areContentsTheSame(oldItem: PopularResult, newItem: PopularResult): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    inner class UpcomingMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class PopularMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
 
-        fun bind(result: UpcomingResult) {
+        fun bind(result: PopularResult) {
             title.text = result.title
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")

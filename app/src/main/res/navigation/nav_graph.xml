@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_upcomingFragment"
             app:destination="@id/upcoming" />
+        <action
+            android:id="@+id/action_moviesFragment_to_popularFragment"
+            app:destination="@id/popular" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -36,6 +39,11 @@
     <fragment
         android:id="@+id/upcoming"
         android:name="com.example.muvies.fragments.UpcomingFragment"
-        android:label="UpcomingFragment"
+        android:label="Upcoming"
         tools:layout="@layout/upcoming_fragment"/>
+    <fragment
+        android:id="@+id/popular"
+        android:name="com.example.muvies.fragments.PopularFragment"
+        android:label="Popular"
+        tools:layout="@layout/popular_fragment"/>
 </navigation>

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/upcoming_main_image"
+            android:id="@+id/poster_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
@@ -32,7 +32,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/upcoming_main_text"
+        android:id="@+id/title"
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
@@ -46,3 +46,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +12,13 @@ import com.bumptech.glide.Glide
 import com.example.muvies.BASE_IMAGE_PATH
 import com.example.muvies.R
 import com.example.muvies.models.InTheatersResult
-import kotlinx.android.synthetic.main.in_theaters_main_list.view.*
-import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
+import kotlinx.android.synthetic.main.paged_list.view.*
 
 class InTheatersMainListAdapter:
     PagedListAdapter<InTheatersResult, InTheatersMainListAdapter.InTheatersMainListViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMainListViewHolder {
-        return InTheatersMainListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.in_theaters_main_list, parent, false))
+        return InTheatersMainListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
     }
 
     override fun onBindViewHolder(holder: InTheatersMainListViewHolder, position: Int) {
@@ -31,8 +29,8 @@ class InTheatersMainListAdapter:
 
     inner class InTheatersMainListViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        private var poster: ImageView = itemView.in_theaters_main_recycler_image
-        private var title: TextView = itemView.in_theaters_main_recycler_text
+        private var poster: ImageView = itemView.poster_image
+        private var title: TextView = itemView.title
 
         fun bind(result: InTheatersResult) {
             title.text = result.title

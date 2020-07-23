@@ -32,7 +32,7 @@ class UpcomingDataSource(private var apiService: MoviesApiService,
                     }
                 }
             } catch (e : Exception){
-                Log.d("MoviesDataSource", "Failed to fetch in theaters movies!")
+                Log.d("MoviesDataSource", "Failed to fetch upcoming movies!")
             }
         }
     }
@@ -47,7 +47,7 @@ class UpcomingDataSource(private var apiService: MoviesApiService,
                     }
                 }
             } catch (e : Exception){
-                Log.d("MoviesDataSource", "Failed to fetch in theaters movies!")
+                Log.d("MoviesDataSource", "Failed to fetch upcoming movies!")
             }
         }
     }
