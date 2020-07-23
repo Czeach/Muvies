@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_topRatedMoviesFragment"
             app:destination="@id/topRatedMoviesFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_trendingMoviesFragment"
+            app:destination="@id/trendingMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -54,4 +57,9 @@
         android:name="com.example.muvies.fragments.TopRatedMoviesFragment"
         android:label="Top Rated"
         tools:layout="@layout/top_rated_movies_fragment"/>
+    <fragment
+        android:id="@+id/trendingMoviesFragment"
+        android:name="com.example.muvies.fragments.TrendingMoviesFragment"
+        android:label="Trending Movies"
+        tools:layout="@layout/trending_movies_fragment"/>
 </navigation>

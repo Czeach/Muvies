@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="topRatedMoviesVieModel"
-            type="com.example.muvies.viewModels.TopRatedMoviesViewModel" />
+            name="trendingMoviesVieModel"
+            type="com.example.muvies.viewModels.TrendingMoviesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/top_rated_title"
+            android:id="@+id/trending_title"
             style="@style/TextAppearance.AppCompat.ListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="TOP RATED"
+            android:text="trending movies"
             android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,12 +34,12 @@
             android:layout_width="40dp"
             android:layout_height="2dp"
             android:src="@drawable/selected"
-            app:layout_constraintEnd_toEndOf="@+id/top_rated_title"
-            app:layout_constraintStart_toStartOf="@+id/top_rated_title"
-            app:layout_constraintTop_toBottomOf="@+id/top_rated_title" />
+            app:layout_constraintEnd_toEndOf="@+id/trending_title"
+            app:layout_constraintStart_toStartOf="@+id/trending_title"
+            app:layout_constraintTop_toBottomOf="@+id/trending_title" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/top_rated_movies_main_list"
+            android:id="@+id/trending_movies_main_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
