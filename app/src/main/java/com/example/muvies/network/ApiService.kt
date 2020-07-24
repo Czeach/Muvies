@@ -168,6 +168,12 @@ interface MoviesApiService {
     fun getTrendingTVAsync(
         @Query("api_key") apiKey: String
     ): Deferred<Response<TrendingTV>>
+
+    @GET("trending/tv/day")
+    suspend fun getPagedTrendingTVList(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int
+    ): Response<TrendingTV>
 }
 
 object MoviesApi {

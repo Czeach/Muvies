@@ -104,6 +104,9 @@ class TvShowsFragment : Fragment() {
             topRatedSeeAll.setOnClickListener {
                 findNavController().navigate(R.id.action_tvShowsFragment_to_topRatedShowsFragment)
             }
+            trendingSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_trendingShowsFragment)
+            }
         }
     }
 
