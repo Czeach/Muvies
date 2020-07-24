@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.muvies.MainActivity
-import com.example.muvies.adapters.*
+import com.example.muvies.pagedAdapters.DiscoverListAdapter
 
 import com.example.muvies.databinding.FeaturedFragmentBinding
 import com.example.muvies.viewModels.FeaturedViewModel
@@ -17,17 +16,24 @@ import com.example.muvies.viewModels.FeaturedViewModel
 class FeaturedFragment : Fragment() {
 
     private lateinit var viewModel: FeaturedViewModel
+    private lateinit var binding: FeaturedFragmentBinding
 
     private var discoverAdapter =
-        DiscoverListAdapter(arrayListOf())
+        DiscoverListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        val binding = FeaturedFragmentBinding.inflate(inflater)
+        binding = FeaturedFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
         binding.lifecycleOwner = this
         binding.featuredViewModel = viewModel
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             discoverListRecycler.apply {
@@ -36,16 +42,9 @@ class FeaturedFragment : Fragment() {
             }
         }
 
-        viewModel.discoverLiveData.observe(viewLifecycleOwner, Observer {
-                discoverAdapter.updateDiscoverList(it)
-            })
-
-
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
+        viewModel.getDiscoverList().observe(viewLifecycleOwner, Observer {
+            discoverAdapter.submitList(it)
+        })
     }
 
 }

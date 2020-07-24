@@ -3,8 +3,13 @@ package com.example.muvies.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.example.muvies.dataSources.DiscoverDataSourceFactory
+import com.example.muvies.dataSources.InTheatersDataSourceFactory
 import com.example.muvies.models.*
 import com.example.muvies.network.MoviesApi
+import com.example.muvies.network.MoviesApiService
 import com.example.muvies.network.MoviesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,34 +19,19 @@ import java.lang.Exception
 
 class FeaturedViewModel : ViewModel() {
 
-    private val _response = MutableLiveData<String>()
-
-    val response: LiveData<String>
-        get() = _response
-
-    private var viewModelJob = Job()
-
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-    private val repository: MoviesRepository = MoviesRepository(MoviesApi.retrofitService)
+    private val apiService = MoviesApiService.getService()
+    private var discoverList: LiveData<PagedList<DiscoverResult>>
+    private val pageSize = 1000
+    private val discoverDataSourceFactory: DiscoverDataSourceFactory
 
     init {
-        getDiscover()
+        discoverDataSourceFactory = DiscoverDataSourceFactory(apiService, Dispatchers.IO)
+        val config = PagedList.Config.Builder()
+            .setPageSize(pageSize)
+            .setEnablePlaceholders(false)
+            .build()
+        discoverList = LivePagedListBuilder(discoverDataSourceFactory, config).build()
     }
 
-    private var _discoverLiveData = MutableLiveData<MutableList<DiscoverResult>>()
-
-    val discoverLiveData: LiveData<MutableList<DiscoverResult>>
-        get() = _discoverLiveData
-
-    private fun getDiscover() {
-        coroutineScope.launch {
-            val discover = repository.getDiscover()
-            try {
-                _discoverLiveData.value = discover
-            } catch (e: Exception) {
-                _response.value = "Failure " + e.message
-            }
-        }
-    }
+    fun getDiscoverList(): LiveData<PagedList<DiscoverResult>> = discoverList
 }
