@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_tvShowsFragment_to_popularShowsFragment"
             app:destination="@id/popularShowsFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_topRatedShowsFragment"
+            app:destination="@id/topRatedShowsFragment" />
     </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
@@ -87,4 +90,9 @@
         android:name="com.example.muvies.fragments.PopularShowsFragment"
         android:label="Popular Shows"
         tools:layout="@layout/popular_shows_fragment"/>
+    <fragment
+        android:id="@+id/topRatedShowsFragment"
+        android:name="com.example.muvies.fragments.TopRatedShowsFragment"
+        android:label="Top Rated Shows"
+        tools:layout="@layout/top_rated_shows_fragment"/>
 </navigation>
