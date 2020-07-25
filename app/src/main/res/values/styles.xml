@@ -8,6 +8,7 @@
     </style>
 
     <style name="TextAppearance.AppCompat.ListTitle" parent="TextAppearance.AppCompat">
+        <item name="textAllCaps">true</item>
         <item name="android:textSize">22sp</item>
         <item name="fontFamily">@font/baloo_da</item>
         <item name="android:textColor">@color/colorAccentDark</item>

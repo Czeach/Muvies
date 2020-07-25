@@ -50,10 +50,10 @@ class DiscoverListAdapter: PagedListAdapter<DiscoverResult, DiscoverListAdapter.
         RecyclerView.ViewHolder(view) {
 
         private var poster: ImageView = itemView.discover_recycler_image
-        private var title: TextView = itemView.discover_recycler_text
+//        private var title: TextView = itemView.discover_recycler_text
 
         fun bind(movie: DiscoverResult) {
-            title.text = movie.title
+//            title.text = movie.title
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w780${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
