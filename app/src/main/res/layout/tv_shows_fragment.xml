@@ -39,6 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/airing_today_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -68,6 +69,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/airing_today_list_recycler" />
 
             <TextView
+                android:id="@+id/on_air_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -97,6 +99,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/on_air_list_recycler" />
 
             <TextView
+                android:id="@+id/popular_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -126,6 +129,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/popular_tv_list_recycler" />
 
             <TextView
+                android:id="@+id/top_rated_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -151,11 +155,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="TRENDING TV SHOWS"
+                android:text="TRENDING SHOWS"
                 app:layout_constraintStart_toStartOf="@+id/top_rated_tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/top_rated_tv_list_recycler" />
 
             <TextView
+                android:id="@+id/trending_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

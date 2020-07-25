@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w780"
+const val LANGUAGE = "en-US"
 
 class MainActivity : AppCompatActivity() {
 

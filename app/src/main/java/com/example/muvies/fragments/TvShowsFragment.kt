@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.muvies.R
 import com.example.muvies.adapters.*
 import com.example.muvies.databinding.TvShowsFragmentBinding
 import com.example.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TvShowsFragment()
-    }
-
     private lateinit var viewModel: TvShowsViewModel
+    private lateinit var binding: TvShowsFragmentBinding
 
     private var airingTodayAdapter =
         AiringTodayListAdapter(arrayListOf())
@@ -40,7 +39,7 @@ class TvShowsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = TvShowsFragmentBinding.inflate(inflater)
+        binding = TvShowsFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(TvShowsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.tvShowsViewModel = viewModel
@@ -89,8 +88,26 @@ class TvShowsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            airingTodaySeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_airingTodayFragment)
+            }
+            onAirSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_onAirFragment)
+            }
+            popularSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_popularShowsFragment)
+            }
+            topRatedSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_topRatedShowsFragment)
+            }
+            trendingSeeAll.setOnClickListener {
+                findNavController().navigate(R.id.action_tvShowsFragment_to_trendingShowsFragment)
+            }
+        }
     }
 
 }

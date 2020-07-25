@@ -1,4 +1,4 @@
-package com.example.muvies.network
+package com.example.muvies.utils
 
 import java.lang.Exception
 

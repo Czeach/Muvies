@@ -7,38 +7,38 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class TrendingTV(
-    val page: Int? = 0,
-    val results: List<TrendingTvResult>? = listOf(),
+    val page: Int = 0,
+    val results: List<TrendingTvResult> = listOf(),
     @SerializedName("total_pages")
-    val totalPages: Int? = 0,
+    val totalPages: Int = 0,
     @SerializedName("total_results")
-    val totalResults: Int? = 0
+    val totalResults: Int = 0
 ): Parcelable
 
 @Parcelize
 data class TrendingTvResult(
     @SerializedName("backdrop_path")
-    val backdropPath: String? = "",
+    val backdropPath: String = "",
     @SerializedName("first_air_date")
-    val firstAirDate: String? = "",
+    val firstAirDate: String = "",
     @SerializedName("genre_ids")
-    val genreIds: List<Int?>? = listOf(),
-    val id: Int? = 0,
+    val genreIds: List<Int> = listOf(),
+    val id: Int = 0,
     @SerializedName("media_type")
-    val mediaType: String? = "",
-    val name: String? = "",
+    val mediaType: String = "",
+    val name: String = "",
     @SerializedName("origin_country")
-    val originCountry: List<String?>? = listOf(),
+    val originCountry: List<String> = listOf(),
     @SerializedName("original_language")
-    val originalLanguage: String? = "",
+    val originalLanguage: String = "",
     @SerializedName("original_name")
-    val originalName: String? = "",
-    val overview: String? = "",
-    val popularity: Double? = 0.0,
+    val originalName: String = "",
+    val overview: String = "",
+    val popularity: Double = 0.0,
     @SerializedName("poster_path")
-    val posterPath: String? = "",
+    val posterPath: String = "",
     @SerializedName("vote_average")
-    val voteAverage: Double? = 0.0,
+    val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
-    val voteCount: Int? = 0
+    val voteCount: Int = 0
 ): Parcelable

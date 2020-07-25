@@ -19,15 +19,88 @@
         <action
             android:id="@+id/action_moviesFragment_to_inTheatersFragment"
             app:destination="@id/inTheatersFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_upcomingFragment"
+            app:destination="@id/upcoming" />
+        <action
+            android:id="@+id/action_moviesFragment_to_popularFragment"
+            app:destination="@id/popular" />
+        <action
+            android:id="@+id/action_moviesFragment_to_topRatedMoviesFragment"
+            app:destination="@id/topRatedMoviesFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_trendingMoviesFragment"
+            app:destination="@id/trendingMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
         android:name="com.example.muvies.fragments.TvShowsFragment"
         android:label="Tv Shows"
-        tools:layout="@layout/tv_shows_fragment" />
+        tools:layout="@layout/tv_shows_fragment" >
+        <action
+            android:id="@+id/action_tvShowsFragment_to_airingTodayFragment"
+            app:destination="@id/airingTodayFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_onAirFragment"
+            app:destination="@id/onAirFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_popularShowsFragment"
+            app:destination="@id/popularShowsFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_topRatedShowsFragment"
+            app:destination="@id/topRatedShowsFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_trendingShowsFragment"
+            app:destination="@id/trendingShowsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
         android:name="com.example.muvies.fragments.InTheatersFragment"
         android:label="In Theaters"
         tools:layout="@layout/in_theaters_fragment" />
+    <fragment
+        android:id="@+id/upcoming"
+        android:name="com.example.muvies.fragments.UpcomingFragment"
+        android:label="Upcoming"
+        tools:layout="@layout/upcoming_fragment"/>
+    <fragment
+        android:id="@+id/popular"
+        android:name="com.example.muvies.fragments.PopularFragment"
+        android:label="Popular"
+        tools:layout="@layout/popular_fragment"/>
+    <fragment
+        android:id="@+id/topRatedMoviesFragment"
+        android:name="com.example.muvies.fragments.TopRatedMoviesFragment"
+        android:label="Top Rated"
+        tools:layout="@layout/top_rated_movies_fragment"/>
+    <fragment
+        android:id="@+id/trendingMoviesFragment"
+        android:name="com.example.muvies.fragments.TrendingMoviesFragment"
+        android:label="Trending Movies"
+        tools:layout="@layout/trending_movies_fragment"/>
+    <fragment
+        android:id="@+id/airingTodayFragment"
+        android:name="com.example.muvies.fragments.AiringTodayFragment"
+        android:label="Airing Today"
+        tools:layout="@layout/airing_today_fragment"/>
+    <fragment
+        android:id="@+id/onAirFragment"
+        android:name="com.example.muvies.fragments.OnAirFragment"
+        android:label="On Air"
+        tools:layout="@layout/on_air_fragment"/>
+    <fragment
+        android:id="@+id/popularShowsFragment"
+        android:name="com.example.muvies.fragments.PopularShowsFragment"
+        android:label="Popular Shows"
+        tools:layout="@layout/popular_shows_fragment"/>
+    <fragment
+        android:id="@+id/topRatedShowsFragment"
+        android:name="com.example.muvies.fragments.TopRatedShowsFragment"
+        android:label="Top Rated Shows"
+        tools:layout="@layout/top_rated_shows_fragment"/>
+    <fragment
+        android:id="@+id/trendingShowsFragment"
+        android:name="com.example.muvies.fragments.TrendingShowsFragment"
+        android:label="Trending Shows"
+        tools:layout="@layout/trending_shows_fragment"/>
 </navigation>
