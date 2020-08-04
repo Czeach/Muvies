@@ -8,7 +8,7 @@
     <data>
         <variable
             name="featuredViewModel"
-            type="com.example.muvies.viewModels.FeaturedViewModel" />
+            type="com.czech.muvies.viewModels.FeaturedViewModel" />
     </data>
 
 

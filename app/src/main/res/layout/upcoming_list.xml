@@ -6,7 +6,7 @@
     <data>
         <variable
             name="upcomingListViewModel"
-            type="com.example.muvies.models.UpcomingResult" />
+            type="com.czech.muvies.models.UpcomingResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

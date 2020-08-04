@@ -7,7 +7,7 @@
     <data>
         <variable
             name="topRatedMoviesVieModel"
-            type="com.example.muvies.viewModels.TopRatedMoviesViewModel" />
+            type="com.czech.muvies.viewModels.TopRatedMoviesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,12 +8,12 @@
 
     <fragment
         android:id="@+id/featuredFragment"
-        android:name="com.example.muvies.fragments.FeaturedFragment"
+        android:name="com.czech.muvies.fragments.FeaturedFragment"
         android:label="Featured"
         tools:layout="@layout/featured_fragment" />
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.example.muvies.fragments.MoviesFragment"
+        android:name="com.czech.muvies.fragments.MoviesFragment"
         android:label="Movies"
         tools:layout="@layout/movies_fragment" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
-        android:name="com.example.muvies.fragments.TvShowsFragment"
+        android:name="com.czech.muvies.fragments.TvShowsFragment"
         android:label="Tv Shows"
         tools:layout="@layout/tv_shows_fragment" >
         <action
@@ -55,52 +55,52 @@
     </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
-        android:name="com.example.muvies.fragments.InTheatersFragment"
+        android:name="com.czech.muvies.fragments.InTheatersFragment"
         android:label="In Theaters"
         tools:layout="@layout/in_theaters_fragment" />
     <fragment
         android:id="@+id/upcoming"
-        android:name="com.example.muvies.fragments.UpcomingFragment"
+        android:name="com.czech.muvies.fragments.UpcomingFragment"
         android:label="Upcoming"
         tools:layout="@layout/upcoming_fragment"/>
     <fragment
         android:id="@+id/popular"
-        android:name="com.example.muvies.fragments.PopularFragment"
+        android:name="com.czech.muvies.fragments.PopularFragment"
         android:label="Popular"
         tools:layout="@layout/popular_fragment"/>
     <fragment
         android:id="@+id/topRatedMoviesFragment"
-        android:name="com.example.muvies.fragments.TopRatedMoviesFragment"
+        android:name="com.czech.muvies.fragments.TopRatedMoviesFragment"
         android:label="Top Rated"
         tools:layout="@layout/top_rated_movies_fragment"/>
     <fragment
         android:id="@+id/trendingMoviesFragment"
-        android:name="com.example.muvies.fragments.TrendingMoviesFragment"
+        android:name="com.czech.muvies.fragments.TrendingMoviesFragment"
         android:label="Trending Movies"
         tools:layout="@layout/trending_movies_fragment"/>
     <fragment
         android:id="@+id/airingTodayFragment"
-        android:name="com.example.muvies.fragments.AiringTodayFragment"
+        android:name="com.czech.muvies.fragments.AiringTodayFragment"
         android:label="Airing Today"
         tools:layout="@layout/airing_today_fragment"/>
     <fragment
         android:id="@+id/onAirFragment"
-        android:name="com.example.muvies.fragments.OnAirFragment"
+        android:name="com.czech.muvies.fragments.OnAirFragment"
         android:label="On Air"
         tools:layout="@layout/on_air_fragment"/>
     <fragment
         android:id="@+id/popularShowsFragment"
-        android:name="com.example.muvies.fragments.PopularShowsFragment"
+        android:name="com.czech.muvies.fragments.PopularShowsFragment"
         android:label="Popular Shows"
         tools:layout="@layout/popular_shows_fragment"/>
     <fragment
         android:id="@+id/topRatedShowsFragment"
-        android:name="com.example.muvies.fragments.TopRatedShowsFragment"
+        android:name="com.czech.muvies.fragments.TopRatedShowsFragment"
         android:label="Top Rated Shows"
         tools:layout="@layout/top_rated_shows_fragment"/>
     <fragment
         android:id="@+id/trendingShowsFragment"
-        android:name="com.example.muvies.fragments.TrendingShowsFragment"
+        android:name="com.czech.muvies.fragments.TrendingShowsFragment"
         android:label="Trending Shows"
         tools:layout="@layout/trending_shows_fragment"/>
 </navigation>

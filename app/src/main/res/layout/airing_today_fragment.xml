@@ -7,7 +7,7 @@
     <data>
         <variable
             name="airingTodayVieModel"
-            type="com.example.muvies.viewModels.AiringTodayViewModel" />
+            type="com.czech.muvies.viewModels.AiringTodayViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

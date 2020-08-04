@@ -8,7 +8,7 @@
     <data>
         <variable
             name="moviesViewModel"
-            type="com.example.muvies.viewModels.MoviesViewModel" />
+            type="com.czech.muvies.viewModels.MoviesViewModel" />
     </data>
 
     <ScrollView

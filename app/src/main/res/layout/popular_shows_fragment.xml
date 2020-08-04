@@ -7,7 +7,7 @@
     <data>
         <variable
             name="popularShowsVieModel"
-            type="com.example.muvies.viewModels.PopularShowsViewModel" />
+            type="com.czech.muvies.viewModels.PopularShowsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
