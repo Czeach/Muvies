@@ -7,6 +7,7 @@
     <color name="colorAccentDark">#9E9E9E</color>
     <color name="colorBackground">#000000</color>
     <color name="colorBackgroundLight">#424242</color>
+    <color name="colorBackgroundTrans">#70424242</color>
     <color name="bottomNavIconColor">#FF706F</color>
 
 </resources>

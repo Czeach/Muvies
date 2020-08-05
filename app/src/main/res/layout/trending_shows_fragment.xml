@@ -7,7 +7,7 @@
     <data>
         <variable
             name="trendingShowsVieModel"
-            type="com.example.muvies.viewModels.TrendingShowsViewModel" />
+            type="com.czech.muvies.viewModels.TrendingShowsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

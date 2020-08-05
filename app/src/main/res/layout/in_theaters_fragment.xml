@@ -7,7 +7,7 @@
     <data>
         <variable
             name="inTheatersVieModel"
-            type="com.example.muvies.viewModels.InTheatersViewModel" />
+            type="com.czech.muvies.viewModels.InTheatersViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
