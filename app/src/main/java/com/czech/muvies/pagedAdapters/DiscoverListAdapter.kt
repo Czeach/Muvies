@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +13,12 @@ import com.czech.muvies.R
 import com.czech.muvies.databinding.DiscoverListBinding
 import com.czech.muvies.models.DiscoverResult
 import kotlinx.android.synthetic.main.discover_list.view.*
+import kotlinx.android.synthetic.main.paged_list.view.*
 
 class DiscoverListAdapter: PagedListAdapter<DiscoverResult, DiscoverListAdapter.DiscoverListViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscoverListViewHolder {
-        return DiscoverListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.discover_list, parent, false))
+        return DiscoverListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
     }
 
     override fun onBindViewHolder(holder: DiscoverListViewHolder, position: Int) {
@@ -48,11 +50,16 @@ class DiscoverListAdapter: PagedListAdapter<DiscoverResult, DiscoverListAdapter.
     inner class DiscoverListViewHolder(view: View):
         RecyclerView.ViewHolder(view) {
 
-        private var poster: ImageView = itemView.discover_recycler_image
-//        private var title: TextView = itemView.discover_recycler_text
+        private var poster: ImageView = itemView.poster_image
+        private var title: TextView = itemView.title
+        private var date: TextView = itemView.date
+        private var vote: TextView = itemView.vote
 
         fun bind(movie: DiscoverResult) {
-//            title.text = movie.title
+            title.text = movie.title
+            date.text = movie.releaseDate
+            vote.text = movie.voteAverage.toString()
+
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w780${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)

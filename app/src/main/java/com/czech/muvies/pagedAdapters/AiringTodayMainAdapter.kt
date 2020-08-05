@@ -42,8 +42,12 @@ class AiringTodayMainAdapter: PagedListAdapter<AiringTodayTvResult, AiringTodayM
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
+        private var date: TextView = itemView.date
+        private var vote: TextView = itemView.vote
 
         fun bind(result: AiringTodayTvResult) {
+            date.text = result.firstAirDate
+            vote.text = result.voteAverage.toString()
             title.text = result.name
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")

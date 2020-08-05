@@ -43,9 +43,13 @@ class OnAirMainAdapter: PagedListAdapter<OnAirTVResult, OnAirMainAdapter.OnAirMa
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
+        private var date: TextView = itemView.date
+        private var vote: TextView = itemView.vote
 
         fun bind(result: OnAirTVResult) {
             title.text = result.name
+            date.text = result.firstAirDate
+            vote.text = result.voteAverage.toString()
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)

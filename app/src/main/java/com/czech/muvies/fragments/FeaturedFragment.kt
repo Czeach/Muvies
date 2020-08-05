@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.pagedAdapters.DiscoverListAdapter
 
 import com.czech.muvies.databinding.FeaturedFragmentBinding
@@ -37,7 +38,7 @@ class FeaturedFragment : Fragment() {
 
         binding.apply {
             discoverListRecycler.apply {
-                layoutManager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+                layoutManager = LinearLayoutManager(activity,  LinearLayoutManager.VERTICAL, false)
                 adapter = discoverAdapter
             }
         }

@@ -43,9 +43,13 @@ class PopularMainAdapter: PagedListAdapter<PopularResult, PopularMainAdapter.Pop
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
+        private var date: TextView = itemView.date
+        private var vote: TextView = itemView.vote
 
         fun bind(result: PopularResult) {
             title.text = result.title
+            date.text = result.releaseDate
+            vote.text = result.voteAverage.toString()
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
