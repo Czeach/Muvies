@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setupWithNavController(navController)
         val appBarConfig = AppBarConfiguration(
             topLevelDestinationIds = setOf(
-                R.id.featuredFragment,
                 R.id.moviesFragment,
-                R.id.tvShowsFragment
+                R.id.tvShowsFragment,
+                R.id.favoritesFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfig)

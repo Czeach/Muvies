@@ -4,13 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/featuredFragment">
+    app:startDestination="@id/moviesFragment">
 
-    <fragment
-        android:id="@+id/featuredFragment"
-        android:name="com.czech.muvies.fragments.FeaturedFragment"
-        android:label="Featured"
-        tools:layout="@layout/featured_fragment" />
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.czech.muvies.fragments.MoviesFragment"
@@ -103,4 +98,15 @@
         android:name="com.czech.muvies.fragments.TrendingShowsFragment"
         android:label="Trending Shows"
         tools:layout="@layout/trending_shows_fragment"/>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.czech.muvies.fragments.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/details_fragment" >
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.czech.muvies.fragments.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/favorites_fragment" />
 </navigation>

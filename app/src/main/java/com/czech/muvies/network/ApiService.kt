@@ -142,14 +142,6 @@ interface MoviesApiService {
         @Query("page") page: Int
     ): Response<TopRatedTV>
 
-    @GET("discover/movie")
-    suspend fun getPagedDiscoverList(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String,
-        @Query("sort_by") sortBy: String,
-        @Query("page") page: Int
-    ): Response<Discover>
-
     @GET("trending/movie/day")
     fun getTrendingMoviesAsync(
         @Query("api_key") apiKey: String
