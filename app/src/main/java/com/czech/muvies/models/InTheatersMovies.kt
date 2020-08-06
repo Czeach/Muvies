@@ -47,9 +47,3 @@ data class InTheatersDates(
     val maximum: String = "",
     val minimum: String = ""
 ): Parcelable
-
-class InTheatersContainer(val data: InTheatersResult)
-
-class InTheatersListing(val children: List<InTheatersContainer>, val after: String, val before: String)
-
-class InTheatersApiResponse(val data: InTheatersListing)

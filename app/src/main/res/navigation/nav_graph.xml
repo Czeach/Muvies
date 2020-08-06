@@ -52,27 +52,47 @@
         android:id="@+id/inTheatersFragment"
         android:name="com.czech.muvies.fragments.InTheatersFragment"
         android:label="In Theaters"
-        tools:layout="@layout/in_theaters_fragment" />
+        tools:layout="@layout/in_theaters_fragment" >
+        <action
+            android:id="@+id/action_inTheatersFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/upcoming"
         android:name="com.czech.muvies.fragments.UpcomingFragment"
         android:label="Upcoming"
-        tools:layout="@layout/upcoming_fragment"/>
+        tools:layout="@layout/upcoming_fragment">
+        <action
+            android:id="@+id/action_upcoming_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/popular"
         android:name="com.czech.muvies.fragments.PopularFragment"
         android:label="Popular"
-        tools:layout="@layout/popular_fragment"/>
+        tools:layout="@layout/popular_fragment">
+        <action
+            android:id="@+id/action_popular_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/topRatedMoviesFragment"
         android:name="com.czech.muvies.fragments.TopRatedMoviesFragment"
         android:label="Top Rated"
-        tools:layout="@layout/top_rated_movies_fragment"/>
+        tools:layout="@layout/top_rated_movies_fragment">
+        <action
+            android:id="@+id/action_topRatedMoviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/trendingMoviesFragment"
         android:name="com.czech.muvies.fragments.TrendingMoviesFragment"
         android:label="Trending Movies"
-        tools:layout="@layout/trending_movies_fragment"/>
+        tools:layout="@layout/trending_movies_fragment">
+        <action
+            android:id="@+id/action_trendingMoviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/airingTodayFragment"
         android:name="com.czech.muvies.fragments.AiringTodayFragment"
@@ -103,6 +123,9 @@
         android:name="com.czech.muvies.fragments.DetailsFragment"
         android:label="Details"
         tools:layout="@layout/details_fragment" >
+        <argument
+            android:name="inTheaterArgs"
+            app:argType="com.czech.muvies.models.InTheatersResult" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
