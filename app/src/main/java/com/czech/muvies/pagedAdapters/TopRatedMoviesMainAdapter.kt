@@ -14,7 +14,10 @@ import com.czech.muvies.R
 import com.czech.muvies.models.TopRatedResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class TopRatedMoviesMainAdapter: PagedListAdapter<TopRatedResult, TopRatedMoviesMainAdapter.TopRatedMoviesMainViewHolder>(diffUtil) {
+typealias topRatedItemClickListener = (TopRatedResult) -> Unit
+
+class TopRatedMoviesMainAdapter(private val clickListener: topRatedItemClickListener):
+    PagedListAdapter<TopRatedResult, TopRatedMoviesMainAdapter.TopRatedMoviesMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedMoviesMainViewHolder {
         return TopRatedMoviesMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -39,7 +42,7 @@ class TopRatedMoviesMainAdapter: PagedListAdapter<TopRatedResult, TopRatedMovies
         }
     }
 
-    inner class TopRatedMoviesMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class TopRatedMoviesMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -54,6 +57,15 @@ class TopRatedMoviesMainAdapter: PagedListAdapter<TopRatedResult, TopRatedMovies
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val topRated = getItem(adapterPosition)
+            topRated?.let { clickListener.invoke(it) }
         }
     }
 }

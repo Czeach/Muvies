@@ -15,6 +15,7 @@ import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.models.InTheatersResult
 import com.czech.muvies.models.PopularResult
+import com.czech.muvies.models.TopRatedResult
 import com.czech.muvies.models.UpcomingResult
 import com.czech.muvies.viewModels.MoviesViewModel
 
@@ -68,8 +69,20 @@ class MoviesFragment : Fragment() {
     private var popularAdapter =
         PopularListAdapter(arrayListOf(), popularClickListener)
 
+    private val topRatedClickListener by lazy {
+        object : topRatedSItemClickListener {
+            override fun invoke(it: TopRatedResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, it, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var topRatedAdapter =
-        TopRatedListAdapter(arrayListOf())
+        TopRatedListAdapter(arrayListOf(), topRatedClickListener)
 
     private var trendingMoviesAdapter =
         TrendingMoviesListAdapter(arrayListOf())

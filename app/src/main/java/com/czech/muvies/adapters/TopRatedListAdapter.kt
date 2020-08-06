@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,10 +10,13 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TopRatedListBinding
+import com.czech.muvies.models.PopularResult
 import com.czech.muvies.models.TopRatedResult
 import kotlinx.android.synthetic.main.top_rated_list.view.*
 
-class TopRatedListAdapter(private var list: MutableList<TopRatedResult>):
+typealias topRatedSItemClickListener = (TopRatedResult) -> Unit
+
+class TopRatedListAdapter(private var list: MutableList<TopRatedResult>, private val clickListener: topRatedSItemClickListener):
     RecyclerView.Adapter<TopRatedListAdapter.TopRatedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedViewHolder {
@@ -34,8 +38,8 @@ class TopRatedListAdapter(private var list: MutableList<TopRatedResult>):
         notifyDataSetChanged()
     }
 
-    class TopRatedViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.top_rated_list, parent, false)) {
+    inner class TopRatedViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.top_rated_list, parent, false)), View.OnClickListener {
 
         private val binding = TopRatedListBinding.inflate(inflater)
 
@@ -50,6 +54,15 @@ class TopRatedListAdapter(private var list: MutableList<TopRatedResult>):
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val topRated = list[adapterPosition]
+            clickListener.invoke(topRated)
         }
 
     }
