@@ -53,6 +53,8 @@ class MoviesDetailsFragment : Fragment() {
         val popularSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).popularSArgs
         val topRatedSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).topRatedSArgs
         val topRatedArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).topRatedArgs
+        val trendingSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).trendingSArgs
+        val trendingArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
 
         if (inTheatersArgs != null) {
             Glide.with(this)
@@ -308,6 +310,70 @@ class MoviesDetailsFragment : Fragment() {
             lang_text.text = topRatedArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
             overview.text = topRatedArgs.overview
+        }
+
+        if (trendingSArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingSArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            title.text = trendingSArgs.title
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(trendingSArgs.releaseDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = trendingSArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = trendingSArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = trendingSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = trendingSArgs.overview
+        }
+
+        if (trendingArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            title.text = trendingArgs.title
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(trendingArgs.releaseDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = trendingArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = trendingArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = trendingArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = trendingArgs.overview
         }
 
     }

@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
-import com.czech.muvies.models.InTheatersResult
-import com.czech.muvies.models.PopularResult
-import com.czech.muvies.models.TopRatedResult
-import com.czech.muvies.models.UpcomingResult
+import com.czech.muvies.models.*
 import com.czech.muvies.viewModels.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -84,8 +81,20 @@ class MoviesFragment : Fragment() {
     private var topRatedAdapter =
         TopRatedListAdapter(arrayListOf(), topRatedClickListener)
 
+    private val trendingClickListener by lazy {
+        object : trendingSItemClickListener {
+            override fun invoke(it: TrendingMoviesResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var trendingMoviesAdapter =
-        TrendingMoviesListAdapter(arrayListOf())
+        TrendingMoviesListAdapter(arrayListOf(), trendingClickListener)
 
     private var  TAG = "MoviesFragment"
 
