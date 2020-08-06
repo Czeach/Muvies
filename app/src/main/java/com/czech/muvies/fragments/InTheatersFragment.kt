@@ -25,7 +25,7 @@ class InTheatersFragment : Fragment() {
     private val inTheatersClickListener by lazy {
         object : inTheatersItemClickListener {
             override fun invoke(it: InTheatersResult) {
-                val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(it)
+                val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(it, null)
                 findNavController().navigate(args)
             }
 
@@ -57,16 +57,6 @@ class InTheatersFragment : Fragment() {
         viewModel.getInTheatersList().observe(viewLifecycleOwner, Observer {
             inTheatersAdapter.submitList(it)
         })
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
     }
 
 }

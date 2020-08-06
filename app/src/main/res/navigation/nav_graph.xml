@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_trendingMoviesFragment"
             app:destination="@id/trendingMoviesFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -120,12 +123,17 @@
         tools:layout="@layout/trending_shows_fragment"/>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.czech.muvies.fragments.DetailsFragment"
+        android:name="com.czech.muvies.fragments.MoviesDetailsFragment"
         android:label="Details"
         tools:layout="@layout/details_fragment" >
         <argument
             android:name="inTheaterArgs"
-            app:argType="com.czech.muvies.models.InTheatersResult" />
+            app:argType="com.czech.muvies.models.InTheatersResult"
+            app:nullable="true" />
+        <argument
+            android:name="inTheaterSArgs"
+            app:argType="com.czech.muvies.models.InTheatersResult"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"

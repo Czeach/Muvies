@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
+import com.czech.muvies.models.InTheatersResult
 import com.czech.muvies.viewModels.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -23,8 +24,19 @@ class MoviesFragment : Fragment() {
     private var upcomingAdapter =
         UpcomingListAdapter(arrayListOf())
 
+    private val inTheatersItemListener by lazy {
+        object : inTheatersItemClickListenerS {
+            override fun invoke(it: InTheatersResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var inTheatersAdapter =
-        InTheatersMiniListAdapter(arrayListOf())
+        InTheatersMiniListAdapter(arrayListOf(), inTheatersItemListener)
 
     private var popularAdapter =
         PopularListAdapter(arrayListOf())
