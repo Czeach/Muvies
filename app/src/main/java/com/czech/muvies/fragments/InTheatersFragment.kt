@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.InTheatersFragmentBinding
+import com.czech.muvies.models.InTheatersResult
 import com.czech.muvies.pagedAdapters.InTheatersMainListAdapter
+import com.czech.muvies.pagedAdapters.inTheatersItemClickListener
 import com.czech.muvies.viewModels.InTheatersViewModel
 
 class InTheatersFragment : Fragment() {
@@ -19,7 +22,19 @@ class InTheatersFragment : Fragment() {
     private lateinit var viewModel: InTheatersViewModel
     private lateinit var binding: InTheatersFragmentBinding
 
-    private val inTheatersAdapter = InTheatersMainListAdapter()
+    private val inTheatersClickListener by lazy {
+        object : inTheatersItemClickListener {
+            override fun invoke(it: InTheatersResult) {
+                val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(
+                    it, null, null, null, null, null, null,
+                    null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val inTheatersAdapter = InTheatersMainListAdapter(inTheatersClickListener)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -45,16 +60,6 @@ class InTheatersFragment : Fragment() {
         viewModel.getInTheatersList().observe(viewLifecycleOwner, Observer {
             inTheatersAdapter.submitList(it)
         })
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
     }
 
 }

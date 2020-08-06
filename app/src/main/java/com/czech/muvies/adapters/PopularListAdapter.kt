@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +13,9 @@ import com.czech.muvies.databinding.PopularListBinding
 import com.czech.muvies.models.PopularResult
 import kotlinx.android.synthetic.main.popular_list.view.*
 
-class PopularListAdapter(private var list: MutableList<PopularResult>):
+typealias popularSItemClickListener = (PopularResult) -> Unit
+
+class PopularListAdapter(private var list: MutableList<PopularResult>, private val clickListener: popularSItemClickListener):
         RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularListViewHolder {
@@ -34,8 +37,8 @@ class PopularListAdapter(private var list: MutableList<PopularResult>):
         notifyDataSetChanged()
     }
 
-    class PopularListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.popular_list, parent, false)) {
+    inner class PopularListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.popular_list, parent, false)), View.OnClickListener {
 
         private val binding = PopularListBinding.inflate(inflater)
 
@@ -50,6 +53,14 @@ class PopularListAdapter(private var list: MutableList<PopularResult>):
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val popular = list[adapterPosition]
+            clickListener.invoke(popular)
         }
 
     }

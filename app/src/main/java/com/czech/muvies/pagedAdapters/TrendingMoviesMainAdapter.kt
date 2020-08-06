@@ -14,7 +14,10 @@ import com.czech.muvies.R
 import com.czech.muvies.models.TrendingMoviesResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class TrendingMoviesMainAdapter: PagedListAdapter<TrendingMoviesResult, TrendingMoviesMainAdapter.TrendingMoviesMainViewHolder>(diffUtil) {
+typealias trendingItemClickListener = (TrendingMoviesResult) -> Unit
+
+class TrendingMoviesMainAdapter(private val clickListener: trendingItemClickListener):
+    PagedListAdapter<TrendingMoviesResult, TrendingMoviesMainAdapter.TrendingMoviesMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesMainViewHolder {
         return TrendingMoviesMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -38,7 +41,7 @@ class TrendingMoviesMainAdapter: PagedListAdapter<TrendingMoviesResult, Trending
         }
     }
 
-    inner class TrendingMoviesMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class TrendingMoviesMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -53,6 +56,15 @@ class TrendingMoviesMainAdapter: PagedListAdapter<TrendingMoviesResult, Trending
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val trending = getItem(adapterPosition)
+            trending?.let { clickListener.invoke(it) }
         }
     }
 }

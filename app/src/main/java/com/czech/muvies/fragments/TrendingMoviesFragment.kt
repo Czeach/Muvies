@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TrendingMoviesFragmentBinding
+import com.czech.muvies.models.TrendingMoviesResult
 import com.czech.muvies.pagedAdapters.TrendingMoviesMainAdapter
+import com.czech.muvies.pagedAdapters.trendingItemClickListener
 import com.czech.muvies.viewModels.TrendingMoviesViewModel
 
 class TrendingMoviesFragment : Fragment() {
@@ -17,7 +20,19 @@ class TrendingMoviesFragment : Fragment() {
     private lateinit var viewModel: TrendingMoviesViewModel
     private lateinit var binding: TrendingMoviesFragmentBinding
 
-    private val trendingAdapter = TrendingMoviesMainAdapter()
+    private val trendingClickListener by lazy {
+        object : trendingItemClickListener {
+            override fun invoke(it: TrendingMoviesResult) {
+                val args = TrendingMoviesFragmentDirections.actionTrendingMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, it, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val trendingAdapter = TrendingMoviesMainAdapter(trendingClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +13,9 @@ import com.czech.muvies.databinding.InTheatresMiniListBinding
 import com.czech.muvies.models.InTheatersResult
 import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 
-class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>):
+typealias inTheatersItemClickListenerS = (InTheatersResult) -> Unit
+
+class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>, private val clickListener: inTheatersItemClickListenerS):
     RecyclerView.Adapter<InTheatersMiniListAdapter.InTheatersMiniListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMiniListViewHolder {
@@ -35,7 +38,7 @@ class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>)
     }
 
     inner class InTheatersMiniListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.in_theatres_mini_list, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.in_theatres_mini_list, parent, false)), View.OnClickListener {
 
         private val binding = InTheatresMiniListBinding.inflate(inflater)
 
@@ -53,6 +56,15 @@ class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>)
                 .into(poster)
 
             binding.executePendingBindings()
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val inTheatersResult = list[adapterPosition]
+            clickListener.invoke(inTheatersResult)
         }
     }
 

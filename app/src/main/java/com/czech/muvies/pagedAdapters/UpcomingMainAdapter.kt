@@ -14,7 +14,10 @@ import com.czech.muvies.R
 import com.czech.muvies.models.UpcomingResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class UpcomingMainAdapter: PagedListAdapter<UpcomingResult, UpcomingMainAdapter.UpcomingMainViewHolder>(diffUtilCallBack){
+typealias upcomingItemClickListener = (UpcomingResult) -> Unit
+
+class UpcomingMainAdapter(private val clickListener: upcomingItemClickListener):
+    PagedListAdapter<UpcomingResult, UpcomingMainAdapter.UpcomingMainViewHolder>(diffUtilCallBack){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingMainViewHolder {
         return UpcomingMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -38,7 +41,7 @@ class UpcomingMainAdapter: PagedListAdapter<UpcomingResult, UpcomingMainAdapter.
         }
     }
 
-    inner class UpcomingMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class UpcomingMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -53,6 +56,17 @@ class UpcomingMainAdapter: PagedListAdapter<UpcomingResult, UpcomingMainAdapter.
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val upcoming = getItem(adapterPosition)
+            upcoming?.let {
+                clickListener.invoke(it)
+            }
         }
     }
 }

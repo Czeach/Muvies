@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
+import com.czech.muvies.models.*
 import com.czech.muvies.viewModels.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -20,20 +21,80 @@ class MoviesFragment : Fragment() {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var binding: MoviesFragmentBinding
 
+    private val upcomingClickListener by lazy {
+        object : upcomingSItemClickListener {
+            override fun invoke(it: UpcomingResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, it, null, null, null,
+                    null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var upcomingAdapter =
-        UpcomingListAdapter(arrayListOf())
+        UpcomingListAdapter(arrayListOf(), upcomingClickListener)
 
+    private val inTheatersItemListener by lazy {
+        object : inTheatersItemClickListenerS {
+            override fun invoke(it: InTheatersResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, it, null, null, null, null, null,
+                    null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var inTheatersAdapter =
-        InTheatersMiniListAdapter(arrayListOf())
+        InTheatersMiniListAdapter(arrayListOf(), inTheatersItemListener)
 
+    private val popularClickListener by lazy {
+        object : popularSItemClickListener {
+            override fun invoke(it: PopularResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, it,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var popularAdapter =
-        PopularListAdapter(arrayListOf())
+        PopularListAdapter(arrayListOf(), popularClickListener)
 
+    private val topRatedClickListener by lazy {
+        object : topRatedSItemClickListener {
+            override fun invoke(it: TopRatedResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, it, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var topRatedAdapter =
-        TopRatedListAdapter(arrayListOf())
+        TopRatedListAdapter(arrayListOf(), topRatedClickListener)
 
+    private val trendingClickListener by lazy {
+        object : trendingSItemClickListener {
+            override fun invoke(it: TrendingMoviesResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var trendingMoviesAdapter =
-        TrendingMoviesListAdapter(arrayListOf())
+        TrendingMoviesListAdapter(arrayListOf(), trendingClickListener)
 
     private var  TAG = "MoviesFragment"
 

@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TopRatedMoviesFragmentBinding
+import com.czech.muvies.models.TopRatedResult
 import com.czech.muvies.pagedAdapters.TopRatedMoviesMainAdapter
+import com.czech.muvies.pagedAdapters.topRatedItemClickListener
 import com.czech.muvies.viewModels.TopRatedMoviesViewModel
 
 class TopRatedMoviesFragment : Fragment() {
@@ -17,7 +20,19 @@ class TopRatedMoviesFragment : Fragment() {
     private lateinit var viewModel: TopRatedMoviesViewModel
     private lateinit var binding: TopRatedMoviesFragmentBinding
 
-    private val topRatedAdapter = TopRatedMoviesMainAdapter()
+    private val topRatedClickListener by lazy {
+        object : topRatedItemClickListener {
+            override fun invoke(it: TopRatedResult) {
+                val args = TopRatedMoviesFragmentDirections.actionTopRatedMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    it, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val topRatedAdapter = TopRatedMoviesMainAdapter(topRatedClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

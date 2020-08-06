@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,10 +10,13 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TrendingMoviesListBinding
+import com.czech.muvies.models.TopRatedResult
 import com.czech.muvies.models.TrendingMoviesResult
 import kotlinx.android.synthetic.main.trending_movies_list.view.*
 
-class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResult>):
+typealias trendingSItemClickListener = (TrendingMoviesResult) -> Unit
+
+class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResult>, private val clickListener: trendingSItemClickListener):
     RecyclerView.Adapter<TrendingMoviesListAdapter.TrendingMoviesListVieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesListVieHolder {
@@ -34,8 +38,8 @@ class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResu
         notifyDataSetChanged()
     }
 
-    class TrendingMoviesListVieHolder(layoutInflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.trending_movies_list, parent, false)) {
+    inner class TrendingMoviesListVieHolder(layoutInflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.trending_movies_list, parent, false)), View.OnClickListener {
 
         val binding = TrendingMoviesListBinding.inflate(layoutInflater)
 
@@ -50,6 +54,15 @@ class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResu
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val trending = list[adapterPosition]
+            clickListener.invoke(trending)
         }
 
     }

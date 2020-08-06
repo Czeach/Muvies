@@ -14,7 +14,9 @@ import com.czech.muvies.R
 import com.czech.muvies.models.InTheatersResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class InTheatersMainListAdapter:
+typealias inTheatersItemClickListener = (InTheatersResult) -> Unit
+
+class InTheatersMainListAdapter(private val clickListener: inTheatersItemClickListener):
     PagedListAdapter<InTheatersResult, InTheatersMainListAdapter.InTheatersMainListViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMainListViewHolder {
@@ -27,7 +29,7 @@ class InTheatersMainListAdapter:
         }
     }
 
-    inner class InTheatersMainListViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class InTheatersMainListViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -42,6 +44,15 @@ class InTheatersMainListAdapter:
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val inTheaters = getItem(adapterPosition)
+            inTheaters?.let { clickListener.invoke(it) }
         }
     }
 }
