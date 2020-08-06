@@ -14,6 +14,7 @@ import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.models.InTheatersResult
+import com.czech.muvies.models.UpcomingResult
 import com.czech.muvies.viewModels.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -21,14 +22,25 @@ class MoviesFragment : Fragment() {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var binding: MoviesFragmentBinding
 
+    private val upcomingClickListener by lazy {
+        object : upcomingSItemClickListener {
+            override fun invoke(it: UpcomingResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var upcomingAdapter =
-        UpcomingListAdapter(arrayListOf())
+        UpcomingListAdapter(arrayListOf(), upcomingClickListener)
 
     private val inTheatersItemListener by lazy {
         object : inTheatersItemClickListenerS {
             override fun invoke(it: InTheatersResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                    null, it
+                    null, it, null, null
                 )
                 findNavController().navigate(args)
             }

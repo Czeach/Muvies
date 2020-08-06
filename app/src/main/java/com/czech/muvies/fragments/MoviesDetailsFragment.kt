@@ -47,6 +47,8 @@ class MoviesDetailsFragment : Fragment() {
 
         val inTheatersArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterArgs
         val inTheatersSArgs =   MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterSArgs
+        val upcomingArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).upcomingArgs
+        val upcomingSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).upcomingSArgs
 
         if (inTheatersArgs != null) {
             Glide.with(this)
@@ -110,6 +112,70 @@ class MoviesDetailsFragment : Fragment() {
             lang_text.text = inTheatersSArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
             overview.text = inTheatersSArgs.overview
+        }
+
+        if (upcomingArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${upcomingArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${upcomingArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            title.text = upcomingArgs.title
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(upcomingArgs.releaseDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = upcomingArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = upcomingArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = upcomingArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = upcomingArgs.overview
+        }
+
+        if (upcomingSArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${upcomingSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${upcomingSArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            title.text = upcomingSArgs.title
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(upcomingSArgs.releaseDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = upcomingSArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = upcomingSArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = upcomingSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = upcomingSArgs.overview
         }
 
     }

@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,10 +10,13 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.UpcomingListBinding
+import com.czech.muvies.models.InTheatersResult
 import com.czech.muvies.models.UpcomingResult
 import kotlinx.android.synthetic.main.upcoming_list.view.*
 
-class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
+typealias upcomingSItemClickListener = (UpcomingResult) -> Unit
+
+class UpcomingListAdapter(private var list: MutableList<UpcomingResult>, private val clickListener: upcomingSItemClickListener):
     RecyclerView.Adapter<UpcomingListAdapter.UpcomingListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingListViewHolder {
@@ -34,8 +38,8 @@ class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
         notifyDataSetChanged()
     }
 
-    class UpcomingListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.upcoming_list, parent, false)) {
+    inner class UpcomingListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.upcoming_list, parent, false)), View.OnClickListener {
 
         private val binding = UpcomingListBinding.inflate(inflater)
 
@@ -50,6 +54,15 @@ class UpcomingListAdapter(private var list: MutableList<UpcomingResult>):
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val upcoming = list[adapterPosition]
+            clickListener.invoke(upcoming)
         }
     }
 }

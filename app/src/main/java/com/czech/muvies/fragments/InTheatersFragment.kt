@@ -25,7 +25,9 @@ class InTheatersFragment : Fragment() {
     private val inTheatersClickListener by lazy {
         object : inTheatersItemClickListener {
             override fun invoke(it: InTheatersResult) {
-                val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(it, null)
+                val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(
+                    it, null, null, null
+                )
                 findNavController().navigate(args)
             }
 
