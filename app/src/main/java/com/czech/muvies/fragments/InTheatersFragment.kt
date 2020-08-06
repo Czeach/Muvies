@@ -26,7 +26,8 @@ class InTheatersFragment : Fragment() {
         object : inTheatersItemClickListener {
             override fun invoke(it: InTheatersResult) {
                 val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(
-                    it, null, null, null
+                    it, null, null, null, null, null, null,
+                    null, null, null
                 )
                 findNavController().navigate(args)
             }

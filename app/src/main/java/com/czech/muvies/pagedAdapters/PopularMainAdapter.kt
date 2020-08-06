@@ -14,7 +14,10 @@ import com.czech.muvies.R
 import com.czech.muvies.models.PopularResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class PopularMainAdapter: PagedListAdapter<PopularResult, PopularMainAdapter.PopularMainViewHolder>(diffUtil)  {
+typealias popularItemClickListener = (PopularResult) -> Unit
+
+class PopularMainAdapter(private val clickListener: popularItemClickListener):
+    PagedListAdapter<PopularResult, PopularMainAdapter.PopularMainViewHolder>(diffUtil)  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMainViewHolder {
         return PopularMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -39,7 +42,7 @@ class PopularMainAdapter: PagedListAdapter<PopularResult, PopularMainAdapter.Pop
         }
     }
 
-    inner class PopularMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class PopularMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -54,6 +57,15 @@ class PopularMainAdapter: PagedListAdapter<PopularResult, PopularMainAdapter.Pop
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val popular = getItem(adapterPosition)
+            popular?.let { clickListener.invoke(it) }
         }
     }
 }

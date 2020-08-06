@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.models.PopularResult
 import com.czech.muvies.models.PopularTVResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class PopularShowsMainAdapter: PagedListAdapter<PopularTVResult, PopularShowsMainAdapter.PopularShowsMainViewHolder>(diffUtil)  {
+class PopularShowsMainAdapter():
+    PagedListAdapter<PopularTVResult, PopularShowsMainAdapter.PopularShowsMainViewHolder>(diffUtil)  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularShowsMainViewHolder {
         return PopularShowsMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -54,5 +56,6 @@ class PopularShowsMainAdapter: PagedListAdapter<PopularTVResult, PopularShowsMai
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
         }
+
     }
 }

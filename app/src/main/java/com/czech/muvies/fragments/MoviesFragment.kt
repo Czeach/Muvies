@@ -14,6 +14,7 @@ import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.models.InTheatersResult
+import com.czech.muvies.models.PopularResult
 import com.czech.muvies.models.UpcomingResult
 import com.czech.muvies.viewModels.MoviesViewModel
 
@@ -26,7 +27,8 @@ class MoviesFragment : Fragment() {
         object : upcomingSItemClickListener {
             override fun invoke(it: UpcomingResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                    null, null, null, it
+                    null, null, null, it, null, null, null,
+                    null, null, null
                 )
                 findNavController().navigate(args)
             }
@@ -40,7 +42,8 @@ class MoviesFragment : Fragment() {
         object : inTheatersItemClickListenerS {
             override fun invoke(it: InTheatersResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                    null, it, null, null
+                    null, it, null, null, null, null, null,
+                    null, null, null
                 )
                 findNavController().navigate(args)
             }
@@ -50,8 +53,20 @@ class MoviesFragment : Fragment() {
     private var inTheatersAdapter =
         InTheatersMiniListAdapter(arrayListOf(), inTheatersItemListener)
 
+    private val popularClickListener by lazy {
+        object : popularSItemClickListener {
+            override fun invoke(it: PopularResult) {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, it,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var popularAdapter =
-        PopularListAdapter(arrayListOf())
+        PopularListAdapter(arrayListOf(), popularClickListener)
 
     private var topRatedAdapter =
         TopRatedListAdapter(arrayListOf())

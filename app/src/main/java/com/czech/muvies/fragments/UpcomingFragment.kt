@@ -25,7 +25,8 @@ class UpcomingFragment : Fragment() {
         object : upcomingItemClickListener {
             override fun invoke(it: UpcomingResult) {
                 val args = UpcomingFragmentDirections.actionUpcomingToDetailsFragment(
-                    null, null, it, null
+                    null, null, it, null, null, null, null,
+                    null, null, null
                 )
                 findNavController().navigate(args)
             }

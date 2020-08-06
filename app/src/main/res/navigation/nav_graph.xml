@@ -142,6 +142,30 @@
             android:name="upcomingSArgs"
             app:argType="com.czech.muvies.models.UpcomingResult"
             app:nullable="true" />
+        <argument
+            android:name="popularArgs"
+            app:argType="com.czech.muvies.models.PopularResult"
+            app:nullable="true" />
+        <argument
+            android:name="popularSArgs"
+            app:argType="com.czech.muvies.models.PopularResult"
+            app:nullable="true" />
+        <argument
+            android:name="topRatedArgs"
+            app:argType="com.czech.muvies.models.TopRatedResult"
+            app:nullable="true" />
+        <argument
+            android:name="topRatedSArgs"
+            app:argType="com.czech.muvies.models.TopRatedResult"
+            app:nullable="true" />
+        <argument
+            android:name="trendingArgs"
+            app:argType="com.czech.muvies.models.TrendingMoviesResult"
+            app:nullable="true" />
+        <argument
+            android:name="trendingSArgs"
+            app:argType="com.czech.muvies.models.TrendingMoviesResult"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
