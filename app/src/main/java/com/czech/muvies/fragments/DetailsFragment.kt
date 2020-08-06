@@ -57,7 +57,7 @@ class DetailsFragment : Fragment() {
         title.text = inTheatersArgs.title
 
         val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        val date = LocalDate.parse("${inTheatersArgs.releaseDate} 09:00:00", dateFormatter)
+        val date = LocalDate.parse("${inTheatersArgs.releaseDate} 09:10:46", dateFormatter)
 
         val year = date.year.toString()
         val month = date.month.toString().toLowerCase()
@@ -67,6 +67,12 @@ class DetailsFragment : Fragment() {
         var ratingBar = rating_bar
         val rating = inTheatersArgs.voteAverage/2
         ratingBar.rating = rating.toFloat()
+
+        rating_fraction.text = "${inTheatersArgs.voteAverage.toFloat()}/10.0"
+
+        lang_text.text = inTheatersArgs.originalLanguage.toUpperCase()
+
+        overview.text = inTheatersArgs.overview
 
     }
 

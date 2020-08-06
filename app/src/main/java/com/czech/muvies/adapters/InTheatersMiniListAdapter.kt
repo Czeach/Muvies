@@ -12,6 +12,7 @@ import com.czech.muvies.databinding.InTheatresMiniListBinding
 import com.czech.muvies.models.InTheatersResult
 import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 
+
 class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>):
     RecyclerView.Adapter<InTheatersMiniListAdapter.InTheatersMiniListViewHolder>() {
 
