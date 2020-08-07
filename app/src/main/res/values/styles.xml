@@ -18,7 +18,7 @@
     <style name="TextAppearance.AppCompat.SeeAll" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:fontFamily">@font/convergence</item>
+        <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
