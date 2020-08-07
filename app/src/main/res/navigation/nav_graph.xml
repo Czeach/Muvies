@@ -125,7 +125,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.czech.muvies.fragments.MoviesDetailsFragment"
         android:label="Details"
-        tools:layout="@layout/details_fragment" >
+        tools:layout="@layout/movies_details_fragment" >
         <argument
             android:name="inTheaterArgs"
             app:argType="com.czech.muvies.models.InTheatersResult"
