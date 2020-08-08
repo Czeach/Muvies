@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
+import com.czech.muvies.models.AiringTodayTvResult
 import com.czech.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
@@ -19,8 +20,20 @@ class TvShowsFragment : Fragment() {
     private lateinit var viewModel: TvShowsViewModel
     private lateinit var binding: TvShowsFragmentBinding
 
+    private val airingTodayClickListener by lazy {
+        object : airingTodaySItemClickListener {
+            override fun invoke(it: AiringTodayTvResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, it, null, null, null, null,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var airingTodayAdapter =
-        AiringTodayListAdapter(arrayListOf())
+        AiringTodayListAdapter(arrayListOf(), airingTodayClickListener)
 
     private var onAirAdapter =
         OnAirListAdapter(arrayListOf())
