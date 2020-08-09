@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.OnAirFragmentBinding
+import com.czech.muvies.models.OnAirTVResult
 import com.czech.muvies.pagedAdapters.OnAirMainAdapter
+import com.czech.muvies.pagedAdapters.onAirItemClickListener
 import com.czech.muvies.viewModels.OnAirViewModel
 
 class OnAirFragment : Fragment() {
@@ -17,7 +20,19 @@ class OnAirFragment : Fragment() {
     private lateinit var viewModel: OnAirViewModel
     private lateinit var binding: OnAirFragmentBinding
 
-    private val onAirAdapter = OnAirMainAdapter()
+    private val onAirClickListener by lazy {
+        object : onAirItemClickListener {
+            override fun invoke(it: OnAirTVResult) {
+                val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
+                    null, null, it, null, null, null,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val onAirAdapter = OnAirMainAdapter(onAirClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

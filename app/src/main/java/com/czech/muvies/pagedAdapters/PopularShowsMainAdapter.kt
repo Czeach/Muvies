@@ -15,7 +15,9 @@ import com.czech.muvies.models.PopularResult
 import com.czech.muvies.models.PopularTVResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class PopularShowsMainAdapter():
+typealias popularTvItemClickListener = (PopularTVResult) -> Unit
+
+class PopularShowsMainAdapter(private val clickListener: popularTvItemClickListener):
     PagedListAdapter<PopularTVResult, PopularShowsMainAdapter.PopularShowsMainViewHolder>(diffUtil)  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularShowsMainViewHolder {
@@ -40,7 +42,7 @@ class PopularShowsMainAdapter():
         }
     }
 
-    inner class PopularShowsMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class PopularShowsMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -55,6 +57,11 @@ class PopularShowsMainAdapter():
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        override fun onClick(v: View?) {
+            val popular = getItem(adapterPosition)
+            popular?.let { clickListener.invoke(it) }
         }
 
     }

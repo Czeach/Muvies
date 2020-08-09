@@ -13,6 +13,8 @@ import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
 import com.czech.muvies.models.AiringTodayTvResult
+import com.czech.muvies.models.OnAirTVResult
+import com.czech.muvies.models.PopularTVResult
 import com.czech.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
@@ -35,11 +37,35 @@ class TvShowsFragment : Fragment() {
     private var airingTodayAdapter =
         AiringTodayListAdapter(arrayListOf(), airingTodayClickListener)
 
-    private var onAirAdapter =
-        OnAirListAdapter(arrayListOf())
+    private val onAirClickListener by lazy {
+        object : onAirSItemClickListener {
+            override fun invoke(it: OnAirTVResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, it, null, null,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
 
+        }
+    }
+    private var onAirAdapter =
+        OnAirListAdapter(arrayListOf(), onAirClickListener)
+
+    private val popularTvClickListener by lazy {
+        object : popularTvSItemClickListener {
+            override fun invoke(it: PopularTVResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, it,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var popularTvAdapter =
-        PopularTvListAdapter(arrayListOf())
+        PopularTvListAdapter(arrayListOf(), popularTvClickListener)
 
     private var topRatedTvAdapter =
         TopRatedTvListAdapter(arrayListOf())

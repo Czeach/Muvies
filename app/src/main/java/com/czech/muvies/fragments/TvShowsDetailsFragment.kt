@@ -42,6 +42,9 @@ class TvShowsDetailsFragment : Fragment() {
 
         val airingTodaySArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
         val airingTodayArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
+        val onAirSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).onAirSArgs
+        val onAirArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).onAirArgs
+        val populatTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvSArgs
 
         if (airingTodaySArgs != null) {
             Glide.with(this)
@@ -105,6 +108,102 @@ class TvShowsDetailsFragment : Fragment() {
             lang_text.text = airingTodayArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
             overview.text = airingTodayArgs.overview
+        }
+
+        if (onAirSArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirSArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            name.text = onAirSArgs.name
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(onAirSArgs.firstAirDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = onAirSArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = onAirSArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = onAirSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = onAirSArgs.overview
+        }
+
+        if (onAirArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            name.text = onAirArgs.name
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(onAirArgs.firstAirDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = onAirArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = onAirArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = onAirArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = onAirArgs.overview
+        }
+
+        if (populatTvSArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${populatTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${populatTvSArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            name.text = populatTvSArgs.name
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(populatTvSArgs.firstAirDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = populatTvSArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = populatTvSArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = populatTvSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = populatTvSArgs.overview
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,10 +10,13 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.OnAirListBinding
+import com.czech.muvies.models.AiringTodayTvResult
 import com.czech.muvies.models.OnAirTVResult
 import kotlinx.android.synthetic.main.on_air_list.view.*
 
-class OnAirListAdapter(private var list: MutableList<OnAirTVResult>):
+typealias onAirSItemClickListener = (OnAirTVResult) -> Unit
+
+class OnAirListAdapter(private var list: MutableList<OnAirTVResult>, private val clickListener: onAirSItemClickListener):
     RecyclerView.Adapter<OnAirListAdapter.OnAirListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnAirListViewHolder {
@@ -34,8 +38,8 @@ class OnAirListAdapter(private var list: MutableList<OnAirTVResult>):
         notifyDataSetChanged()
     }
 
-    class OnAirListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.on_air_list, parent, false)) {
+    inner class OnAirListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.on_air_list, parent, false)), View.OnClickListener {
 
         val binding = OnAirListBinding.inflate(inflater)
 
@@ -50,6 +54,15 @@ class OnAirListAdapter(private var list: MutableList<OnAirTVResult>):
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val onAir = list[adapterPosition]
+            clickListener.invoke(onAir)
         }
     }
 }
