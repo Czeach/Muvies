@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.TopRatedResult
+import com.czech.muvies.models.MoviesResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias topRatedItemClickListener = (TopRatedResult) -> Unit
+typealias topRatedItemClickListener = (MoviesResult) -> Unit
 
 class TopRatedMoviesMainAdapter(private val clickListener: topRatedItemClickListener):
-    PagedListAdapter<TopRatedResult, TopRatedMoviesMainAdapter.TopRatedMoviesMainViewHolder>(diffUtil) {
+    PagedListAdapter<MoviesResult, TopRatedMoviesMainAdapter.TopRatedMoviesMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedMoviesMainViewHolder {
         return TopRatedMoviesMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -30,13 +30,13 @@ class TopRatedMoviesMainAdapter(private val clickListener: topRatedItemClickList
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<TopRatedResult>() {
+        val diffUtil = object : DiffUtil.ItemCallback<MoviesResult>() {
 
-            override fun areItemsTheSame(oldItem: TopRatedResult, newItem: TopRatedResult): Boolean {
+            override fun areItemsTheSame(oldItem: MoviesResult, newItem: MoviesResult): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: TopRatedResult, newItem: TopRatedResult): Boolean {
+            override fun areContentsTheSame(oldItem: MoviesResult, newItem: MoviesResult): Boolean {
                 return oldItem == newItem
             }
         }
@@ -49,7 +49,7 @@ class TopRatedMoviesMainAdapter(private val clickListener: topRatedItemClickList
         private var date: TextView = itemView.date
         private var vote: TextView = itemView.vote
 
-        fun bind(result: TopRatedResult) {
+        fun bind(result: MoviesResult) {
             title.text = result.title
             date.text = result.releaseDate
             vote.text = result.voteAverage.toString()

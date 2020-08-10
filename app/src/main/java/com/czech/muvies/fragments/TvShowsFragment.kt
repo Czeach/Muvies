@@ -22,7 +22,7 @@ class TvShowsFragment : Fragment() {
 
     private val airingTodayClickListener by lazy {
         object : airingTodaySItemClickListener {
-            override fun invoke(it: AiringTodayTvResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, it, null, null, null, null,
                     null, null, null, null
@@ -37,7 +37,7 @@ class TvShowsFragment : Fragment() {
 
     private val onAirClickListener by lazy {
         object : onAirSItemClickListener {
-            override fun invoke(it: OnAirTVResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, it, null, null,
                     null, null, null, null
@@ -52,7 +52,7 @@ class TvShowsFragment : Fragment() {
 
     private val popularTvClickListener by lazy {
         object : popularTvSItemClickListener {
-            override fun invoke(it: PopularTVResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, it,
                     null, null, null, null
@@ -67,7 +67,7 @@ class TvShowsFragment : Fragment() {
 
     private val topRatedTvClickListener by lazy { 
         object : topRatedTvSItemClickListener {
-            override fun invoke(it: TopRatedTVResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     null, it, null, null
@@ -82,7 +82,7 @@ class TvShowsFragment : Fragment() {
 
     private val trendingClickListener by lazy {
         object : trendingTvSItemClickListener {
-            override fun invoke(it: TrendingTvResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     null, null, null, it

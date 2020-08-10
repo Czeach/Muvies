@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.InTheatersResult
+import com.czech.muvies.models.MoviesResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias inTheatersItemClickListener = (InTheatersResult) -> Unit
+typealias inTheatersItemClickListener = (MoviesResult) -> Unit
 
 class InTheatersMainListAdapter(private val clickListener: inTheatersItemClickListener):
-    PagedListAdapter<InTheatersResult, InTheatersMainListAdapter.InTheatersMainListViewHolder>(DiffUtilCallBack()) {
+    PagedListAdapter<MoviesResult, InTheatersMainListAdapter.InTheatersMainListViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMainListViewHolder {
         return InTheatersMainListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -36,7 +36,7 @@ class InTheatersMainListAdapter(private val clickListener: inTheatersItemClickLi
         private var date: TextView = itemView.date
         private var vote: TextView = itemView.vote
 
-        fun bind(result: InTheatersResult) {
+        fun bind(result: MoviesResult) {
             title.text = result.title
             date.text = result.releaseDate
             vote.text = result.voteAverage.toString()
@@ -57,12 +57,12 @@ class InTheatersMainListAdapter(private val clickListener: inTheatersItemClickLi
     }
 }
 
-class DiffUtilCallBack: DiffUtil.ItemCallback<InTheatersResult>() {
-    override fun areItemsTheSame(oldItem: InTheatersResult, newItem: InTheatersResult): Boolean {
+class DiffUtilCallBack: DiffUtil.ItemCallback<MoviesResult>() {
+    override fun areItemsTheSame(oldItem: MoviesResult, newItem: MoviesResult): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: InTheatersResult, newItem: InTheatersResult): Boolean {
+    override fun areContentsTheSame(oldItem: MoviesResult, newItem: MoviesResult): Boolean {
         return oldItem.title == newItem.title
                 && oldItem.popularity == newItem.popularity
                 && oldItem.voteCount == newItem.voteCount

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="trendingMoviesViewModel"
-            type="com.czech.muvies.models.TrendingMoviesResult" />
+            type="com.czech.muvies.models.MoviesResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

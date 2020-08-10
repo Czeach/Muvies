@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.dataSources.UpcomingDataSourceFactory
-import com.czech.muvies.models.UpcomingResult
+import com.czech.muvies.models.MoviesResult
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.Dispatchers
 
 class UpcomingViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
-    private var upcomingList: LiveData<PagedList<UpcomingResult>>
+    private var upcomingList: LiveData<PagedList<MoviesResult>>
     private val pageSize = 1000
     private val upcomingDataSourceFactory: UpcomingDataSourceFactory
 
@@ -25,5 +25,5 @@ class UpcomingViewModel : ViewModel() {
         upcomingList = LivePagedListBuilder(upcomingDataSourceFactory, config).build()
     }
 
-    fun getUpcomingList(): LiveData<PagedList<UpcomingResult>> = upcomingList
+    fun getUpcomingList(): LiveData<PagedList<MoviesResult>> = upcomingList
 }

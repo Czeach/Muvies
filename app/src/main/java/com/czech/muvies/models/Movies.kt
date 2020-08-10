@@ -6,17 +6,18 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PopularMovies(
+data class Movies(
+    val results: List<MoviesResult> = listOf(),
     val page: Int = 0,
     @SerializedName("total_results")
     val totalResults: Int = 0,
+    val dates: InTheatersDates = InTheatersDates(),
     @SerializedName("total_pages")
-    val totalPages: Int = 0,
-    val results: List<PopularResult> = listOf()
+    val totalPages: Int = 0
 ): Parcelable
 
 @Parcelize
-data class PopularResult(
+data class MoviesResult(
     val popularity: Double = 0.0,
     @SerializedName("vote_count")
     val voteCount: Int = 0,
@@ -39,4 +40,10 @@ data class PopularResult(
     val overview: String = "",
     @SerializedName("release_date")
     val releaseDate: String = ""
+): Parcelable
+
+@Parcelize
+data class InTheatersDates(
+    val maximum: String = "",
+    val minimum: String = ""
 ): Parcelable

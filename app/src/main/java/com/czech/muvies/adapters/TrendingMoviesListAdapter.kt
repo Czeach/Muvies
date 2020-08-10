@@ -10,13 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TrendingMoviesListBinding
-import com.czech.muvies.models.TopRatedResult
-import com.czech.muvies.models.TrendingMoviesResult
+import com.czech.muvies.models.MoviesResult
 import kotlinx.android.synthetic.main.trending_movies_list.view.*
 
-typealias trendingSItemClickListener = (TrendingMoviesResult) -> Unit
+typealias trendingSItemClickListener = (MoviesResult) -> Unit
 
-class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResult>, private val clickListener: trendingSItemClickListener):
+class TrendingMoviesListAdapter(private var list: MutableList<MoviesResult>, private val clickListener: trendingSItemClickListener):
     RecyclerView.Adapter<TrendingMoviesListAdapter.TrendingMoviesListVieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesListVieHolder {
@@ -33,7 +32,7 @@ class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResu
         holder.bind(movies)
     }
 
-    fun updateTrendingMoviesList(moviesList: MutableList<TrendingMoviesResult>) {
+    fun updateTrendingMoviesList(moviesList: MutableList<MoviesResult>) {
         list = moviesList
         notifyDataSetChanged()
     }
@@ -46,7 +45,7 @@ class TrendingMoviesListAdapter(private var list: MutableList<TrendingMoviesResu
         private var poster: ImageView = itemView.trending_movies_recycler_image
         private var title: TextView = itemView.trending_movies_recycler_text
 
-        fun bind(movie: TrendingMoviesResult) {
+        fun bind(movie: MoviesResult) {
             binding.trendingMoviesViewModel = movie
 
             title.text = movie.title

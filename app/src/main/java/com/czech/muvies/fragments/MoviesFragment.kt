@@ -23,7 +23,7 @@ class MoviesFragment : Fragment() {
 
     private val upcomingClickListener by lazy {
         object : upcomingSItemClickListener {
-            override fun invoke(it: UpcomingResult) {
+            override fun invoke(it: MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, it, null, null, null,
                     null, null, null
@@ -38,7 +38,7 @@ class MoviesFragment : Fragment() {
 
     private val inTheatersItemListener by lazy {
         object : inTheatersItemClickListenerS {
-            override fun invoke(it: InTheatersResult) {
+            override fun invoke(it: MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, it, null, null, null, null, null,
                     null, null, null
@@ -53,7 +53,7 @@ class MoviesFragment : Fragment() {
 
     private val popularClickListener by lazy {
         object : popularSItemClickListener {
-            override fun invoke(it: PopularResult) {
+            override fun invoke(it: MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, it,
                     null, null, null, null
@@ -68,7 +68,7 @@ class MoviesFragment : Fragment() {
 
     private val topRatedClickListener by lazy {
         object : topRatedSItemClickListener {
-            override fun invoke(it: TopRatedResult) {
+            override fun invoke(it: MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
                     null, it, null, null
@@ -83,7 +83,7 @@ class MoviesFragment : Fragment() {
 
     private val trendingClickListener by lazy {
         object : trendingSItemClickListener {
-            override fun invoke(it: TrendingMoviesResult) {
+            override fun invoke(it: MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
                     null, null, null, it

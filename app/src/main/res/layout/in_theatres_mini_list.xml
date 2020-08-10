@@ -6,7 +6,7 @@
     <data>
         <variable
             name="inTheatresMini"
-            type="com.czech.muvies.models.InTheatersResult" />
+            type="com.czech.muvies.models.MoviesResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

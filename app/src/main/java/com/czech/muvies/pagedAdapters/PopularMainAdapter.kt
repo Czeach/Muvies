@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.PopularResult
+import com.czech.muvies.models.MoviesResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias popularItemClickListener = (PopularResult) -> Unit
+typealias popularItemClickListener = (MoviesResult) -> Unit
 
 class PopularMainAdapter(private val clickListener: popularItemClickListener):
-    PagedListAdapter<PopularResult, PopularMainAdapter.PopularMainViewHolder>(diffUtil)  {
+    PagedListAdapter<MoviesResult, PopularMainAdapter.PopularMainViewHolder>(diffUtil)  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMainViewHolder {
         return PopularMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -30,13 +30,13 @@ class PopularMainAdapter(private val clickListener: popularItemClickListener):
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<PopularResult>() {
+        val diffUtil = object : DiffUtil.ItemCallback<MoviesResult>() {
 
-            override fun areItemsTheSame(oldItem: PopularResult, newItem: PopularResult): Boolean {
+            override fun areItemsTheSame(oldItem: MoviesResult, newItem: MoviesResult): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: PopularResult, newItem: PopularResult): Boolean {
+            override fun areContentsTheSame(oldItem: MoviesResult, newItem: MoviesResult): Boolean {
                 return oldItem == newItem
             }
         }
@@ -49,7 +49,7 @@ class PopularMainAdapter(private val clickListener: popularItemClickListener):
         private var date: TextView = itemView.date
         private var vote: TextView = itemView.vote
 
-        fun bind(result: PopularResult) {
+        fun bind(result: MoviesResult) {
             title.text = result.title
             date.text = result.releaseDate
             vote.text = result.voteAverage.toString()

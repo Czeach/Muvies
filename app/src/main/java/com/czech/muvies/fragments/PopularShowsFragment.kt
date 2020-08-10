@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.PopularShowsFragmentBinding
-import com.czech.muvies.models.PopularTVResult
+import com.czech.muvies.models.TvShowsResult
 import com.czech.muvies.pagedAdapters.PopularShowsMainAdapter
 import com.czech.muvies.pagedAdapters.popularTvItemClickListener
 import com.czech.muvies.viewModels.PopularShowsViewModel
@@ -22,7 +22,7 @@ class PopularShowsFragment : Fragment() {
 
     private val popularClickListener by lazy {
         object : popularTvItemClickListener {
-            override fun invoke(it: PopularTVResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = PopularShowsFragmentDirections.actionPopularShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, it, null,
                     null, null, null, null

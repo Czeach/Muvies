@@ -6,7 +6,7 @@
     <data>
         <variable
             name="popularTvViewModel"
-            type="com.czech.muvies.models.PopularTVResult" />
+            type="com.czech.muvies.models.TvShowsResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

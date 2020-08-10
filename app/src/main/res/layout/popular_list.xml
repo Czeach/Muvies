@@ -6,7 +6,7 @@
     <data>
         <variable
             name="popularListViewModel"
-            type="com.czech.muvies.models.PopularResult" />
+            type="com.czech.muvies.models.MoviesResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

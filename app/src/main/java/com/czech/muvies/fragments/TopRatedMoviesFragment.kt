@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TopRatedMoviesFragmentBinding
-import com.czech.muvies.models.TopRatedResult
+import com.czech.muvies.models.MoviesResult
 import com.czech.muvies.pagedAdapters.TopRatedMoviesMainAdapter
 import com.czech.muvies.pagedAdapters.topRatedItemClickListener
 import com.czech.muvies.viewModels.TopRatedMoviesViewModel
@@ -22,7 +22,7 @@ class TopRatedMoviesFragment : Fragment() {
 
     private val topRatedClickListener by lazy {
         object : topRatedItemClickListener {
-            override fun invoke(it: TopRatedResult) {
+            override fun invoke(it: MoviesResult) {
                 val args = TopRatedMoviesFragmentDirections.actionTopRatedMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
                     it, null, null, null

@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.PopularListBinding
-import com.czech.muvies.models.PopularResult
+import com.czech.muvies.models.MoviesResult
 import kotlinx.android.synthetic.main.popular_list.view.*
 
-typealias popularSItemClickListener = (PopularResult) -> Unit
+typealias popularSItemClickListener = (MoviesResult) -> Unit
 
-class PopularListAdapter(private var list: MutableList<PopularResult>, private val clickListener: popularSItemClickListener):
+class PopularListAdapter(private var list: MutableList<MoviesResult>, private val clickListener: popularSItemClickListener):
         RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularListViewHolder {
@@ -27,12 +27,12 @@ class PopularListAdapter(private var list: MutableList<PopularResult>, private v
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: PopularListViewHolder, position: Int) {
-        val movie: PopularResult = list[position]
+        val movie: MoviesResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updatePopularList(movieList: MutableList<PopularResult>) {
+    fun updatePopularList(movieList: MutableList<MoviesResult>) {
         list = movieList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class PopularListAdapter(private var list: MutableList<PopularResult>, private v
         private var poster: ImageView = itemView.popular_recycler_image
         private var title: TextView = itemView.popular_recycler_text
 
-        fun bind(movie: PopularResult) {
+        fun bind(movie: MoviesResult) {
             binding.popularListViewModel = movie
 
             title.text = movie.title

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.OnAirFragmentBinding
-import com.czech.muvies.models.OnAirTVResult
+import com.czech.muvies.models.TvShowsResult
 import com.czech.muvies.pagedAdapters.OnAirMainAdapter
 import com.czech.muvies.pagedAdapters.onAirItemClickListener
 import com.czech.muvies.viewModels.OnAirViewModel
@@ -22,7 +22,7 @@ class OnAirFragment : Fragment() {
 
     private val onAirClickListener by lazy {
         object : onAirItemClickListener {
-            override fun invoke(it: OnAirTVResult) {
+            override fun invoke(it: TvShowsResult) {
                 val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
                     null, null, it, null, null, null,
                     null, null, null, null

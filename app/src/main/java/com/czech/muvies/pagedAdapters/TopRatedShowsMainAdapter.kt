@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.TopRatedTVResult
+import com.czech.muvies.models.TvShowsResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias topRatedTvItemClickListener = (TopRatedTVResult) -> Unit
+typealias topRatedTvItemClickListener = (TvShowsResult) -> Unit
 
 class TopRatedShowsMainAdapter(private val clickListener: topRatedTvItemClickListener):
-    PagedListAdapter<TopRatedTVResult, TopRatedShowsMainAdapter.TopRatedShowsMainViewHolder>(diffUtil) {
+    PagedListAdapter<TvShowsResult, TopRatedShowsMainAdapter.TopRatedShowsMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedShowsMainViewHolder {
         return TopRatedShowsMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -30,18 +30,18 @@ class TopRatedShowsMainAdapter(private val clickListener: topRatedTvItemClickLis
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<TopRatedTVResult>() {
+        val diffUtil = object : DiffUtil.ItemCallback<TvShowsResult>() {
 
             override fun areItemsTheSame(
-                oldItem: TopRatedTVResult,
-                newItem: TopRatedTVResult
+                oldItem: TvShowsResult,
+                newItem: TvShowsResult
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: TopRatedTVResult,
-                newItem: TopRatedTVResult
+                oldItem: TvShowsResult,
+                newItem: TvShowsResult
             ): Boolean {
                 return oldItem == newItem
             }
@@ -55,7 +55,7 @@ class TopRatedShowsMainAdapter(private val clickListener: topRatedTvItemClickLis
         private var date: TextView = itemView.date
         private var vote: TextView = itemView.vote
 
-        fun bind(result: TopRatedTVResult) {
+        fun bind(result: TvShowsResult) {
             title.text = result.name
             date.text = result.firstAirDate
             vote.text = result.voteAverage.toString()

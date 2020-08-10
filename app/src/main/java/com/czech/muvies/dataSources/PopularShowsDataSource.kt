@@ -6,7 +6,7 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
-import com.czech.muvies.models.PopularTVResult
+import com.czech.muvies.models.TvShowsResult
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +16,12 @@ import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class PopularShowsDataSource(private val apiService: MoviesApiService,
-                             coroutineContext: CoroutineContext): PageKeyedDataSource<Int, PopularTVResult>() {
+                             coroutineContext: CoroutineContext): PageKeyedDataSource<Int, TvShowsResult>() {
 
     private val job = Job()
     private val scope = CoroutineScope(coroutineContext + job)
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, PopularTVResult>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, TvShowsResult>) {
         scope.launch {
             try {
                 val response = apiService.getPagedPopularTVList(BuildConfig.API_KEY, LANGUAGE, 1)
@@ -36,7 +36,7 @@ class PopularShowsDataSource(private val apiService: MoviesApiService,
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, PopularTVResult>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, TvShowsResult>) {
         scope.launch {
             try {
                 val response = apiService.getPagedPopularTVList(BuildConfig.API_KEY, LANGUAGE, params.key)
@@ -51,7 +51,7 @@ class PopularShowsDataSource(private val apiService: MoviesApiService,
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, PopularTVResult>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, TvShowsResult>) {
 
     }
 
@@ -63,11 +63,11 @@ class PopularShowsDataSource(private val apiService: MoviesApiService,
 }
 
 class PopularShowsDataSourceFactory(private val apiService: MoviesApiService,
-                                    coroutineContext: CoroutineContext): DataSource.Factory<Int, PopularTVResult>() {
+                                    coroutineContext: CoroutineContext): DataSource.Factory<Int, TvShowsResult>() {
 
     val popularShowsDataSourceLiveData = MutableLiveData<PopularShowsDataSource>()
 
-    override fun create(): DataSource<Int, PopularTVResult> {
+    override fun create(): DataSource<Int, TvShowsResult> {
         val popularShowsDataSource = PopularShowsDataSource(apiService, Dispatchers.IO)
         popularShowsDataSourceLiveData.postValue(popularShowsDataSource)
         return popularShowsDataSource

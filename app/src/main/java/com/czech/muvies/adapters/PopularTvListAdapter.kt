@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.PopularTvListBinding
-import com.czech.muvies.models.PopularTVResult
+import com.czech.muvies.models.TvShowsResult
 import kotlinx.android.synthetic.main.popular_tv_list.view.*
 
-typealias popularTvSItemClickListener = (PopularTVResult) -> Unit
+typealias popularTvSItemClickListener = (TvShowsResult) -> Unit
 
-class PopularTvListAdapter(private var list: MutableList<PopularTVResult>, private val clickListener: popularTvSItemClickListener):
+class PopularTvListAdapter(private var list: MutableList<TvShowsResult>, private val clickListener: popularTvSItemClickListener):
     RecyclerView.Adapter<PopularTvListAdapter.PopularTvListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularTvListViewHolder {
@@ -27,12 +27,12 @@ class PopularTvListAdapter(private var list: MutableList<PopularTVResult>, priva
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: PopularTvListViewHolder, position: Int) {
-        val tv: PopularTVResult = list[position]
+        val tv: TvShowsResult = list[position]
 
         holder.bind(tv)
     }
 
-    fun updatePopularTvList(tvList: MutableList<PopularTVResult>) {
+    fun updatePopularTvList(tvList: MutableList<TvShowsResult>) {
         list = tvList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class PopularTvListAdapter(private var list: MutableList<PopularTVResult>, priva
         private var poster: ImageView = itemView.popular_tv_recycler_image
         private var name: TextView = itemView.popular_tv_recycler_text
 
-        fun bind(tv: PopularTVResult) {
+        fun bind(tv: TvShowsResult) {
             binding.popularTvViewModel = tv
 
             name.text = tv.name
