@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +13,9 @@ import com.czech.muvies.databinding.PopularTvListBinding
 import com.czech.muvies.models.PopularTVResult
 import kotlinx.android.synthetic.main.popular_tv_list.view.*
 
-class PopularTvListAdapter(private var list: MutableList<PopularTVResult>):
+typealias popularTvSItemClickListener = (PopularTVResult) -> Unit
+
+class PopularTvListAdapter(private var list: MutableList<PopularTVResult>, private val clickListener: popularTvSItemClickListener):
     RecyclerView.Adapter<PopularTvListAdapter.PopularTvListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularTvListViewHolder {
@@ -34,8 +37,8 @@ class PopularTvListAdapter(private var list: MutableList<PopularTVResult>):
         notifyDataSetChanged()
     }
 
-    class PopularTvListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.popular_tv_list, parent, false)) {
+    inner class PopularTvListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.popular_tv_list, parent, false)), View.OnClickListener {
 
         val binding = PopularTvListBinding.inflate(inflater)
 
@@ -50,6 +53,15 @@ class PopularTvListAdapter(private var list: MutableList<PopularTVResult>):
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val popularTv = list[adapterPosition]
+            clickListener.invoke(popularTv)
         }
 
     }

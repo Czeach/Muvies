@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
+import com.czech.muvies.models.*
 import com.czech.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
@@ -19,20 +20,80 @@ class TvShowsFragment : Fragment() {
     private lateinit var viewModel: TvShowsViewModel
     private lateinit var binding: TvShowsFragmentBinding
 
+    private val airingTodayClickListener by lazy {
+        object : airingTodaySItemClickListener {
+            override fun invoke(it: AiringTodayTvResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, it, null, null, null, null,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var airingTodayAdapter =
-        AiringTodayListAdapter(arrayListOf())
+        AiringTodayListAdapter(arrayListOf(), airingTodayClickListener)
 
+    private val onAirClickListener by lazy {
+        object : onAirSItemClickListener {
+            override fun invoke(it: OnAirTVResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, it, null, null,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var onAirAdapter =
-        OnAirListAdapter(arrayListOf())
+        OnAirListAdapter(arrayListOf(), onAirClickListener)
 
+    private val popularTvClickListener by lazy {
+        object : popularTvSItemClickListener {
+            override fun invoke(it: PopularTVResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, it,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var popularTvAdapter =
-        PopularTvListAdapter(arrayListOf())
+        PopularTvListAdapter(arrayListOf(), popularTvClickListener)
 
+    private val topRatedTvClickListener by lazy { 
+        object : topRatedTvSItemClickListener {
+            override fun invoke(it: TopRatedTVResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, it, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var topRatedTvAdapter =
-        TopRatedTvListAdapter(arrayListOf())
+        TopRatedTvListAdapter(arrayListOf(), topRatedTvClickListener)
 
+    private val trendingClickListener by lazy {
+        object : trendingTvSItemClickListener {
+            override fun invoke(it: TrendingTvResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var trendingTvAdapter =
-        TrendingTvListAdapter(arrayListOf())
+        TrendingTvListAdapter(arrayListOf(), trendingClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

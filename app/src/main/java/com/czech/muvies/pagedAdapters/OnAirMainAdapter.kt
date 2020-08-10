@@ -14,7 +14,10 @@ import com.czech.muvies.R
 import com.czech.muvies.models.OnAirTVResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class OnAirMainAdapter: PagedListAdapter<OnAirTVResult, OnAirMainAdapter.OnAirMainViewHolder>(diffUtil) {
+typealias onAirItemClickListener = (OnAirTVResult) -> Unit
+
+class OnAirMainAdapter(private val clickListener: onAirItemClickListener):
+    PagedListAdapter<OnAirTVResult, OnAirMainAdapter.OnAirMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnAirMainViewHolder {
         return OnAirMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -39,7 +42,7 @@ class OnAirMainAdapter: PagedListAdapter<OnAirTVResult, OnAirMainAdapter.OnAirMa
         }
     }
 
-    inner  class OnAirMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner  class OnAirMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -54,6 +57,15 @@ class OnAirMainAdapter: PagedListAdapter<OnAirTVResult, OnAirMainAdapter.OnAirMa
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val onAir = getItem(adapterPosition)
+            onAir?.let { clickListener.invoke(it) }
         }
     }
 }

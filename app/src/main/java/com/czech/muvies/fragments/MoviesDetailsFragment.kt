@@ -4,40 +4,28 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
-import com.czech.muvies.viewModels.DetailsViewModel
-import kotlinx.android.synthetic.main.details_fragment.*
-import kotlinx.android.synthetic.main.paged_list.view.*
-import java.time.DateTimeException
+import kotlinx.android.synthetic.main.movies_details_fragment.*
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MoviesDetailsFragment : Fragment() {
-
-    private lateinit var viewModel: DetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-
-        return inflater.inflate(R.layout.details_fragment, container, false)
+        return inflater.inflate(R.layout.movies_details_fragment, container, false)
     }
 
     @SuppressLint("SetTextI18n")

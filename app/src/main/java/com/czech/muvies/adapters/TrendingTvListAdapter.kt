@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,10 +10,13 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TrendingTvListBinding
+import com.czech.muvies.models.TopRatedTVResult
 import com.czech.muvies.models.TrendingTvResult
 import kotlinx.android.synthetic.main.trending_tv_list.view.*
 
-class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>):
+typealias trendingTvSItemClickListener = (TrendingTvResult) -> Unit
+
+class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>, private val clickListener: trendingTvSItemClickListener):
     RecyclerView.Adapter<TrendingTvListAdapter.TrendingTvListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingTvListViewHolder {
@@ -34,8 +38,8 @@ class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>):
         notifyDataSetChanged()
     }
 
-    class TrendingTvListViewHolder(layoutInflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.trending_tv_list, parent, false)) {
+    inner class TrendingTvListViewHolder(layoutInflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.trending_tv_list, parent, false)), View.OnClickListener {
 
         val binding = TrendingTvListBinding.inflate(layoutInflater)
 
@@ -50,6 +54,15 @@ class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>):
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val trending = list[adapterPosition]
+            clickListener.invoke(trending)
         }
 
     }

@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,9 +11,12 @@ import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.AiringTodayListBinding
 import com.czech.muvies.models.AiringTodayTvResult
+import com.czech.muvies.models.InTheatersResult
 import kotlinx.android.synthetic.main.airing_today_list.view.*
 
-class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>):
+typealias airingTodaySItemClickListener = (AiringTodayTvResult) -> Unit
+
+class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>, private val clickListener: airingTodaySItemClickListener):
     RecyclerView.Adapter<AiringTodayListAdapter.AiringTodayListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AiringTodayListViewHolder {
@@ -34,8 +38,8 @@ class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>)
         notifyDataSetChanged()
     }
 
-    class AiringTodayListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.airing_today_list, parent, false)) {
+    inner class AiringTodayListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.airing_today_list, parent, false)), View.OnClickListener {
 
         val binding = AiringTodayListBinding.inflate(inflater)
 
@@ -50,6 +54,15 @@ class AiringTodayListAdapter(private var list: MutableList<AiringTodayTvResult>)
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val airingToday = list[adapterPosition]
+            clickListener.invoke(airingToday)
         }
 
     }

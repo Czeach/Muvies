@@ -14,7 +14,10 @@ import com.czech.muvies.R
 import com.czech.muvies.models.AiringTodayTvResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class AiringTodayMainAdapter: PagedListAdapter<AiringTodayTvResult, AiringTodayMainAdapter.AiringTodayMainViewHolder>(diffUtil) {
+typealias airingTodayItemClickListener = (AiringTodayTvResult) -> Unit
+
+class AiringTodayMainAdapter(private val clickListener: airingTodayItemClickListener):
+    PagedListAdapter<AiringTodayTvResult, AiringTodayMainAdapter.AiringTodayMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AiringTodayMainViewHolder {
         return AiringTodayMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -38,7 +41,7 @@ class AiringTodayMainAdapter: PagedListAdapter<AiringTodayTvResult, AiringTodayM
         }
     }
 
-    inner class AiringTodayMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class AiringTodayMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -53,6 +56,15 @@ class AiringTodayMainAdapter: PagedListAdapter<AiringTodayTvResult, AiringTodayM
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val airingToday = getItem(adapterPosition)
+            airingToday?.let { clickListener.invoke(it) }
         }
     }
 }
