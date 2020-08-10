@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TrendingShowsFragmentBinding
+import com.czech.muvies.models.TrendingTvResult
 import com.czech.muvies.pagedAdapters.TrendingShowsMainAdapter
+import com.czech.muvies.pagedAdapters.trendingTvItemClickListener
 import com.czech.muvies.viewModels.TrendingShowsViewModel
 
 class TrendingShowsFragment : Fragment() {
@@ -17,7 +20,19 @@ class TrendingShowsFragment : Fragment() {
     private lateinit var viewModel: TrendingShowsViewModel
     private lateinit var binding: TrendingShowsFragmentBinding
 
-    private val trendingAdapter = TrendingShowsMainAdapter()
+    private val trendingClickListener by lazy {
+        object : trendingTvItemClickListener {
+            override fun invoke(it: TrendingTvResult) {
+                val args = TrendingShowsFragmentDirections.actionTrendingShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, it, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val trendingAdapter = TrendingShowsMainAdapter(trendingClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -12,10 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
-import com.czech.muvies.models.AiringTodayTvResult
-import com.czech.muvies.models.OnAirTVResult
-import com.czech.muvies.models.PopularTVResult
-import com.czech.muvies.models.TopRatedTVResult
+import com.czech.muvies.models.*
 import com.czech.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
@@ -83,8 +80,20 @@ class TvShowsFragment : Fragment() {
     private var topRatedTvAdapter =
         TopRatedTvListAdapter(arrayListOf(), topRatedTvClickListener)
 
+    private val trendingClickListener by lazy {
+        object : trendingTvSItemClickListener {
+            override fun invoke(it: TrendingTvResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var trendingTvAdapter =
-        TrendingTvListAdapter(arrayListOf())
+        TrendingTvListAdapter(arrayListOf(), trendingClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

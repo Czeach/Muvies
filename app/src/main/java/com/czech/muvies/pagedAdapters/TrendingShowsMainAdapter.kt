@@ -11,10 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.adapters.trendingTvSItemClickListener
 import com.czech.muvies.models.TrendingTvResult
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-class TrendingShowsMainAdapter: PagedListAdapter<TrendingTvResult, TrendingShowsMainAdapter.TrendingShowsMainViewHolder>(diffUtil) {
+typealias trendingTvItemClickListener = (TrendingTvResult) -> Unit
+
+class TrendingShowsMainAdapter(private val clickListener: trendingTvItemClickListener):
+    PagedListAdapter<TrendingTvResult, TrendingShowsMainAdapter.TrendingShowsMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingShowsMainViewHolder {
         return TrendingShowsMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -44,7 +48,7 @@ class TrendingShowsMainAdapter: PagedListAdapter<TrendingTvResult, TrendingShows
         }
     }
 
-    inner class TrendingShowsMainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class TrendingShowsMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -59,6 +63,15 @@ class TrendingShowsMainAdapter: PagedListAdapter<TrendingTvResult, TrendingShows
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val trending = getItem(adapterPosition)
+            trending?.let { clickListener.invoke(it) }
         }
     }
 }
