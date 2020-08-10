@@ -1,6 +1,7 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +13,9 @@ import com.czech.muvies.databinding.TopRatedTvListBinding
 import com.czech.muvies.models.TopRatedTVResult
 import kotlinx.android.synthetic.main.top_rated_tv_list.view.*
 
-class TopRatedTvListAdapter(private var list: MutableList<TopRatedTVResult>):
+typealias topRatedTvSItemClickListener = (TopRatedTVResult) -> Unit
+
+class TopRatedTvListAdapter(private var list: MutableList<TopRatedTVResult>, private val clickListener: topRatedTvSItemClickListener):
     RecyclerView.Adapter<TopRatedTvListAdapter.TopRatedTvListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedTvListViewHolder {
@@ -34,8 +37,8 @@ class TopRatedTvListAdapter(private var list: MutableList<TopRatedTVResult>):
         notifyDataSetChanged()
     }
 
-    class TopRatedTvListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.top_rated_tv_list, parent, false)) {
+    inner class TopRatedTvListViewHolder(inflater: LayoutInflater, parent: ViewGroup):
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.top_rated_tv_list, parent, false)), View.OnClickListener {
 
         val binding = TopRatedTvListBinding.inflate(inflater)
 
@@ -50,6 +53,15 @@ class TopRatedTvListAdapter(private var list: MutableList<TopRatedTVResult>):
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val topRated = list[adapterPosition]
+            clickListener.invoke(topRated)
         }
     }
 

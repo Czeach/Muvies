@@ -59,6 +59,10 @@ class PopularShowsMainAdapter(private val clickListener: popularTvItemClickListe
                 .into(poster)
         }
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         override fun onClick(v: View?) {
             val popular = getItem(adapterPosition)
             popular?.let { clickListener.invoke(it) }

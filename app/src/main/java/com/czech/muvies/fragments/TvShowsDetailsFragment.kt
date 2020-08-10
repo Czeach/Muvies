@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import kotlinx.android.synthetic.main.movies_details_fragment.*
 import kotlinx.android.synthetic.main.movies_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movies_details_fragment.lang_text
 import kotlinx.android.synthetic.main.movies_details_fragment.overview
@@ -44,7 +43,9 @@ class TvShowsDetailsFragment : Fragment() {
         val airingTodayArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
         val onAirSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).onAirSArgs
         val onAirArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).onAirArgs
-        val populatTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvSArgs
+        val popularTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvSArgs
+        val popularTvArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvArgs
+        val topRatedTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvSArgs
 
         if (airingTodaySArgs != null) {
             Glide.with(this)
@@ -174,21 +175,21 @@ class TvShowsDetailsFragment : Fragment() {
             overview.text = onAirArgs.overview
         }
 
-        if (populatTvSArgs != null) {
+        if (popularTvSArgs != null) {
             Glide.with(this)
-                .load("$BASE_IMAGE_PATH${populatTvSArgs.backdropPath}")
+                .load("$BASE_IMAGE_PATH${popularTvSArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
             Glide.with(this)
-                .load("$BASE_IMAGE_PATH${populatTvSArgs.posterPath}")
+                .load("$BASE_IMAGE_PATH${popularTvSArgs.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
                 .into(poster)
 
-            name.text = populatTvSArgs.name
+            name.text = popularTvSArgs.name
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(populatTvSArgs.firstAirDate + " 09:10:46", dateFormatter)
+            val date = LocalDate.parse(popularTvSArgs.firstAirDate + " 09:10:46", dateFormatter)
 
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
@@ -196,14 +197,78 @@ class TvShowsDetailsFragment : Fragment() {
             release_date.text = "$month $year"
 
             val ratingBar = rating_bar
-            val rating = populatTvSArgs.voteAverage/2
+            val rating = popularTvSArgs.voteAverage/2
             ratingBar.rating = rating.toFloat()
 
-            rating_fraction.text = populatTvSArgs.voteAverage.toFloat().toString() + "/10.0"
+            rating_fraction.text = popularTvSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = populatTvSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = popularTvSArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
-            overview.text = populatTvSArgs.overview
+            overview.text = popularTvSArgs.overview
+        }
+
+        if (popularTvArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${popularTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${popularTvArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            name.text = popularTvArgs.name
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(popularTvArgs.firstAirDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = popularTvArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = popularTvArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = popularTvArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = popularTvArgs.overview
+        }
+
+        if (topRatedTvSArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvSArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            name.text = topRatedTvSArgs.name
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(topRatedTvSArgs.firstAirDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = topRatedTvSArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = topRatedTvSArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = topRatedTvSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = topRatedTvSArgs.overview
         }
     }
 }

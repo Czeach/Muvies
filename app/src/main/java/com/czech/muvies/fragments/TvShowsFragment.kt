@@ -15,6 +15,7 @@ import com.czech.muvies.databinding.TvShowsFragmentBinding
 import com.czech.muvies.models.AiringTodayTvResult
 import com.czech.muvies.models.OnAirTVResult
 import com.czech.muvies.models.PopularTVResult
+import com.czech.muvies.models.TopRatedTVResult
 import com.czech.muvies.viewModels.TvShowsViewModel
 
 class TvShowsFragment : Fragment() {
@@ -67,8 +68,20 @@ class TvShowsFragment : Fragment() {
     private var popularTvAdapter =
         PopularTvListAdapter(arrayListOf(), popularTvClickListener)
 
+    private val topRatedTvClickListener by lazy { 
+        object : topRatedTvSItemClickListener {
+            override fun invoke(it: TopRatedTVResult) {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, it, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
     private var topRatedTvAdapter =
-        TopRatedTvListAdapter(arrayListOf())
+        TopRatedTvListAdapter(arrayListOf(), topRatedTvClickListener)
 
     private var trendingTvAdapter =
         TrendingTvListAdapter(arrayListOf())

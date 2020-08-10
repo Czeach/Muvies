@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.PopularShowsFragmentBinding
+import com.czech.muvies.models.PopularTVResult
 import com.czech.muvies.pagedAdapters.PopularShowsMainAdapter
+import com.czech.muvies.pagedAdapters.popularTvItemClickListener
 import com.czech.muvies.viewModels.PopularShowsViewModel
 
 class PopularShowsFragment : Fragment() {
@@ -17,7 +20,19 @@ class PopularShowsFragment : Fragment() {
     private lateinit var viewModel: PopularShowsViewModel
     private lateinit var binding: PopularShowsFragmentBinding
 
-    private val popularShowsAdapter = PopularShowsMainAdapter()
+    private val popularClickListener by lazy {
+        object : popularTvItemClickListener {
+            override fun invoke(it: PopularTVResult) {
+                val args = PopularShowsFragmentDirections.actionPopularShowsFragmentToTvShowsDetailsFragment(
+                    null, null, null, null, it, null,
+                    null, null, null, null
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val popularShowsAdapter = PopularShowsMainAdapter(popularClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

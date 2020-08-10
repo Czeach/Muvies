@@ -9,7 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TopRatedShowsFragmentBinding
+import com.czech.muvies.models.TopRatedTVResult
 import com.czech.muvies.pagedAdapters.TopRatedShowsMainAdapter
+import com.czech.muvies.pagedAdapters.topRatedTvItemClickListener
 import com.czech.muvies.viewModels.TopRatedShowsViewModel
 
 class TopRatedShowsFragment : Fragment() {
@@ -17,7 +19,15 @@ class TopRatedShowsFragment : Fragment() {
     private lateinit var viewModel: TopRatedShowsViewModel
     private lateinit var binding: TopRatedShowsFragmentBinding
 
-    private val topRatedAdapter = TopRatedShowsMainAdapter()
+    private val topRatedClickListener by lazy {
+        object : topRatedTvItemClickListener {
+            override fun invoke(it: TopRatedTVResult) {
+
+            }
+
+        }
+    }
+    private val topRatedAdapter = TopRatedShowsMainAdapter(topRatedClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
