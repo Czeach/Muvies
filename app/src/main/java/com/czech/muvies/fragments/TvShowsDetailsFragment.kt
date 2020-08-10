@@ -46,6 +46,7 @@ class TvShowsDetailsFragment : Fragment() {
         val popularTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvSArgs
         val popularTvArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvArgs
         val topRatedTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvSArgs
+        val topRatedTvArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvArgs
 
         if (airingTodaySArgs != null) {
             Glide.with(this)
@@ -269,6 +270,38 @@ class TvShowsDetailsFragment : Fragment() {
             lang_text.text = topRatedTvSArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
             overview.text = topRatedTvSArgs.overview
+        }
+
+        if (topRatedTvArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvArgs.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(poster)
+
+            name.text = topRatedTvArgs.name
+
+            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val date = LocalDate.parse(topRatedTvArgs.firstAirDate + " 09:10:46", dateFormatter)
+
+            val year = date.year.toString()
+            val month = date.month.toString().toLowerCase(Locale.ROOT)
+
+            release_date.text = "$month $year"
+
+            val ratingBar = rating_bar
+            val rating = topRatedTvArgs.voteAverage/2
+            ratingBar.rating = rating.toFloat()
+
+            rating_fraction.text = topRatedTvArgs.voteAverage.toFloat().toString() + "/10.0"
+
+            lang_text.text = topRatedTvArgs.originalLanguage.toUpperCase(Locale.ROOT)
+
+            overview.text = topRatedTvArgs.overview
         }
     }
 }
