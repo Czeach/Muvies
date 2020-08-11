@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.viewModels.MoviesDetailsViewModel
+import com.czech.muvies.viewModels.TvShowsDetailsViewModel
 import kotlinx.android.synthetic.main.movies_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movies_details_fragment.lang_text
 import kotlinx.android.synthetic.main.movies_details_fragment.overview
@@ -25,6 +28,8 @@ import java.util.*
 
 class TvShowsDetailsFragment : Fragment() {
 
+    private lateinit var viewModel: TvShowsDetailsViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +43,8 @@ class TvShowsDetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(TvShowsDetailsViewModel::class.java)
 
         val airingTodaySArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
         val airingTodayArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs

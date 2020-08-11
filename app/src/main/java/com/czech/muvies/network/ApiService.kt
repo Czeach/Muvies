@@ -4,10 +4,12 @@ import com.czech.muvies.models.Movies
 import com.czech.muvies.models.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val BASE_URL = "https://api.themoviedb.org/3/"
@@ -163,6 +165,12 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("page") page: Int
     ): Response<TvShows>
+
+    @GET("movie/{id}")
+    suspend fun getMovieDetailsAsync(@Path("id") movieId: Int,
+                        @Query("api_key") apiKey: String,
+                        @Query("language") language: String
+    ): ArrayList<MovieDetails>
 }
 
 object MoviesApi {

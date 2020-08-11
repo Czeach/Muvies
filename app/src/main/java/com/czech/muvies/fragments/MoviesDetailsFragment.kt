@@ -9,16 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.viewModels.MoviesDetailsViewModel
+import com.czech.muvies.viewModels.PopularShowsViewModel
 import kotlinx.android.synthetic.main.movies_details_fragment.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MoviesDetailsFragment : Fragment() {
+
+    private lateinit var viewModel: MoviesDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +37,8 @@ class MoviesDetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(MoviesDetailsViewModel::class.java)
 
         val inTheatersArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterArgs
         val inTheatersSArgs =   MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterSArgs

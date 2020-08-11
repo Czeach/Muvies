@@ -4,7 +4,6 @@ package com.czech.muvies.models
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class MovieDetails(
@@ -12,7 +11,7 @@ data class MovieDetails(
     @SerializedName("backdrop_path")
     val backdropPath: String? = null,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: @RawValue Any? = null,
+    val belongsToCollection: BelongsToCollection? = null,
     val budget: Int? = null,
     val genres: List<Genre?>? = null,
     val homepage: String? = null,
@@ -48,6 +47,16 @@ data class MovieDetails(
 ): Parcelable
 
 @Parcelize
+data class BelongsToCollection(
+    @SerializedName("backdrop_path")
+    val backdropPath: String? = null,
+    val id: Int? = null,
+    val name: String? = null,
+    @SerializedName("poster_path")
+    val posterPath: String? = null
+):Parcelable
+
+@Parcelize
 data class Genre(
     val id: Int? = null,
     val name: String? = null
@@ -75,4 +84,4 @@ data class SpokenLanguage(
     @SerializedName("iso_639_1")
     val iso6391: String? = null,
     val name: String? = null
-):Parcelable
+): Parcelable

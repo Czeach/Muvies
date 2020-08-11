@@ -6,6 +6,7 @@ import com.czech.muvies.models.*
 import com.czech.muvies.utils.BaseRepository
 
 class MoviesRepository(private val apiService: MoviesApiService): BaseRepository() {
+
     suspend fun getUpcomingMovies(): MutableList<MoviesResult>? {
         val upcomingMoviesResponse = safeCall(
             call = {apiService.getUpcomingMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
