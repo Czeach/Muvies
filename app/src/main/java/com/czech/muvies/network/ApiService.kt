@@ -171,7 +171,7 @@ interface MoviesApiService {
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): ArrayList<MovieDetails>
+    ): MovieDetails
 }
 
 object MoviesApi {

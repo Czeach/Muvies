@@ -1,9 +1,6 @@
 package com.czech.muvies.viewModels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
 import com.czech.muvies.models.MovieDetails
@@ -18,7 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class MoviesDetailsViewModel(private val apiService: MoviesApiService) : ViewModel() {
+class MovieDetailsViewModel(private val apiService: MoviesApiService) : ViewModel() {
 
     private val movie = MoviesResult()
 
@@ -29,5 +26,16 @@ class MoviesDetailsViewModel(private val apiService: MoviesApiService) : ViewMod
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error getting movie details"))
         }
+    }
+
+}
+
+class MovieDetailsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {
+
+    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MovieDetailsViewModel::class.java)) {
+            return MovieDetailsViewModel(apiService) as T
+        }
+        throw IllegalArgumentException("Unknown class name")
     }
 }

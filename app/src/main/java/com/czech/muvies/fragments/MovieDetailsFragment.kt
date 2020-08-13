@@ -14,23 +14,34 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
-import com.czech.muvies.viewModels.MoviesDetailsViewModel
-import com.czech.muvies.viewModels.PopularShowsViewModel
-import kotlinx.android.synthetic.main.movies_details_fragment.*
+import com.czech.muvies.databinding.MovieDetailsFragmentBinding
+import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.Status
+import com.czech.muvies.viewModels.MovieDetailsViewModel
+import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
+import kotlinx.android.synthetic.main.movie_details_fragment.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class MoviesDetailsFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
 
-    private lateinit var viewModel: MoviesDetailsViewModel
+    private lateinit var viewModel: MovieDetailsViewModel
+    private lateinit var binding: MovieDetailsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.movies_details_fragment, container, false)
+        binding = MovieDetailsFragmentBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this, MovieDetailsViewModelFactory(MoviesApiService.getService()))
+            .get(MovieDetailsViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.moviesDetailsViewModel = viewModel
+
+
+        return inflater.inflate(R.layout.movie_details_fragment, container, false)
     }
 
     @SuppressLint("SetTextI18n")
@@ -38,20 +49,16 @@ class MoviesDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MoviesDetailsViewModel::class.java)
-
-
-
-        val inTheatersArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterArgs
-        val inTheatersSArgs =   MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterSArgs
-        val upcomingArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).upcomingArgs
-        val upcomingSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).upcomingSArgs
-        val popularArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).popularArgs
-        val popularSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).popularSArgs
-        val topRatedSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).topRatedSArgs
-        val topRatedArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).topRatedArgs
-        val trendingSArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).trendingSArgs
-        val trendingArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
+        val inTheatersArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterArgs
+        val inTheatersSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterSArgs
+        val upcomingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).upcomingArgs
+        val upcomingSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).upcomingSArgs
+        val popularArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).popularArgs
+        val popularSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).popularSArgs
+        val topRatedSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).topRatedSArgs
+        val topRatedArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).topRatedArgs
+        val trendingSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingSArgs
+        val trendingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
 
         if (inTheatersArgs != null) {
             Glide.with(this)
@@ -80,9 +87,27 @@ class MoviesDetailsFragment : Fragment() {
 
             rating_fraction.text = inTheatersArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = inTheatersArgs.originalLanguage.toUpperCase(Locale.ROOT)
+//            lang_text.text = inTheatersArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
             overview.text = inTheatersArgs.overview
+
+            viewModel.getMovieDetails(inTheatersArgs.id).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                it?.let {resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            resource.data.let {details ->
+                                lang_text.text = details?.originalLanguage
+                            }
+                        }
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                    }
+                }
+            })
         }
 
         if (inTheatersSArgs != null) {
@@ -112,7 +137,7 @@ class MoviesDetailsFragment : Fragment() {
 
             rating_fraction.text = inTheatersSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = inTheatersSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+//            lang_text.text = inTheatersSArgs.originalLanguage.toUpperCase(Locale.ROOT)
 
             overview.text = inTheatersSArgs.overview
         }

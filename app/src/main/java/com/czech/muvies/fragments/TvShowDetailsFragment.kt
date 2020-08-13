@@ -12,23 +12,22 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.viewModels.MoviesDetailsViewModel
-import com.czech.muvies.viewModels.TvShowsDetailsViewModel
-import kotlinx.android.synthetic.main.movies_details_fragment.backdrop
-import kotlinx.android.synthetic.main.movies_details_fragment.lang_text
-import kotlinx.android.synthetic.main.movies_details_fragment.overview
-import kotlinx.android.synthetic.main.movies_details_fragment.poster
-import kotlinx.android.synthetic.main.movies_details_fragment.rating_bar
-import kotlinx.android.synthetic.main.movies_details_fragment.rating_fraction
-import kotlinx.android.synthetic.main.movies_details_fragment.release_date
-import kotlinx.android.synthetic.main.tv_shows_details_fragment.*
+import com.czech.muvies.viewModels.TvShowDetailsViewModel
+import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
+import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
+import kotlinx.android.synthetic.main.movie_details_fragment.overview
+import kotlinx.android.synthetic.main.movie_details_fragment.poster
+import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
+import kotlinx.android.synthetic.main.movie_details_fragment.rating_fraction
+import kotlinx.android.synthetic.main.movie_details_fragment.release_date
+import kotlinx.android.synthetic.main.tv_show_details_fragment.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class TvShowsDetailsFragment : Fragment() {
+class TvShowDetailsFragment : Fragment() {
 
-    private lateinit var viewModel: TvShowsDetailsViewModel
+    private lateinit var viewModel: TvShowDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +35,7 @@ class TvShowsDetailsFragment : Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.tv_shows_details_fragment, container, false)
+        return inflater.inflate(R.layout.tv_show_details_fragment, container, false)
     }
 
     @SuppressLint("SetTextI18n")
@@ -44,18 +43,18 @@ class TvShowsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(TvShowsDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TvShowDetailsViewModel::class.java)
 
-        val airingTodaySArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
-        val airingTodayArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
-        val onAirSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).onAirSArgs
-        val onAirArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).onAirArgs
-        val popularTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvSArgs
-        val popularTvArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).popularTvArgs
-        val topRatedTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvSArgs
-        val topRatedTvArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvArgs
-        val trendingTvSArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvSArgs
-        val trendingTvArgs = TvShowsDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
+        val airingTodaySArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
+        val airingTodayArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
+        val onAirSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).onAirSArgs
+        val onAirArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).onAirArgs
+        val popularTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).popularTvSArgs
+        val popularTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).popularTvArgs
+        val topRatedTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvSArgs
+        val topRatedTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvArgs
+        val trendingTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvSArgs
+        val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
 
         if (airingTodaySArgs != null) {
             Glide.with(this)

@@ -146,9 +146,9 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.czech.muvies.fragments.MoviesDetailsFragment"
+        android:name="com.czech.muvies.fragments.MovieDetailsFragment"
         android:label=""
-        tools:layout="@layout/movies_details_fragment" >
+        tools:layout="@layout/movie_details_fragment" >
         <argument
             android:name="inTheaterArgs"
             app:argType="com.czech.muvies.models.MoviesResult"
@@ -197,9 +197,9 @@
         tools:layout="@layout/favorites_fragment" />
     <fragment
         android:id="@+id/tvShowsDetailsFragment"
-        android:name="com.czech.muvies.fragments.TvShowsDetailsFragment"
+        android:name="com.czech.muvies.fragments.TvShowDetailsFragment"
         android:label=""
-        tools:layout="@layout/tv_shows_details_fragment" >
+        tools:layout="@layout/tv_show_details_fragment" >
         <argument
             android:name="airingTodayArgs"
             app:argType="com.czech.muvies.models.TvShowsResult"
