@@ -40,6 +40,8 @@ class MoviesDetailsFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MoviesDetailsViewModel::class.java)
 
+
+
         val inTheatersArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterArgs
         val inTheatersSArgs =   MoviesDetailsFragmentArgs.fromBundle(requireArguments()).inTheaterSArgs
         val upcomingArgs = MoviesDetailsFragmentArgs.fromBundle(requireArguments()).upcomingArgs

@@ -167,9 +167,10 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("movie/{id}")
-    suspend fun getMovieDetailsAsync(@Path("id") movieId: Int,
-                        @Query("api_key") apiKey: String,
-                        @Query("language") language: String
+    suspend fun getMovieDetails(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
     ): ArrayList<MovieDetails>
 }
 
