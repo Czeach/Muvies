@@ -1,6 +1,7 @@
 package com.czech.muvies.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,8 +12,13 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
+import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
+import com.czech.muvies.viewModels.TvShowDetailsViewModelFactory
 import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
 import kotlinx.android.synthetic.main.movie_details_fragment.overview
@@ -27,22 +33,27 @@ import java.util.*
 class TvShowDetailsFragment : Fragment() {
 
     private lateinit var viewModel: TvShowDetailsViewModel
+    private lateinit var binding: TvShowDetailsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        binding = TvShowDetailsFragmentBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this, TvShowDetailsViewModelFactory(MoviesApiService.getService()))
+            .get(TvShowDetailsViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.tvShowsDetailsViewModel = viewModel
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.tv_show_details_fragment, container, false)
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(TvShowDetailsViewModel::class.java)
 
         val airingTodaySArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
         val airingTodayArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
@@ -60,11 +71,6 @@ class TvShowDetailsFragment : Fragment() {
                 .load("$BASE_IMAGE_PATH${airingTodaySArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
-
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${airingTodaySArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
 
             name.text = airingTodaySArgs.name
 
@@ -93,11 +99,6 @@ class TvShowDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${airingTodayArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             name.text = airingTodayArgs.name
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -124,11 +125,6 @@ class TvShowDetailsFragment : Fragment() {
                 .load("$BASE_IMAGE_PATH${onAirSArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
-
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${onAirSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
 
             name.text = onAirSArgs.name
 
@@ -157,11 +153,6 @@ class TvShowDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${onAirArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             name.text = onAirArgs.name
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -188,11 +179,6 @@ class TvShowDetailsFragment : Fragment() {
                 .load("$BASE_IMAGE_PATH${popularTvSArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
-
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${popularTvSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
 
             name.text = popularTvSArgs.name
 
@@ -221,11 +207,6 @@ class TvShowDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${popularTvArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             name.text = popularTvArgs.name
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -252,11 +233,6 @@ class TvShowDetailsFragment : Fragment() {
                 .load("$BASE_IMAGE_PATH${topRatedTvSArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
-
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${topRatedTvSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
 
             name.text = topRatedTvSArgs.name
 
@@ -285,11 +261,6 @@ class TvShowDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${topRatedTvArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             name.text = topRatedTvArgs.name
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -316,11 +287,6 @@ class TvShowDetailsFragment : Fragment() {
                 .load("$BASE_IMAGE_PATH${trendingTvSArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
-
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${trendingTvSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
 
             name.text = trendingTvSArgs.name
 
@@ -349,11 +315,6 @@ class TvShowDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${trendingTvArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             name.text = trendingTvArgs.name
 
             val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -374,5 +335,39 @@ class TvShowDetailsFragment : Fragment() {
 
             overview.text = trendingTvArgs.overview
         }
+    }
+
+    fun getDetails(showId: Int) {
+
+        viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let { details ->
+
+                            if (details != null) {
+
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
+        })
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        (activity as MainActivity).showBottomNavigation()
     }
 }

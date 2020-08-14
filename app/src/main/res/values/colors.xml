@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#A6060C</color>
-    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorPrimaryDark">#190405</color>
     <color name="colorAccent">#CABCBB</color>
     <color name="colorAccentLight">#BDBDBD</color>
     <color name="colorAccentDark">#825F5C</color>
     <color name="colorBackground">#160000</color>
     <color name="colorRating">#FFD600</color>
-    <color name="colorBackgroundLight">#424242</color>
-    <color name="colorBackgroundTrans">#70424242</color>
+    <color name="colorBackgroundLight">#534343</color>
+    <color name="colorBackgroundTrans">#70160000</color>
     <color name="bottomNavIconColor">#A6060C</color>
 
 </resources>

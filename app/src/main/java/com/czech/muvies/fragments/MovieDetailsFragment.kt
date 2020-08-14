@@ -39,8 +39,7 @@ class MovieDetailsFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.moviesDetailsViewModel = viewModel
 
-
-        return inflater.inflate(R.layout.movie_details_fragment, container, false)
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
@@ -275,7 +274,6 @@ class MovieDetailsFragment : Fragment() {
             it?.let {resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        Toast.makeText(requireContext(), "Details successful", Toast.LENGTH_LONG).show()
                         resource.data.let {details ->
 
                             if (details != null) {
