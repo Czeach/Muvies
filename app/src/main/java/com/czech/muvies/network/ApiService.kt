@@ -172,6 +172,13 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): MovieDetails
+
+    @GET("tv/48866")
+    suspend fun getTvShowsDetails(
+        @Path("id") tvShowsId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): TvShowDetails
 }
 
 object MoviesApi {
