@@ -94,6 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginBottom="8dp"
                         android:numStars="5"
                         android:progressBackgroundTint="@color/colorAccentDark"
                         android:progressTint="@color/colorRating"
@@ -178,7 +179,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/backdrop" />
 
             <TextView
-                android:id="@+id/overview"
+                android:id="@+id/synopsis"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -196,7 +197,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/overview">
+                app:layout_constraintTop_toBottomOf="@+id/synopsis">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -243,29 +244,6 @@
                         app:layout_constraintTop_toTopOf="@+id/textView" />
 
                     <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif"
-                        android:text="Episode Runtime:"
-                        android:textColor="@color/colorAccentDark"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/original_name" />
-
-                    <TextView
-                        android:id="@+id/time"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/colorAccentLight"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/original_name"
-                        app:layout_constraintStart_toStartOf="@+id/original_name"
-                        app:layout_constraintTop_toTopOf="@+id/textView2" />
-
-                    <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -274,8 +252,8 @@
                         android:text="Status:"
                         android:textColor="@color/colorAccentDark"
                         android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="@+id/textView2"
-                        app:layout_constraintTop_toBottomOf="@+id/time" />
+                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/original_name" />
 
                     <TextView
                         android:id="@+id/status"
@@ -284,8 +262,8 @@
                         android:fontFamily="sans-serif"
                         android:textColor="@color/colorAccentLight"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/time"
-                        app:layout_constraintStart_toStartOf="@+id/time"
+                        app:layout_constraintEnd_toEndOf="@+id/original_name"
+                        app:layout_constraintStart_toStartOf="@+id/original_name"
                         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
                     <TextView

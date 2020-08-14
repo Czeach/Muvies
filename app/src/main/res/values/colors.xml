@@ -8,7 +8,7 @@
     <color name="colorBackground">#160000</color>
     <color name="colorRating">#FFD600</color>
     <color name="colorBackgroundLight">#534343</color>
-    <color name="colorBackgroundTrans">#70160000</color>
+    <color name="colorBackgroundTrans">#90160000</color>
     <color name="bottomNavIconColor">#A6060C</color>
 
 </resources>
