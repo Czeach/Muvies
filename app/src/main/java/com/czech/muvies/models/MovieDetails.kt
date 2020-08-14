@@ -44,44 +44,45 @@ data class MovieDetails(
     val voteAverage: Double? = null,
     @SerializedName("vote_count")
     val voteCount: Int? = null
-): Parcelable
+): Parcelable {
 
-@Parcelize
-data class BelongsToCollection(
-    @SerializedName("backdrop_path")
-    val backdropPath: String? = null,
-    val id: Int? = null,
-    val name: String? = null,
-    @SerializedName("poster_path")
-    val posterPath: String? = null
-):Parcelable
+    @Parcelize
+    data class BelongsToCollection(
+        @SerializedName("backdrop_path")
+        val backdropPath: String? = null,
+        val id: Int? = null,
+        val name: String? = null,
+        @SerializedName("poster_path")
+        val posterPath: String? = null
+    ):Parcelable
 
-@Parcelize
-data class Genre(
-    val id: Int? = null,
-    val name: String? = null
-): Parcelable
+    @Parcelize
+    data class Genre(
+        val id: Int? = null,
+        val name: String? = null
+    ): Parcelable
 
-@Parcelize
-data class ProductionCompany(
-    val id: Int? = null,
-    @SerializedName("logo_path")
-    val logoPath: String? = null,
-    val name: String? = null,
-    @SerializedName("origin_country")
-    val originCountry: String? = null
-): Parcelable
+    @Parcelize
+    data class ProductionCompany(
+        val id: Int? = null,
+        @SerializedName("logo_path")
+        val logoPath: String? = null,
+        val name: String? = null,
+        @SerializedName("origin_country")
+        val originCountry: String? = null
+    ): Parcelable
 
-@Parcelize
-data class ProductionCountry(
-    @SerializedName("iso_3166_1")
-    val iso31661: String? = null,
-    val name: String? = null
-): Parcelable
+    @Parcelize
+    data class ProductionCountry(
+        @SerializedName("iso_3166_1")
+        val iso31661: String? = null,
+        val name: String? = null
+    ): Parcelable
 
-@Parcelize
-data class SpokenLanguage(
-    @SerializedName("iso_639_1")
-    val iso6391: String? = null,
-    val name: String? = null
-): Parcelable
+    @Parcelize
+    data class SpokenLanguage(
+        @SerializedName("iso_639_1")
+        val iso6391: String? = null,
+        val name: String? = null
+    ): Parcelable
+}

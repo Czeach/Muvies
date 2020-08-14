@@ -32,9 +32,9 @@ class TvShowsViewModel : ViewModel() {
         getTrendingTvList()
     }
 
-    private var _airingTodayLiveData = MutableLiveData<MutableList<TvShowsResult>>()
+    private var _airingTodayLiveData = MutableLiveData<MutableList<TvShows.TvShowsResult>>()
 
-    val airingTodayLiveData: LiveData<MutableList<TvShowsResult>>
+    val airingTodayLiveData: LiveData<MutableList<TvShows.TvShowsResult>>
         get() = _airingTodayLiveData
 
     private fun getAiringTodayList() {
@@ -48,9 +48,9 @@ class TvShowsViewModel : ViewModel() {
         }
     }
 
-    private var _onAirLiveData = MutableLiveData<MutableList<TvShowsResult>>()
+    private var _onAirLiveData = MutableLiveData<MutableList<TvShows.TvShowsResult>>()
 
-    val onAirLiveData: LiveData<MutableList<TvShowsResult>>
+    val onAirLiveData: LiveData<MutableList<TvShows.TvShowsResult>>
         get() = _onAirLiveData
 
     private fun getOnAirList() {
@@ -64,9 +64,9 @@ class TvShowsViewModel : ViewModel() {
         }
     }
 
-    private var _popularTvLiveData = MutableLiveData<MutableList<TvShowsResult>>()
+    private var _popularTvLiveData = MutableLiveData<MutableList<TvShows.TvShowsResult>>()
 
-    val popularTvLiveData: LiveData<MutableList<TvShowsResult>>
+    val popularTvLiveData: LiveData<MutableList<TvShows.TvShowsResult>>
         get() = _popularTvLiveData
 
     private fun getPopularTvList() {
@@ -80,9 +80,9 @@ class TvShowsViewModel : ViewModel() {
         }
     }
 
-    private var _topRatedTvLiveData = MutableLiveData<MutableList<TvShowsResult>>()
+    private var _topRatedTvLiveData = MutableLiveData<MutableList<TvShows.TvShowsResult>>()
 
-    val topRatedTvLiveData: LiveData<MutableList<TvShowsResult>>
+    val topRatedTvLiveData: LiveData<MutableList<TvShows.TvShowsResult>>
         get() = _topRatedTvLiveData
 
     private fun getTopRatedTvList() {
@@ -96,9 +96,9 @@ class TvShowsViewModel : ViewModel() {
         }
     }
 
-    private var _trendingTvLiveData = MutableLiveData<MutableList<TvShowsResult>>()
+    private var _trendingTvLiveData = MutableLiveData<MutableList<TvShows.TvShowsResult>>()
 
-    val trendingTvLiveData: LiveData<MutableList<TvShowsResult>>
+    val trendingTvLiveData: LiveData<MutableList<TvShows.TvShowsResult>>
         get() = _trendingTvLiveData
 
     private fun getTrendingTvList() {

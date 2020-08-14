@@ -25,9 +25,9 @@ class MoviesViewModel : ViewModel() {
 
     private val repository: MoviesRepository = MoviesRepository(MoviesApi.retrofitService)
 
-    private var _upcomingLiveData = MutableLiveData<MutableList<MoviesResult>>()
+    private var _upcomingLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
 
-    val upcomingLiveData: LiveData<MutableList<MoviesResult>>
+    val upcomingLiveData: LiveData<MutableList<Movies.MoviesResult>>
         get() = _upcomingLiveData
 
     init {
@@ -49,9 +49,9 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
-    private var _popularLiveData = MutableLiveData<MutableList<MoviesResult>>()
+    private var _popularLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
 
-    val popularLiveData: LiveData<MutableList<MoviesResult>>
+    val popularLiveData: LiveData<MutableList<Movies.MoviesResult>>
         get() = _popularLiveData
 
     private fun getPopularList() {
@@ -65,9 +65,9 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
-    private var _topRatedLiveData = MutableLiveData<MutableList<MoviesResult>>()
+    private var _topRatedLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
 
-    val topRatedLiveData: LiveData<MutableList<MoviesResult>>
+    val topRatedLiveData: LiveData<MutableList<Movies.MoviesResult>>
         get() = _topRatedLiveData
 
     private fun getTopRatedList() {
@@ -81,9 +81,9 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
-    private var _inTheatersLiveData = MutableLiveData<MutableList<MoviesResult>>()
+    private var _inTheatersLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
 
-    val inTheatersLiveData: LiveData<MutableList<MoviesResult>>
+    val inTheatersLiveData: LiveData<MutableList<Movies.MoviesResult>>
         get() = _inTheatersLiveData
 
     private fun getInTheatersList() {
@@ -97,9 +97,9 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
-    private var _trendingMoviesLiveData = MutableLiveData<MutableList<MoviesResult>>()
+    private var _trendingMoviesLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
 
-    val trendingMoviesLiveData: LiveData<MutableList<MoviesResult>>
+    val trendingMoviesLiveData: LiveData<MutableList<Movies.MoviesResult>>
         get() = _trendingMoviesLiveData
 
     private fun getTrendingMovies() {

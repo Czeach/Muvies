@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.InTheatersFragmentBinding
 import com.czech.muvies.databinding.UpcomingFragmentBinding
-import com.czech.muvies.models.MoviesResult
+import com.czech.muvies.models.Movies
 import com.czech.muvies.pagedAdapters.UpcomingMainAdapter
 import com.czech.muvies.pagedAdapters.upcomingItemClickListener
 import com.czech.muvies.viewModels.UpcomingViewModel
@@ -23,7 +23,7 @@ class UpcomingFragment : Fragment() {
 
     private val upcomingClickListener by lazy {
         object : upcomingItemClickListener {
-            override fun invoke(it: MoviesResult) {
+            override fun invoke(it: Movies.MoviesResult) {
                 val args = UpcomingFragmentDirections.actionUpcomingToDetailsFragment(
                     null, null, it, null, null, null, null,
                     null, null, null

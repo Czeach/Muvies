@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.OnAirListBinding
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.on_air_list.view.*
 
-typealias onAirSItemClickListener = (TvShowsResult) -> Unit
+typealias onAirSItemClickListener = (TvShows.TvShowsResult) -> Unit
 
-class OnAirListAdapter(private var list: MutableList<TvShowsResult>, private val clickListener: onAirSItemClickListener):
+class OnAirListAdapter(private var list: MutableList<TvShows.TvShowsResult>, private val clickListener: onAirSItemClickListener):
     RecyclerView.Adapter<OnAirListAdapter.OnAirListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnAirListViewHolder {
@@ -27,12 +27,12 @@ class OnAirListAdapter(private var list: MutableList<TvShowsResult>, private val
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: OnAirListViewHolder, position: Int) {
-        val tv: TvShowsResult = list[position]
+        val tv: TvShows.TvShowsResult = list[position]
 
         holder.bind(tv)
     }
 
-    fun updateOnAirList(tvList: MutableList<TvShowsResult>) {
+    fun updateOnAirList(tvList: MutableList<TvShows.TvShowsResult>) {
         list = tvList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class OnAirListAdapter(private var list: MutableList<TvShowsResult>, private val
         private var poster: ImageView = itemView.on_air_recycler_image
         private var name: TextView = itemView.on_air_recycler_text
 
-        fun bind(tv: TvShowsResult) {
+        fun bind(tv: TvShows.TvShowsResult) {
             binding.onAirViewModel = tv
 
             name.text = tv.name

@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TopRatedListBinding
-import com.czech.muvies.models.MoviesResult
+import com.czech.muvies.models.Movies
 import kotlinx.android.synthetic.main.top_rated_list.view.*
 
-typealias topRatedSItemClickListener = (MoviesResult) -> Unit
+typealias topRatedSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class TopRatedListAdapter(private var list: MutableList<MoviesResult>, private val clickListener: topRatedSItemClickListener):
+class TopRatedListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: topRatedSItemClickListener):
     RecyclerView.Adapter<TopRatedListAdapter.TopRatedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedViewHolder {
@@ -27,12 +27,12 @@ class TopRatedListAdapter(private var list: MutableList<MoviesResult>, private v
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: TopRatedViewHolder, position: Int) {
-        val movie: MoviesResult = list[position]
+        val movie: Movies.MoviesResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updateTopRatedList(movieList: MutableList<MoviesResult>){
+    fun updateTopRatedList(movieList: MutableList<Movies.MoviesResult>){
         list = movieList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class TopRatedListAdapter(private var list: MutableList<MoviesResult>, private v
         private var poster: ImageView = itemView.top_rated_recycler_image
         private var title: TextView = itemView.top_rated_recycler_text
 
-        fun bind(movie: MoviesResult) {
+        fun bind(movie: Movies.MoviesResult) {
             binding.topRatedViewModel = movie
 
             title.text = movie.title

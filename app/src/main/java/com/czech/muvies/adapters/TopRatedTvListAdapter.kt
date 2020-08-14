@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TopRatedTvListBinding
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.top_rated_tv_list.view.*
 
-typealias topRatedTvSItemClickListener = (TvShowsResult) -> Unit
+typealias topRatedTvSItemClickListener = (TvShows.TvShowsResult) -> Unit
 
-class TopRatedTvListAdapter(private var list: MutableList<TvShowsResult>, private val clickListener: topRatedTvSItemClickListener):
+class TopRatedTvListAdapter(private var list: MutableList<TvShows.TvShowsResult>, private val clickListener: topRatedTvSItemClickListener):
     RecyclerView.Adapter<TopRatedTvListAdapter.TopRatedTvListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedTvListViewHolder {
@@ -27,12 +27,12 @@ class TopRatedTvListAdapter(private var list: MutableList<TvShowsResult>, privat
     override fun getItemCount(): Int =list.size
 
     override fun onBindViewHolder(holder: TopRatedTvListViewHolder, position: Int) {
-        val tv: TvShowsResult = list[position]
+        val tv: TvShows.TvShowsResult = list[position]
 
         holder.bind(tv)
     }
 
-    fun updateTopRatedTvList(tvList: MutableList<TvShowsResult>) {
+    fun updateTopRatedTvList(tvList: MutableList<TvShows.TvShowsResult>) {
         list = tvList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class TopRatedTvListAdapter(private var list: MutableList<TvShowsResult>, privat
         private var poster: ImageView = itemView.top_rated_tv_recycler_image
         private var name: TextView = itemView.top_rated_tv_recycler_text
 
-        fun bind(tv: TvShowsResult) {
+        fun bind(tv: TvShows.TvShowsResult) {
             binding.topRatedTvViewModel = tv
 
             name.text = tv.name

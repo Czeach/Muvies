@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.AiringTodayListBinding
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.airing_today_list.view.*
 
-typealias airingTodaySItemClickListener = (TvShowsResult) -> Unit
+typealias airingTodaySItemClickListener = (TvShows.TvShowsResult) -> Unit
 
-class AiringTodayListAdapter(private var list: MutableList<TvShowsResult>, private val clickListener: airingTodaySItemClickListener):
+class AiringTodayListAdapter(private var list: MutableList<TvShows.TvShowsResult>, private val clickListener: airingTodaySItemClickListener):
     RecyclerView.Adapter<AiringTodayListAdapter.AiringTodayListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AiringTodayListViewHolder {
@@ -27,12 +27,12 @@ class AiringTodayListAdapter(private var list: MutableList<TvShowsResult>, priva
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: AiringTodayListViewHolder, position: Int) {
-        val tv: TvShowsResult = list[position]
+        val tv: TvShows.TvShowsResult = list[position]
 
         holder.bind(tv)
     }
 
-    fun updateAiringTodayList(tvList: MutableList<TvShowsResult>) {
+    fun updateAiringTodayList(tvList: MutableList<TvShows.TvShowsResult>) {
         list = tvList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class AiringTodayListAdapter(private var list: MutableList<TvShowsResult>, priva
         private var poster: ImageView = itemView.airing_today_recycler_image
         private var name: TextView = itemView.airing_today_recycler_text
 
-        fun bind(tv: TvShowsResult) {
+        fun bind(tv: TvShows.TvShowsResult) {
             binding.airingTodayViewModel = tv
 
             name.text = tv.name

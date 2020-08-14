@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.UpcomingListBinding
-import com.czech.muvies.models.MoviesResult
+import com.czech.muvies.models.Movies
 import kotlinx.android.synthetic.main.upcoming_list.view.*
 
-typealias upcomingSItemClickListener = (MoviesResult) -> Unit
+typealias upcomingSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class UpcomingListAdapter(private var list: MutableList<MoviesResult>, private val clickListener: upcomingSItemClickListener):
+class UpcomingListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: upcomingSItemClickListener):
     RecyclerView.Adapter<UpcomingListAdapter.UpcomingListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingListViewHolder {
@@ -27,12 +27,12 @@ class UpcomingListAdapter(private var list: MutableList<MoviesResult>, private v
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: UpcomingListViewHolder, position: Int) {
-        val movie: MoviesResult = list[position]
+        val movie: Movies.MoviesResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updateUpcomingList(movieList: MutableList<MoviesResult>) {
+    fun updateUpcomingList(movieList: MutableList<Movies.MoviesResult>) {
         list = movieList
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class UpcomingListAdapter(private var list: MutableList<MoviesResult>, private v
         private var poster: ImageView = itemView.upcoming_recycler_image
         private var title: TextView = itemView.upcoming_recycler_text
 
-        fun bind(movie: MoviesResult) {
+        fun bind(movie: Movies.MoviesResult) {
             binding.upcomingListViewModel = movie
 
             title.text = movie.title

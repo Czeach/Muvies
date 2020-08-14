@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.dataSources.AiringTodayDataSourceFactory
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.Dispatchers
 
 class AiringTodayViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
-    private val airingTodayList: LiveData<PagedList<TvShowsResult>>
+    private val airingTodayList: LiveData<PagedList<TvShows.TvShowsResult>>
     private val pageSize = 1000
     private val airingTodayDataSourceFactory: AiringTodayDataSourceFactory
 
@@ -25,5 +25,5 @@ class AiringTodayViewModel : ViewModel() {
         airingTodayList = LivePagedListBuilder(airingTodayDataSourceFactory, config).build()
     }
 
-    fun getAiringTodayList(): LiveData<PagedList<TvShowsResult>> = airingTodayList
+    fun getAiringTodayList(): LiveData<PagedList<TvShows.TvShowsResult>> = airingTodayList
 }

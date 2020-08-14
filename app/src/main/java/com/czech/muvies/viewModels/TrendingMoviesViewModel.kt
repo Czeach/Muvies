@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.dataSources.TrendingMoviesDataSourceFactory
-import com.czech.muvies.models.MoviesResult
+import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.Dispatchers
 
 class TrendingMoviesViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
-    private val trendingList: LiveData<PagedList<MoviesResult>>
+    private val trendingList: LiveData<PagedList<Movies.MoviesResult>>
     private val pageSize = 1000
     private val trendingMoviesDataSourceFactory: TrendingMoviesDataSourceFactory
 
@@ -25,5 +25,5 @@ class TrendingMoviesViewModel : ViewModel() {
         trendingList = LivePagedListBuilder(trendingMoviesDataSourceFactory, config).build()
     }
 
-    fun getTrendingMoviesList(): LiveData<PagedList<MoviesResult>> = trendingList
+    fun getTrendingMoviesList(): LiveData<PagedList<Movies.MoviesResult>> = trendingList
 }

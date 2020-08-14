@@ -16,10 +16,9 @@ import com.czech.muvies.viewModels.TvShowDetailsViewModel
 import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
 import kotlinx.android.synthetic.main.movie_details_fragment.overview
-import kotlinx.android.synthetic.main.movie_details_fragment.poster
 import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
 import kotlinx.android.synthetic.main.movie_details_fragment.rating_fraction
-import kotlinx.android.synthetic.main.movie_details_fragment.release_date
+import kotlinx.android.synthetic.main.movie_details_fragment.release_year
 import kotlinx.android.synthetic.main.tv_show_details_fragment.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -75,7 +74,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = airingTodaySArgs.voteAverage/2
@@ -107,7 +106,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = airingTodayArgs.voteAverage/2
@@ -139,7 +138,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = onAirSArgs.voteAverage/2
@@ -171,7 +170,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = onAirArgs.voteAverage/2
@@ -203,7 +202,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = popularTvSArgs.voteAverage/2
@@ -235,7 +234,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = popularTvArgs.voteAverage/2
@@ -267,7 +266,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = topRatedTvSArgs.voteAverage/2
@@ -299,7 +298,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = topRatedTvArgs.voteAverage/2
@@ -331,7 +330,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = trendingTvSArgs.voteAverage/2
@@ -363,7 +362,7 @@ class TvShowDetailsFragment : Fragment() {
             val year = date.year.toString()
             val month = date.month.toString().toLowerCase(Locale.ROOT)
 
-            release_date.text = "$month $year"
+            release_year.text = "$month $year"
 
             val ratingBar = rating_bar
             val rating = trendingTvArgs.voteAverage/2

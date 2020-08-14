@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,14 +15,14 @@ import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class TrendingShowsDataSource(private val apiService: MoviesApiService,
-                              coroutineContext: CoroutineContext): PageKeyedDataSource<Int, TvShowsResult>() {
+                              coroutineContext: CoroutineContext): PageKeyedDataSource<Int, TvShows.TvShowsResult>() {
 
     private val job = Job()
     private val scope = CoroutineScope(coroutineContext + job)
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, TvShowsResult>
+        callback: LoadInitialCallback<Int, TvShows.TvShowsResult>
     ) {
         scope.launch {
             try {
@@ -39,7 +39,7 @@ class TrendingShowsDataSource(private val apiService: MoviesApiService,
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, TvShowsResult>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, TvShows.TvShowsResult>) {
         scope.launch {
             try {
                 val response = apiService.getPagedTrendingTVList(BuildConfig.API_KEY, params.key)
@@ -56,7 +56,7 @@ class TrendingShowsDataSource(private val apiService: MoviesApiService,
 
     override fun loadBefore(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, TvShowsResult>
+        callback: LoadCallback<Int, TvShows.TvShowsResult>
     ) {
     }
 
@@ -68,11 +68,11 @@ class TrendingShowsDataSource(private val apiService: MoviesApiService,
 }
 
 class TrendingShowsDataSourceFactory(private val apiService: MoviesApiService,
-                                     coroutineContext: CoroutineContext): DataSource.Factory<Int, TvShowsResult>() {
+                                     coroutineContext: CoroutineContext): DataSource.Factory<Int, TvShows.TvShowsResult>() {
 
     val trendingShowsDataSourceLiveData = MutableLiveData<TrendingShowsDataSource>()
 
-    override fun create(): DataSource<Int, TvShowsResult> {
+    override fun create(): DataSource<Int, TvShows.TvShowsResult> {
         val trendingShowsDataSource = TrendingShowsDataSource(apiService, Dispatchers.IO)
         trendingShowsDataSourceLiveData.postValue(trendingShowsDataSource)
         return trendingShowsDataSource

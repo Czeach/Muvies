@@ -6,7 +6,7 @@
     <data>
         <variable
             name="airingTodayViewModel"
-            type="com.czech.muvies.models.TvShowsResult" />
+            type="com.czech.muvies.models.TvShows.TvShowsResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/cardView"
             android:layout_width="240dp"
             android:layout_height="358dp"
-            app:cardBackgroundColor="@color/colorBackgroundLight"
+            app:cardBackgroundColor="@color/colorAccentLight"
             app:cardCornerRadius="12dp"
             app:cardElevation="12dp"
             app:layout_constraintEnd_toEndOf="parent"

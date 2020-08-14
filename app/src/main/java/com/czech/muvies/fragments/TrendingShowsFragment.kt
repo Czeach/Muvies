@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TrendingShowsFragmentBinding
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.TrendingShowsMainAdapter
 import com.czech.muvies.pagedAdapters.trendingTvItemClickListener
 import com.czech.muvies.viewModels.TrendingShowsViewModel
@@ -22,7 +22,7 @@ class TrendingShowsFragment : Fragment() {
 
     private val trendingClickListener by lazy {
         object : trendingTvItemClickListener {
-            override fun invoke(it: TvShowsResult) {
+            override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TrendingShowsFragmentDirections.actionTrendingShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     null, null, it, null

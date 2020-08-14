@@ -5,7 +5,6 @@ import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
 import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.models.Movies
-import com.czech.muvies.models.MoviesResult
 import com.czech.muvies.network.MoviesApi
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Resource
@@ -16,8 +15,6 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MovieDetailsViewModel(private val apiService: MoviesApiService) : ViewModel() {
-
-    private val movie = MoviesResult()
 
     fun getMovieDetails(movie_id: Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))

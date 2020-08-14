@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -16,13 +17,11 @@ import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
 import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
 import kotlinx.android.synthetic.main.movie_details_fragment.*
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 class MovieDetailsFragment : Fragment() {
 
@@ -61,25 +60,10 @@ class MovieDetailsFragment : Fragment() {
         val trendingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
 
         if (inTheatersArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${inTheatersArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
-
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${inTheatersArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
 
             title.text = inTheatersArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(inTheatersArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(inTheatersArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = inTheatersArgs.voteAverage/2
@@ -87,27 +71,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = inTheatersArgs.voteAverage.toFloat().toString() + "/10.0"
 
-//            lang_text.text = inTheatersArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = inTheatersArgs.originalLanguage
 
-            overview.text = inTheatersArgs.overview
-
-            viewModel.getMovieDetails(inTheatersArgs.id).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                it?.let {resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data.let {details ->
-                                lang_text.text = details?.originalLanguage
-                            }
-                        }
-                        Status.LOADING -> {
-
-                        }
-                        Status.ERROR -> {
-
-                        }
-                    }
-                }
-            })
+            getDetails(inTheatersArgs.id)
         }
 
         if (inTheatersSArgs != null) {
@@ -116,20 +82,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${inTheatersSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = inTheatersSArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(inTheatersSArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(inTheatersSArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = inTheatersSArgs.voteAverage/2
@@ -137,9 +92,10 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = inTheatersSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-//            lang_text.text = inTheatersSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = inTheatersSArgs.originalLanguage
 
-            overview.text = inTheatersSArgs.overview
+            getDetails(inTheatersSArgs.id)
+
         }
 
         if (upcomingArgs != null) {
@@ -148,20 +104,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${upcomingArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = upcomingArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(upcomingArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(upcomingArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = upcomingArgs.voteAverage/2
@@ -169,9 +114,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = upcomingArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = upcomingArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = upcomingArgs.originalLanguage
 
-            overview.text = upcomingArgs.overview
+            getDetails(upcomingArgs.id)
         }
 
         if (upcomingSArgs != null) {
@@ -180,20 +125,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${upcomingSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = upcomingSArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(upcomingSArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(upcomingSArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = upcomingSArgs.voteAverage/2
@@ -201,9 +135,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = upcomingSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = upcomingSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = upcomingSArgs.originalLanguage
 
-            overview.text = upcomingSArgs.overview
+            getDetails(upcomingSArgs.id)
         }
 
         if (popularSArgs != null) {
@@ -212,20 +146,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${popularSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = popularSArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(popularSArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(popularSArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = popularSArgs.voteAverage/2
@@ -233,9 +156,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = popularSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = popularSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = popularSArgs.originalLanguage
 
-            overview.text = popularSArgs.overview
+            getDetails(popularSArgs.id)
         }
 
         if (popularArgs != null) {
@@ -244,20 +167,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${popularArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = popularArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(popularArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(popularArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = popularArgs.voteAverage/2
@@ -265,9 +177,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = popularArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = popularArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = popularArgs.originalLanguage
 
-            overview.text = popularArgs.overview
+            getDetails(popularArgs.id)
         }
 
         if (topRatedSArgs != null) {
@@ -276,20 +188,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${topRatedSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = topRatedSArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(topRatedSArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(topRatedSArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = topRatedSArgs.voteAverage/2
@@ -297,9 +198,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = topRatedSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = topRatedSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = topRatedSArgs.originalLanguage
 
-            overview.text = topRatedSArgs.overview
+            getDetails(topRatedSArgs.id)
         }
 
         if (topRatedArgs != null) {
@@ -308,20 +209,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${topRatedArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = topRatedArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(topRatedArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(topRatedArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = topRatedArgs.voteAverage/2
@@ -329,9 +219,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = topRatedArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = topRatedArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = topRatedArgs.originalLanguage
 
-            overview.text = topRatedArgs.overview
+            getDetails(topRatedArgs.id)
         }
 
         if (trendingSArgs != null) {
@@ -340,20 +230,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${trendingSArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = trendingSArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(trendingSArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(trendingSArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = trendingSArgs.voteAverage/2
@@ -361,9 +240,9 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = trendingSArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = trendingSArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = trendingSArgs.originalLanguage
 
-            overview.text = trendingSArgs.overview
+            getDetails(trendingSArgs.id)
         }
 
         if (trendingArgs != null) {
@@ -372,20 +251,9 @@ class MovieDetailsFragment : Fragment() {
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(backdrop)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${trendingArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .into(poster)
-
             title.text = trendingArgs.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val date = LocalDate.parse(trendingArgs.releaseDate + " 09:10:46", dateFormatter)
-
-            val year = date.year.toString()
-            val month = date.month.toString().toLowerCase(Locale.ROOT)
-
-            release_date.text = "$month $year"
+            release_year.text = Converter.convertDateToYear(trendingArgs.releaseDate)
 
             val ratingBar = rating_bar
             val rating = trendingArgs.voteAverage/2
@@ -393,11 +261,59 @@ class MovieDetailsFragment : Fragment() {
 
             rating_fraction.text = trendingArgs.voteAverage.toFloat().toString() + "/10.0"
 
-            lang_text.text = trendingArgs.originalLanguage.toUpperCase(Locale.ROOT)
+            lang_text.text = trendingArgs.originalLanguage
 
-            overview.text = trendingArgs.overview
+            getDetails(trendingArgs.id)
         }
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getDetails(movieId: Int) {
+
+        viewModel.getMovieDetails(movieId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        Toast.makeText(requireContext(), "Details successful", Toast.LENGTH_LONG).show()
+                        resource.data.let {details ->
+
+                            if (details != null) {
+
+                                Glide.with(this)
+                                        .load("$BASE_IMAGE_PATH${details.backdropPath}")
+                                        .placeholder(R.drawable.backdrop_placeholder)
+                                        .into(backdrop)
+
+                                lang_text.text = details.originalLanguage
+
+                                original_Title.text = details.originalTitle
+
+                                tag_line.text = details.tagline
+
+                                homepage.text = details.homepage
+
+                                status.text = details.status
+
+                                time.text = Converter.convertTime(details.runtime!!)
+
+                                release_date.text = Converter.convertDate(details.releaseDate)
+
+                                vote_count.text = "${details.voteCount.toString()} votes"
+
+                                overview.text = details.overview
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
+        })
     }
 
     override fun onAttach(context: Context) {
@@ -409,5 +325,4 @@ class MovieDetailsFragment : Fragment() {
         super.onDetach()
         (activity as MainActivity).showBottomNavigation()
     }
-
 }

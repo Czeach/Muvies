@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.InTheatersFragmentBinding
-import com.czech.muvies.models.MoviesResult
+import com.czech.muvies.models.Movies
 import com.czech.muvies.pagedAdapters.InTheatersMainListAdapter
 import com.czech.muvies.pagedAdapters.inTheatersItemClickListener
 import com.czech.muvies.viewModels.InTheatersViewModel
@@ -22,7 +22,7 @@ class InTheatersFragment : Fragment() {
 
     private val inTheatersClickListener by lazy {
         object : inTheatersItemClickListener {
-            override fun invoke(it: MoviesResult) {
+            override fun invoke(it: Movies.MoviesResult) {
                 val args = InTheatersFragmentDirections.actionInTheatersFragmentToDetailsFragment(
                     it, null, null, null, null, null, null,
                     null, null, null

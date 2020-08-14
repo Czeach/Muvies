@@ -12,13 +12,13 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.adapters.trendingTvSItemClickListener
-import com.czech.muvies.models.TvShowsResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias trendingTvItemClickListener = (TvShowsResult) -> Unit
+typealias trendingTvItemClickListener = (TvShows.TvShowsResult) -> Unit
 
 class TrendingShowsMainAdapter(private val clickListener: trendingTvItemClickListener):
-    PagedListAdapter<TvShowsResult, TrendingShowsMainAdapter.TrendingShowsMainViewHolder>(diffUtil) {
+    PagedListAdapter<TvShows.TvShowsResult, TrendingShowsMainAdapter.TrendingShowsMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingShowsMainViewHolder {
         return TrendingShowsMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -31,17 +31,17 @@ class TrendingShowsMainAdapter(private val clickListener: trendingTvItemClickLis
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<TvShowsResult>() {
+        val diffUtil = object : DiffUtil.ItemCallback<TvShows.TvShowsResult>() {
             override fun areItemsTheSame(
-                oldItem: TvShowsResult,
-                newItem: TvShowsResult
+                oldItem: TvShows.TvShowsResult,
+                newItem: TvShows.TvShowsResult
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: TvShowsResult,
-                newItem: TvShowsResult
+                oldItem: TvShows.TvShowsResult,
+                newItem: TvShows.TvShowsResult
             ): Boolean {
                 return oldItem == newItem
             }
@@ -55,7 +55,7 @@ class TrendingShowsMainAdapter(private val clickListener: trendingTvItemClickLis
         private var date: TextView = itemView.date
         private var vote: TextView = itemView.vote
 
-        fun bind(result: TvShowsResult) {
+        fun bind(result: TvShows.TvShowsResult) {
             title.text = result.name
             date.text = result.firstAirDate
             vote.text = result.voteAverage.toString()
