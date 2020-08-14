@@ -288,12 +288,12 @@ class MovieDetailsFragment : Fragment() {
 
                             if (details != null) {
 
-                                genreAdapter.updateList(details.genres as List<MovieDetails.Genre>)
-
                                 Glide.with(this)
-                                        .load("$BASE_IMAGE_PATH${details.backdropPath}")
-                                        .placeholder(R.drawable.backdrop_placeholder)
-                                        .into(backdrop)
+                                    .load("$BASE_IMAGE_PATH${details.backdropPath}")
+                                    .placeholder(R.drawable.backdrop_placeholder)
+                                    .into(backdrop)
+
+                                genreAdapter.updateList(details.genres as List<MovieDetails.Genre>)
 
                                 lang_text.text = details.originalLanguage
 

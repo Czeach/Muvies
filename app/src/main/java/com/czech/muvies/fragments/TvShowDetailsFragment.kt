@@ -10,11 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.adapters.ShowsGenreAdapter
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
@@ -35,6 +38,8 @@ class TvShowDetailsFragment : Fragment() {
 
     private lateinit var viewModel: TvShowDetailsViewModel
     private lateinit var binding: TvShowDetailsFragmentBinding
+
+    private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,10 +73,6 @@ class TvShowDetailsFragment : Fragment() {
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
 
         if (airingTodaySArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${airingTodaySArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = airingTodaySArgs.name
 
@@ -89,10 +90,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (airingTodayArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${airingTodayArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = airingTodayArgs.name
 
@@ -110,10 +107,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (onAirSArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${onAirSArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = onAirSArgs.name
 
@@ -131,10 +124,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (onAirArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${onAirArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = onAirArgs.name
 
@@ -152,10 +141,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (popularTvSArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${popularTvSArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = popularTvSArgs.name
 
@@ -173,10 +158,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (popularTvArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${popularTvArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = popularTvArgs.name
 
@@ -194,10 +175,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (topRatedTvSArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${topRatedTvSArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = topRatedTvSArgs.name
 
@@ -215,10 +192,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (topRatedTvArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${topRatedTvArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = topRatedTvArgs.name
 
@@ -236,10 +209,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (trendingTvSArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${trendingTvSArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = trendingTvSArgs.name
 
@@ -257,10 +226,6 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (trendingTvArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${trendingTvArgs.backdropPath}")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(backdrop)
 
             name.text = trendingTvArgs.name
 
@@ -276,6 +241,11 @@ class TvShowDetailsFragment : Fragment() {
 
             getDetails(trendingTvArgs.id)
         }
+
+        binding.showsGenreList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = genreAdapter
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -288,6 +258,13 @@ class TvShowDetailsFragment : Fragment() {
                         resource.data.let { details ->
 
                             if (details != null) {
+
+                                Glide.with(this)
+                                    .load("$BASE_IMAGE_PATH${details.backdropPath}")
+                                    .placeholder(R.drawable.backdrop_placeholder)
+                                    .into(backdrop)
+
+                                genreAdapter.updateList(details.genres as List<TvShowDetails.Genre>)
 
                                 original_name.text = details.originalName
 
