@@ -11,11 +11,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.adapters.MoviesGenreAdapter
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
+import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
@@ -27,6 +30,8 @@ class MovieDetailsFragment : Fragment() {
 
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var binding: MovieDetailsFragmentBinding
+
+    private var genreAdapter = MoviesGenreAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -265,18 +270,25 @@ class MovieDetailsFragment : Fragment() {
             getDetails(trendingArgs.id)
         }
 
+        binding.moviesGenreList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = genreAdapter
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
     private fun getDetails(movieId: Int) {
 
         viewModel.getMovieDetails(movieId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let {resource ->
+            it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data.let {details ->
 
                             if (details != null) {
+
+                                genreAdapter.updateList(details.genres as List<MovieDetails.Genre>)
 
                                 Glide.with(this)
                                         .load("$BASE_IMAGE_PATH${details.backdropPath}")
