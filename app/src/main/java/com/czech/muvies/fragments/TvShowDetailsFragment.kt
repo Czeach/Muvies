@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
 import com.czech.muvies.models.TvShowDetails
@@ -40,6 +41,8 @@ class TvShowDetailsFragment : Fragment() {
     private lateinit var binding: TvShowDetailsFragmentBinding
 
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
+
+    private var seasonsAdapter = SeasonsAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -246,6 +249,11 @@ class TvShowDetailsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = genreAdapter
         }
+
+        binding.seasonsList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = seasonsAdapter
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -265,6 +273,8 @@ class TvShowDetailsFragment : Fragment() {
                                     .into(backdrop)
 
                                 genreAdapter.updateList(details.genres as List<TvShowDetails.Genre>)
+
+                                seasonsAdapter.updateList(details.seasons as List<TvShowDetails.Season>)
 
                                 original_name.text = details.originalName
 
