@@ -14,7 +14,7 @@ import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.utils.Converter
 import kotlinx.android.synthetic.main.seasons_list.view.*
 
-typealias seasonsItemClickListener = (TvShowDetails.Season) -> Unit
+typealias seasonsItemClickListener = (TvShowDetails, TvShowDetails.Season) -> Unit
 
 class SeasonsAdapter(private var list: List<TvShowDetails.Season>, private val clickListener: seasonsItemClickListener):
     RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder>() {
@@ -57,7 +57,7 @@ class SeasonsAdapter(private var list: List<TvShowDetails.Season>, private val c
                 .into(seasonPoster)
 
             seasonNumber.text =
-                if (seasonList.seasonNumber == 0) "Extras"
+                if (seasonList.seasonNumber == 0) "Specials"
                 else "Season ${seasonList.seasonNumber}"
 
             val year = Converter.convertDateToYear(seasonList.airDate)
@@ -72,7 +72,8 @@ class SeasonsAdapter(private var list: List<TvShowDetails.Season>, private val c
 
         override fun onClick(v: View?) {
             val seasons = list[adapterPosition]
-            clickListener.invoke(seasons)
+            val showDetails = TvShowDetails()
+            clickListener.invoke(showDetails, seasons)
         }
     }
 }

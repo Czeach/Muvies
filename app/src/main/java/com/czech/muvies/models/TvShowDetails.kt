@@ -1,8 +1,12 @@
 package com.czech.muvies.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 data class TvShowDetails(
     @SerializedName("backdrop_path")
     val backdropPath: String? = null,
@@ -49,7 +53,9 @@ data class TvShowDetails(
     val voteAverage: Double? = null,
     @SerializedName("vote_count")
     val voteCount: Int? = null
-) {
+): Parcelable {
+
+    @Parcelize
     data class CreatedBy(
         @SerializedName("credit_id")
         val creditId: String? = null,
@@ -57,14 +63,16 @@ data class TvShowDetails(
         val id: Int? = null,
         val name: String? = null,
         @SerializedName("profile_path")
-        val profilePath: Any? = null
-    )
+        val profilePath: @RawValue Any? = null
+    ): Parcelable
 
+    @Parcelize
     data class Genre(
         val id: Int? = null,
         val name: String? = null
-    )
+    ):Parcelable
 
+    @Parcelize
     data class LastEpisodeToAir(
         @SerializedName("air_date")
         val airDate: String? = null,
@@ -80,13 +88,14 @@ data class TvShowDetails(
         @SerializedName("show_id")
         val showId: Int? = null,
         @SerializedName("still_path")
-        val stillPath: Any? = null,
+        val stillPath: @RawValue Any? = null,
         @SerializedName("vote_average")
         val voteAverage: Double? = null,
         @SerializedName("vote_count")
         val voteCount: Int? = null
-    )
+    ): Parcelable
 
+    @Parcelize
     data class Network(
         val id: Int? = null,
         @SerializedName("logo_path")
@@ -94,8 +103,9 @@ data class TvShowDetails(
         val name: String? = null,
         @SerializedName("origin_country")
         val originCountry: String? = null
-    )
+    ): Parcelable
 
+    @Parcelize
     data class NextEpisodeToAir(
         @SerializedName("air_date")
         val airDate: String? = null,
@@ -111,13 +121,14 @@ data class TvShowDetails(
         @SerializedName("show_id")
         val showId: Int? = null,
         @SerializedName("still_path")
-        val stillPath: Any? = null,
+        val stillPath: @RawValue Any? = null,
         @SerializedName("vote_average")
         val voteAverage: Double? = null,
         @SerializedName("vote_count")
         val voteCount: Int? = null
-    )
+    ): Parcelable
 
+    @Parcelize
     data class ProductionCompany(
         val id: Int? = null,
         @SerializedName("logo_path")
@@ -125,8 +136,9 @@ data class TvShowDetails(
         val name: String? = null,
         @SerializedName("origin_country")
         val originCountry: String? = null
-    )
+    ): Parcelable
 
+    @Parcelize
     data class Season(
         @SerializedName("air_date")
         val airDate: String? = null,
@@ -139,5 +151,5 @@ data class TvShowDetails(
         val posterPath: String? = null,
         @SerializedName("season_number")
         val seasonNumber: Int? = null
-    )
+    ): Parcelable
 }

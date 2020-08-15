@@ -247,6 +247,15 @@
     <fragment
         android:id="@+id/seasonDetailsFragment"
         android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
-        android:label="season_details_fragment"
-        tools:layout="@layout/season_details_fragment" />
+        android:label="season details"
+        tools:layout="@layout/season_details_fragment" >
+        <argument
+            android:name="seasonArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails$Season"
+            app:nullable="true" />
+        <argument
+            android:name="showArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails"
+            app:nullable="true" />
+    </fragment>
 </navigation>

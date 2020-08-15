@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -46,11 +47,10 @@ class TvShowDetailsFragment : Fragment() {
 
     private val seasonsClickListener by lazy {
         object : seasonsItemClickListener {
-            override fun invoke(it: TvShowDetails.Season) {
-                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToSeasonDetailsFragment()
+            override fun invoke(show: TvShowDetails, season: TvShowDetails.Season) {
+                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToSeasonDetailsFragment(season, show)
                 findNavController().navigate(args)
             }
-
         }
     }
     private var seasonsAdapter = SeasonsAdapter(arrayListOf(), seasonsClickListener)
@@ -295,6 +295,11 @@ class TvShowDetailsFragment : Fragment() {
 
                                 last_date.text = Converter.convertDate(showDetails.lastAirDate)
 
+                                next_date.text = Converter.convertDate(showDetails.nextEpisodeToAir?.airDate)
+
+                                next_episode.text =
+                                    "Season ${showDetails.nextEpisodeToAir?.seasonNumber} episode ${showDetails.nextEpisodeToAir?.episodeNumber}"
+
                                 vote_count.text = "${showDetails.voteCount} votes"
 
                                 seasons.text = "${showDetails.numberOfSeasons} seasons ${showDetails.numberOfEpisodes} episodes"
@@ -310,7 +315,7 @@ class TvShowDetailsFragment : Fragment() {
                         details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
-
+                        Toast.makeText(requireContext(), "error", Toast.LENGTH_LONG).show()
                     }
                 }
             }

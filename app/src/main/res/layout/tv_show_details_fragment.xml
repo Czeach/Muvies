@@ -273,7 +273,7 @@
                                 android:id="@+id/original_name"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="34dp"
+                                android:layout_marginStart="40dp"
                                 android:layout_marginEnd="24dp"
                                 android:fontFamily="sans-serif"
                                 android:textColor="@color/colorAccentLight"
@@ -352,19 +352,42 @@
                                 app:layout_constraintTop_toTopOf="@+id/textView12" />
 
                             <TextView
-                                android:id="@+id/textView6"
+                                android:id="@+id/textView15"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:fontFamily="sans-serif"
-                                android:text="Last episode to air:"
+                                android:text="Next Air Date"
                                 android:textColor="@color/colorAccentDark"
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="@+id/textView12"
                                 app:layout_constraintTop_toBottomOf="@+id/last_date" />
 
                             <TextView
-                                android:id="@+id/last_episode"
+                                android:id="@+id/next_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/colorAccentLight"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="@+id/last_date"
+                                app:layout_constraintStart_toStartOf="@+id/last_date"
+                                app:layout_constraintTop_toTopOf="@+id/textView15"/>
+
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif"
+                                android:text="Next episode to air:"
+                                android:textColor="@color/colorAccentDark"
+                                android:textSize="14sp"
+                                app:layout_constraintStart_toStartOf="@+id/textView15"
+                                app:layout_constraintTop_toBottomOf="@+id/next_date" />
+
+                            <TextView
+                                android:id="@+id/next_episode"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
@@ -384,7 +407,7 @@
                                 android:textColor="@color/colorAccentDark"
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="@+id/textView6"
-                                app:layout_constraintTop_toBottomOf="@+id/last_episode" />
+                                app:layout_constraintTop_toBottomOf="@+id/next_episode" />
 
                             <TextView
                                 android:id="@+id/vote_count"
@@ -393,8 +416,8 @@
                                 android:fontFamily="sans-serif"
                                 android:textColor="@color/colorAccentLight"
                                 android:textSize="14sp"
-                                app:layout_constraintEnd_toEndOf="@+id/last_episode"
-                                app:layout_constraintStart_toStartOf="@+id/last_episode"
+                                app:layout_constraintEnd_toEndOf="@+id/next_episode"
+                                app:layout_constraintStart_toStartOf="@+id/next_episode"
                                 app:layout_constraintTop_toTopOf="@+id/textView7" />
 
                             <TextView
