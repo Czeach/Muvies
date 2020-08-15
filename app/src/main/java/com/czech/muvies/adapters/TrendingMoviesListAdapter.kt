@@ -52,6 +52,7 @@ class TrendingMoviesListAdapter(private var list: MutableList<Movies.MoviesResul
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

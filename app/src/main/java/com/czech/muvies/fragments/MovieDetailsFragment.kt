@@ -284,39 +284,40 @@ class MovieDetailsFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        resource.data.let {details ->
+                        resource.data.let {movieDetails ->
 
-                            if (details != null) {
+                            if (movieDetails != null) {
 
                                 Glide.with(this)
-                                    .load("$BASE_IMAGE_PATH${details.backdropPath}")
+                                    .load("$BASE_IMAGE_PATH${movieDetails.backdropPath}")
                                     .placeholder(R.drawable.backdrop_placeholder)
                                     .into(backdrop)
 
-                                genreAdapter.updateList(details.genres as List<MovieDetails.Genre>)
+                                genreAdapter.updateList(movieDetails.genres as List<MovieDetails.Genre>)
 
-                                lang_text.text = details.originalLanguage
+                                lang_text.text = movieDetails.originalLanguage
 
-                                original_Title.text = details.originalTitle
+                                original_Title.text = movieDetails.originalTitle
 
-                                tag_line.text = details.tagline
+                                tag_line.text = movieDetails.tagline
 
-                                homepage.text = details.homepage
+                                homepage.text = movieDetails.homepage
 
-                                status.text = details.status
+                                status.text = movieDetails.status
 
-                                time.text = Converter.convertTime(details.runtime!!)
+                                time.text = Converter.convertTime(movieDetails.runtime!!)
 
-                                release_date.text = Converter.convertDate(details.releaseDate)
+                                release_date.text = Converter.convertDate(movieDetails.releaseDate)
 
-                                vote_count.text = "${details.voteCount.toString()} votes"
+                                vote_count.text = "${movieDetails.voteCount.toString()} votes"
 
-                                overview.text = details.overview
+                                overview.text = movieDetails.overview
                             }
                         }
+                        details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
-
+                        details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
 

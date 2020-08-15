@@ -56,6 +56,7 @@ class TopRatedMoviesMainAdapter(private val clickListener: topRatedItemClickList
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

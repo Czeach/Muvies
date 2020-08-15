@@ -263,39 +263,40 @@ class TvShowDetailsFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        resource.data.let { details ->
+                        resource.data.let { showDetails ->
 
-                            if (details != null) {
+                            if (showDetails != null) {
 
                                 Glide.with(this)
-                                    .load("$BASE_IMAGE_PATH${details.backdropPath}")
+                                    .load("$BASE_IMAGE_PATH${showDetails.backdropPath}")
                                     .placeholder(R.drawable.backdrop_placeholder)
                                     .into(backdrop)
 
-                                genreAdapter.updateList(details.genres as List<TvShowDetails.Genre>)
+                                genreAdapter.updateList(showDetails.genres as List<TvShowDetails.Genre>)
 
-                                seasonsAdapter.updateList(details.seasons as List<TvShowDetails.Season>)
+                                seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
 
-                                original_name.text = details.originalName
+                                original_name.text = showDetails.originalName
 
-                                status.text = details.status
+                                status.text = showDetails.status
 
-                                first_date.text = Converter.convertDate(details.firstAirDate)
+                                first_date.text = Converter.convertDate(showDetails.firstAirDate)
 
-                                last_date.text = Converter.convertDate(details.lastAirDate)
+                                last_date.text = Converter.convertDate(showDetails.lastAirDate)
 
-                                vote_count.text = "${details.voteCount} votes"
+                                vote_count.text = "${showDetails.voteCount} votes"
 
-                                seasons.text = "${details.numberOfSeasons} seasons and ${details.numberOfEpisodes} episodes"
+                                seasons.text = "${showDetails.numberOfSeasons} seasons ${showDetails.numberOfEpisodes} episodes"
 
-                                homepage.text = details.homepage
+                                homepage.text = showDetails.homepage
 
-                                synopsis.text = details.overview
+                                synopsis.text = showDetails.overview
                             }
                         }
+                        details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
-
+                        details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
 

@@ -51,9 +51,12 @@ class SeasonsAdapter(private var list: List<TvShowDetails.Season>):
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${seasonList.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(seasonPoster)
 
-            seasonNumber.text = "Season ${seasonList.seasonNumber}"
+            seasonNumber.text =
+                if (seasonList.seasonNumber == 0) "Extras"
+                else "Season ${seasonList.seasonNumber}"
 
             val year = Converter.convertDateToYear(seasonList.airDate)
             airDate.text = "($year)"

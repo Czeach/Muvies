@@ -52,6 +52,7 @@ class TopRatedTvListAdapter(private var list: MutableList<TvShows.TvShowsResult>
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

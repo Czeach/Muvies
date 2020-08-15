@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/convergence"
                 android:text="season 1"
-                android:textColor="@color/colorAccentLight"
+                android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/number_of_episodes"
                 app:layout_constraintStart_toStartOf="@id/number_of_episodes" />
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/convergence"
-                android:textColor="@color/colorAccentLight"
+                android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/season_number"
                 app:layout_constraintStart_toEndOf="@+id/season_number"

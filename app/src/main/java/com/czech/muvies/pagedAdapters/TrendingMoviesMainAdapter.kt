@@ -55,6 +55,7 @@ class TrendingMoviesMainAdapter(private val clickListener: trendingItemClickList
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

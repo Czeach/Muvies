@@ -55,6 +55,7 @@ class UpcomingMainAdapter(private val clickListener: upcomingItemClickListener):
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

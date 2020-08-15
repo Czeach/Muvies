@@ -56,6 +56,7 @@ class PopularMainAdapter(private val clickListener: popularItemClickListener):
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 
