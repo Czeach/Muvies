@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
@@ -17,6 +18,7 @@ import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
+import com.czech.muvies.adapters.seasonsItemClickListener
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
@@ -42,7 +44,16 @@ class TvShowDetailsFragment : Fragment() {
 
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
-    private var seasonsAdapter = SeasonsAdapter(arrayListOf())
+    private val seasonsClickListener by lazy {
+        object : seasonsItemClickListener {
+            override fun invoke(it: TvShowDetails.Season) {
+                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToSeasonDetailsFragment()
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private var seasonsAdapter = SeasonsAdapter(arrayListOf(), seasonsClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

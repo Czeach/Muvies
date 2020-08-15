@@ -2,6 +2,7 @@ package com.czech.muvies.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.utils.Converter
 import kotlinx.android.synthetic.main.seasons_list.view.*
 
-class SeasonsAdapter(private var list: List<TvShowDetails.Season>):
+typealias seasonsItemClickListener = (TvShowDetails.Season) -> Unit
+
+class SeasonsAdapter(private var list: List<TvShowDetails.Season>, private val clickListener: seasonsItemClickListener):
     RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeasonsViewHolder {
@@ -37,7 +39,7 @@ class SeasonsAdapter(private var list: List<TvShowDetails.Season>):
     }
 
     inner class SeasonsViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.seasons_list, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.seasons_list, parent, false)), View.OnClickListener {
 
         private var seasonPoster: ImageView = itemView.season_poster
         private var seasonNumber: TextView = itemView.season_number
@@ -62,6 +64,15 @@ class SeasonsAdapter(private var list: List<TvShowDetails.Season>):
             airDate.text = "($year)"
 
             episodeCount.text = "${seasonList.episodeCount} episodes"
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val seasons = list[adapterPosition]
+            clickListener.invoke(seasons)
         }
     }
 }

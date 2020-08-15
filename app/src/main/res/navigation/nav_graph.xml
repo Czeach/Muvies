@@ -240,5 +240,13 @@
             android:name="trendingTvSArgs"
             app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_tvShowsDetailsFragment_to_seasonDetailsFragment"
+            app:destination="@id/seasonDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
+        android:label="season_details_fragment"
+        tools:layout="@layout/season_details_fragment" />
 </navigation>
