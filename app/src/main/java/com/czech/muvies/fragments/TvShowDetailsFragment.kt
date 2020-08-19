@@ -48,8 +48,6 @@ class TvShowDetailsFragment : Fragment() {
     private val seasonsClickListener by lazy {
         object : seasonsItemClickListener {
             override fun invoke(show: TvShowDetails, season: TvShowDetails.Season) {
-                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToSeasonDetailsFragment(season, show)
-                findNavController().navigate(args)
             }
         }
     }
@@ -302,7 +300,9 @@ class TvShowDetailsFragment : Fragment() {
 
                                 vote_count.text = "${showDetails.voteCount} votes"
 
-                                seasons.text = "${showDetails.numberOfSeasons} seasons ${showDetails.numberOfEpisodes} episodes"
+                                seasons.text =
+                                if (showDetails.numberOfSeasons == 1) "${showDetails.numberOfSeasons} season ${showDetails.numberOfEpisodes} episodes"
+                                    else "${showDetails.numberOfSeasons} seasons ${showDetails.numberOfEpisodes} episodes"
 
                                 homepage.text = showDetails.homepage
 
