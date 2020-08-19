@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.dataSources.OnAirDataSourceFactory
-import com.czech.muvies.models.OnAirTVResult
+import com.czech.muvies.models.TvShows
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.Dispatchers
 
 class OnAirViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
-    private val onAirList: LiveData<PagedList<OnAirTVResult>>
+    private val onAirList: LiveData<PagedList<TvShows.TvShowsResult>>
     private val pageSize = 1000
     private val onAirDataSourceFactory: OnAirDataSourceFactory
 
@@ -25,5 +25,5 @@ class OnAirViewModel : ViewModel() {
         onAirList = LivePagedListBuilder(onAirDataSourceFactory, config).build()
     }
 
-    fun getOnAirList(): LiveData<PagedList<OnAirTVResult>> = onAirList
+    fun getOnAirList(): LiveData<PagedList<TvShows.TvShowsResult>> = onAirList
 }

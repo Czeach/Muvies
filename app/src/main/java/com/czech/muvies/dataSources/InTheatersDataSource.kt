@@ -6,7 +6,7 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
-import com.czech.muvies.models.InTheatersResult
+import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +16,12 @@ import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class InTheatersDataSource(private var apiService: MoviesApiService,
-                           coroutineContext: CoroutineContext): PageKeyedDataSource<Int, InTheatersResult>() {
+                           coroutineContext: CoroutineContext): PageKeyedDataSource<Int, Movies.MoviesResult>() {
 
     private val job = Job()
     private val scope = CoroutineScope(coroutineContext + job)
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, InTheatersResult>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movies.MoviesResult>) {
         scope.launch {
             try {
                 val response = apiService.getPagedInTheatersList(BuildConfig.API_KEY, LANGUAGE, 1)
@@ -36,7 +36,7 @@ class InTheatersDataSource(private var apiService: MoviesApiService,
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, InTheatersResult>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movies.MoviesResult>) {
         scope.launch {
             try {
                 val response = apiService.getPagedInTheatersList(BuildConfig.API_KEY, LANGUAGE, params.key)
@@ -51,7 +51,7 @@ class InTheatersDataSource(private var apiService: MoviesApiService,
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, InTheatersResult>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movies.MoviesResult>) {
     }
 
     override fun invalidate() {
@@ -61,11 +61,11 @@ class InTheatersDataSource(private var apiService: MoviesApiService,
 }
 
 class InTheatersDataSourceFactory(private val apiService: MoviesApiService,
-    coroutineContext: CoroutineContext): DataSource.Factory<Int, InTheatersResult>() {
+    coroutineContext: CoroutineContext): DataSource.Factory<Int, Movies.MoviesResult>() {
 
     val inTheatersDataSourceLiveData = MutableLiveData<InTheatersDataSource>()
 
-    override fun create(): DataSource<Int, InTheatersResult> {
+    override fun create(): DataSource<Int, Movies.MoviesResult> {
         val inTheatersDataSource = InTheatersDataSource(apiService, Dispatchers.IO)
         inTheatersDataSourceLiveData.postValue(inTheatersDataSource)
         return inTheatersDataSource

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="trendingTvViewModel"
-            type="com.czech.muvies.models.TrendingTvResult" />
+            type="com.czech.muvies.models.TvShows.TvShowsResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/cardView10"
             android:layout_width="129dp"
             android:layout_height="193.5dp"
-            app:cardBackgroundColor="@color/colorBackgroundLight"
+            app:cardBackgroundColor="@color/colorAccentLight"
             app:cardCornerRadius="10dp"
             app:cardElevation="12dp"
             app:layout_constraintEnd_toEndOf="parent"

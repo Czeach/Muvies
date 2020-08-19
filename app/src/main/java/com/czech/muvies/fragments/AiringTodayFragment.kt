@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.AiringTodayFragmentBinding
-import com.czech.muvies.models.AiringTodayTvResult
+import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.AiringTodayMainAdapter
 import com.czech.muvies.pagedAdapters.airingTodayItemClickListener
 import com.czech.muvies.viewModels.AiringTodayViewModel
@@ -22,7 +22,7 @@ class AiringTodayFragment : Fragment() {
 
     private val airingTodayClickListener by lazy {
         object : airingTodayItemClickListener {
-            override fun invoke(it: AiringTodayTvResult) {
+            override fun invoke(it: TvShows.TvShowsResult) {
                 val args = AiringTodayFragmentDirections.actionAiringTodayFragmentToTvShowsDetailsFragment(
                     it, null, null, null, null, null,
                     null, null, null, null

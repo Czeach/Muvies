@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.OnAirTVResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias onAirItemClickListener = (OnAirTVResult) -> Unit
+typealias onAirItemClickListener = (TvShows.TvShowsResult) -> Unit
 
 class OnAirMainAdapter(private val clickListener: onAirItemClickListener):
-    PagedListAdapter<OnAirTVResult, OnAirMainAdapter.OnAirMainViewHolder>(diffUtil) {
+    PagedListAdapter<TvShows.TvShowsResult, OnAirMainAdapter.OnAirMainViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnAirMainViewHolder {
         return OnAirMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
@@ -30,13 +30,13 @@ class OnAirMainAdapter(private val clickListener: onAirItemClickListener):
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<OnAirTVResult>() {
+        val diffUtil = object : DiffUtil.ItemCallback<TvShows.TvShowsResult>() {
 
-            override fun areItemsTheSame(oldItem: OnAirTVResult, newItem: OnAirTVResult): Boolean {
+            override fun areItemsTheSame(oldItem: TvShows.TvShowsResult, newItem: TvShows.TvShowsResult): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: OnAirTVResult, newItem: OnAirTVResult): Boolean {
+            override fun areContentsTheSame(oldItem: TvShows.TvShowsResult, newItem: TvShows.TvShowsResult): Boolean {
                 return oldItem == newItem
             }
         }
@@ -49,13 +49,14 @@ class OnAirMainAdapter(private val clickListener: onAirItemClickListener):
         private var date: TextView = itemView.date
         private var vote: TextView = itemView.vote
 
-        fun bind(result: OnAirTVResult) {
+        fun bind(result: TvShows.TvShowsResult) {
             title.text = result.name
             date.text = result.firstAirDate
             vote.text = result.voteAverage.toString()
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

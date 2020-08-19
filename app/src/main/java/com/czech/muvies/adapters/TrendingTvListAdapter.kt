@@ -10,13 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TrendingTvListBinding
-import com.czech.muvies.models.TopRatedTVResult
-import com.czech.muvies.models.TrendingTvResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.trending_tv_list.view.*
 
-typealias trendingTvSItemClickListener = (TrendingTvResult) -> Unit
+typealias trendingTvSItemClickListener = (TvShows.TvShowsResult) -> Unit
 
-class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>, private val clickListener: trendingTvSItemClickListener):
+class TrendingTvListAdapter(private var list: MutableList<TvShows.TvShowsResult>, private val clickListener: trendingTvSItemClickListener):
     RecyclerView.Adapter<TrendingTvListAdapter.TrendingTvListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingTvListViewHolder {
@@ -33,7 +32,7 @@ class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>, pri
         holder.bind(tv)
     }
 
-    fun updateTrendingTvList(tvList: MutableList<TrendingTvResult>) {
+    fun updateTrendingTvList(tvList: MutableList<TvShows.TvShowsResult>) {
         list = tvList
         notifyDataSetChanged()
     }
@@ -46,13 +45,14 @@ class TrendingTvListAdapter(private var list: MutableList<TrendingTvResult>, pri
         private var poster: ImageView = itemView.trending_tv_recycler_image
         private var name: TextView = itemView.trending_tv_recycler_text
 
-        fun bind(tv: TrendingTvResult) {
+        fun bind(tv: TvShows.TvShowsResult) {
             binding.trendingTvViewModel = tv
 
             name.text = tv.name
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

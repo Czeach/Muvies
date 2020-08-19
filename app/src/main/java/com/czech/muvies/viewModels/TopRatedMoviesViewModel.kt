@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.dataSources.TopRatedMoviesDataSourceFactory
-import com.czech.muvies.models.TopRatedResult
+import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.Dispatchers
 
 class TopRatedMoviesViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
-    private val topRatedList: LiveData<PagedList<TopRatedResult>>
+    private val topRatedList: LiveData<PagedList<Movies.MoviesResult>>
     private val pageSize = 1000
     private val topRatedMoviesDataSourceFactory: TopRatedMoviesDataSourceFactory
 
@@ -25,5 +25,5 @@ class TopRatedMoviesViewModel : ViewModel() {
         topRatedList = LivePagedListBuilder(topRatedMoviesDataSourceFactory, config).build()
     }
 
-    fun getTopRatedList(): LiveData<PagedList<TopRatedResult>> = topRatedList
+    fun getTopRatedList(): LiveData<PagedList<Movies.MoviesResult>> = topRatedList
 }

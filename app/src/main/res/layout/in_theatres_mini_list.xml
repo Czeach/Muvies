@@ -6,7 +6,7 @@
     <data>
         <variable
             name="inTheatresMini"
-            type="com.czech.muvies.models.InTheatersResult" />
+            type="com.czech.muvies.models.Movies.MoviesResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +19,7 @@
             android:layout_width="192dp"
             android:layout_height="287dp"
             app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/colorAccentLight"
             app:cardElevation="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

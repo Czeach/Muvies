@@ -146,48 +146,48 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.czech.muvies.fragments.MoviesDetailsFragment"
+        android:name="com.czech.muvies.fragments.MovieDetailsFragment"
         android:label=""
-        tools:layout="@layout/movies_details_fragment" >
+        tools:layout="@layout/movie_details_fragment" >
         <argument
             android:name="inTheaterArgs"
-            app:argType="com.czech.muvies.models.InTheatersResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="inTheaterSArgs"
-            app:argType="com.czech.muvies.models.InTheatersResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="upcomingArgs"
-            app:argType="com.czech.muvies.models.UpcomingResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="upcomingSArgs"
-            app:argType="com.czech.muvies.models.UpcomingResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="popularArgs"
-            app:argType="com.czech.muvies.models.PopularResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="popularSArgs"
-            app:argType="com.czech.muvies.models.PopularResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="topRatedArgs"
-            app:argType="com.czech.muvies.models.TopRatedResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="topRatedSArgs"
-            app:argType="com.czech.muvies.models.TopRatedResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="trendingArgs"
-            app:argType="com.czech.muvies.models.TrendingMoviesResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
         <argument
             android:name="trendingSArgs"
-            app:argType="com.czech.muvies.models.TrendingMoviesResult"
+            app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
     </fragment>
     <fragment
@@ -197,48 +197,65 @@
         tools:layout="@layout/favorites_fragment" />
     <fragment
         android:id="@+id/tvShowsDetailsFragment"
-        android:name="com.czech.muvies.fragments.TvShowsDetailsFragment"
+        android:name="com.czech.muvies.fragments.TvShowDetailsFragment"
         android:label=""
-        tools:layout="@layout/tv_shows_details_fragment" >
+        tools:layout="@layout/tv_show_details_fragment" >
         <argument
             android:name="airingTodayArgs"
-            app:argType="com.czech.muvies.models.AiringTodayTvResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="airingTodaySArgs"
-            app:argType="com.czech.muvies.models.AiringTodayTvResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="onAirArgs"
-            app:argType="com.czech.muvies.models.OnAirTVResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="onAirSArgs"
-            app:argType="com.czech.muvies.models.OnAirTVResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="popularTvArgs"
-            app:argType="com.czech.muvies.models.PopularTVResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="popularTvSArgs"
-            app:argType="com.czech.muvies.models.PopularTVResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="topRatedTvArgs"
-            app:argType="com.czech.muvies.models.TopRatedTVResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="topRatedTvSArgs"
-            app:argType="com.czech.muvies.models.TopRatedTVResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="trendingTvArgs"
-            app:argType="com.czech.muvies.models.TrendingTvResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
             app:nullable="true" />
         <argument
             android:name="trendingTvSArgs"
-            app:argType="com.czech.muvies.models.TrendingTvResult"
+            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_tvShowsDetailsFragment_to_seasonDetailsFragment"
+            app:destination="@id/seasonDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
+        android:label="season details"
+        tools:layout="@layout/season_details_fragment" >
+        <argument
+            android:name="seasonArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails$Season"
+            app:nullable="true" />
+        <argument
+            android:name="showArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails"
             app:nullable="true" />
     </fragment>
 </navigation>

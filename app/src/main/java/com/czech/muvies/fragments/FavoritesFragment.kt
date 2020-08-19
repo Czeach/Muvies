@@ -1,6 +1,5 @@
 package com.czech.muvies.fragments
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.czech.muvies.R
+import com.czech.muvies.viewModels.FavoritesViewModel
 
 class FavoritesFragment : Fragment() {
 

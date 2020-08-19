@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.dataSources.PopularDataSourceFactory
-import com.czech.muvies.models.PopularResult
+import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.Dispatchers
 
 class PopularViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
-    private val popularList: LiveData<PagedList<PopularResult>>
+    private val popularList: LiveData<PagedList<Movies.MoviesResult>>
     private val pageSize = 1000
     private val popularDataSourceFactory: PopularDataSourceFactory
 
@@ -25,5 +25,5 @@ class PopularViewModel : ViewModel() {
         popularList = LivePagedListBuilder(popularDataSourceFactory, config).build()
     }
 
-    fun getPopularList(): LiveData<PagedList<PopularResult>> = popularList
+    fun getPopularList(): LiveData<PagedList<Movies.MoviesResult>> = popularList
 }

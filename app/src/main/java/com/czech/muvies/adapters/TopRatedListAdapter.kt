@@ -10,13 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TopRatedListBinding
-import com.czech.muvies.models.PopularResult
-import com.czech.muvies.models.TopRatedResult
+import com.czech.muvies.models.Movies
 import kotlinx.android.synthetic.main.top_rated_list.view.*
 
-typealias topRatedSItemClickListener = (TopRatedResult) -> Unit
+typealias topRatedSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class TopRatedListAdapter(private var list: MutableList<TopRatedResult>, private val clickListener: topRatedSItemClickListener):
+class TopRatedListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: topRatedSItemClickListener):
     RecyclerView.Adapter<TopRatedListAdapter.TopRatedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedViewHolder {
@@ -28,12 +27,12 @@ class TopRatedListAdapter(private var list: MutableList<TopRatedResult>, private
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: TopRatedViewHolder, position: Int) {
-        val movie: TopRatedResult = list[position]
+        val movie: Movies.MoviesResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updateTopRatedList(movieList: MutableList<TopRatedResult>){
+    fun updateTopRatedList(movieList: MutableList<Movies.MoviesResult>){
         list = movieList
         notifyDataSetChanged()
     }
@@ -46,13 +45,14 @@ class TopRatedListAdapter(private var list: MutableList<TopRatedResult>, private
         private var poster: ImageView = itemView.top_rated_recycler_image
         private var title: TextView = itemView.top_rated_recycler_text
 
-        fun bind(movie: TopRatedResult) {
+        fun bind(movie: Movies.MoviesResult) {
             binding.topRatedViewModel = movie
 
             title.text = movie.title
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

@@ -1,4 +1,4 @@
-package com.czech.muvies.fragments
+package com.czech.muvies.viewModels
 
 import androidx.lifecycle.ViewModel
 

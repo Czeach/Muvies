@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.InTheatresMiniListBinding
-import com.czech.muvies.models.InTheatersResult
+import com.czech.muvies.models.Movies
 import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 
-typealias inTheatersItemClickListenerS = (InTheatersResult) -> Unit
+typealias inTheatersItemClickListenerS = (Movies.MoviesResult) -> Unit
 
-class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>, private val clickListener: inTheatersItemClickListenerS):
+class InTheatersMiniListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: inTheatersItemClickListenerS):
     RecyclerView.Adapter<InTheatersMiniListAdapter.InTheatersMiniListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMiniListViewHolder {
@@ -27,12 +27,12 @@ class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>,
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: InTheatersMiniListViewHolder, position: Int) {
-        val movie: InTheatersResult = list[position]
+        val movie: Movies.MoviesResult = list[position]
 
         holder.bind(movie)
     }
 
-    fun updateInTheatreList(movieList: MutableList<InTheatersResult>) {
+    fun updateInTheatreList(movieList: MutableList<Movies.MoviesResult>) {
         list = movieList
         notifyDataSetChanged()
     }
@@ -46,13 +46,14 @@ class InTheatersMiniListAdapter(private var list: MutableList<InTheatersResult>,
         private var title: TextView = itemView.in_theatre_recycler_text
 
 
-        fun bind(movie: InTheatersResult) {
+        fun bind(movie: Movies.MoviesResult) {
             binding.inTheatresMini = movie
 
             title.text = movie.title
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${movie.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
 
             binding.executePendingBindings()

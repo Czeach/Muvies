@@ -6,7 +6,7 @@
     <data>
         <variable
             name="topRatedViewModel"
-            type="com.czech.muvies.models.TopRatedResult" />
+            type="com.czech.muvies.models.Movies.MoviesResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/cardView7"
             android:layout_width="129dp"
             android:layout_height="193.5dp"
-            app:cardBackgroundColor="@color/colorBackgroundLight"
+            app:cardBackgroundColor="@color/colorAccentLight"
             app:cardCornerRadius="10dp"
             app:cardElevation="12dp"
             app:layout_constraintEnd_toEndOf="parent"

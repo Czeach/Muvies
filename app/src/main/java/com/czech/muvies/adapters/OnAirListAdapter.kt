@@ -10,13 +10,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.OnAirListBinding
-import com.czech.muvies.models.AiringTodayTvResult
-import com.czech.muvies.models.OnAirTVResult
+import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.on_air_list.view.*
 
-typealias onAirSItemClickListener = (OnAirTVResult) -> Unit
+typealias onAirSItemClickListener = (TvShows.TvShowsResult) -> Unit
 
-class OnAirListAdapter(private var list: MutableList<OnAirTVResult>, private val clickListener: onAirSItemClickListener):
+class OnAirListAdapter(private var list: MutableList<TvShows.TvShowsResult>, private val clickListener: onAirSItemClickListener):
     RecyclerView.Adapter<OnAirListAdapter.OnAirListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnAirListViewHolder {
@@ -28,12 +27,12 @@ class OnAirListAdapter(private var list: MutableList<OnAirTVResult>, private val
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: OnAirListViewHolder, position: Int) {
-        val tv: OnAirTVResult = list[position]
+        val tv: TvShows.TvShowsResult = list[position]
 
         holder.bind(tv)
     }
 
-    fun updateOnAirList(tvList: MutableList<OnAirTVResult>) {
+    fun updateOnAirList(tvList: MutableList<TvShows.TvShowsResult>) {
         list = tvList
         notifyDataSetChanged()
     }
@@ -46,13 +45,14 @@ class OnAirListAdapter(private var list: MutableList<OnAirTVResult>, private val
         private var poster: ImageView = itemView.on_air_recycler_image
         private var name: TextView = itemView.on_air_recycler_text
 
-        fun bind(tv: OnAirTVResult) {
+        fun bind(tv: TvShows.TvShowsResult) {
             binding.onAirViewModel = tv
 
             name.text = tv.name
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${tv.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_error)
                 .into(poster)
         }
 

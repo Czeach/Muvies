@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.databinding.TopRatedShowsFragmentBinding
-import com.czech.muvies.models.TopRatedTVResult
+import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.TopRatedShowsMainAdapter
 import com.czech.muvies.pagedAdapters.topRatedTvItemClickListener
 import com.czech.muvies.viewModels.TopRatedShowsViewModel
@@ -22,7 +22,7 @@ class TopRatedShowsFragment : Fragment() {
 
     private val topRatedClickListener by lazy {
         object : topRatedTvItemClickListener {
-            override fun invoke(it: TopRatedTVResult) {
+            override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TopRatedShowsFragmentDirections.actionTopRatedShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     it, null, null, null
