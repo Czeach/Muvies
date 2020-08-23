@@ -260,5 +260,9 @@
             android:name="showName"
             app:argType="string"
             app:nullable="true"/>
+        <argument
+            android:name="backdrop"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -179,6 +179,14 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): TvShowDetails
+
+    @GET("tv/{id}/season/{season}")
+    suspend fun getSeasonDetails(
+        @Path("id") tvShowsId: Int,
+        @Path("season") seasonNum: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): SeasonDetails
 }
 
 object MoviesApi {

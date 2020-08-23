@@ -7,13 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.SeasonDetailsFragmentBinding
+import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Converter
+import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
+import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
 import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class SeasonDetailsFragment : Fragment() {
@@ -27,7 +31,8 @@ class SeasonDetailsFragment : Fragment() {
     ): View? {
 
         binding = SeasonDetailsFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(SeasonDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this, SeasonDetailsViewModelFactory(MoviesApiService.getService()))
+            .get(SeasonDetailsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.seasonDetailsViewModel = viewModel
 
@@ -40,9 +45,7 @@ class SeasonDetailsFragment : Fragment() {
 
         val showId = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showId
         val showName = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showName
-
-        Toast.makeText(requireContext(), "$showId, $showName", Toast.LENGTH_LONG).show()
-
+        val backdrop = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).backdrop
         val seasonArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).seasonArgs
 
         if (seasonArgs != null) {
@@ -51,6 +54,11 @@ class SeasonDetailsFragment : Fragment() {
                 .placeholder(R.drawable.poster_placeholder)
                 .error(R.drawable.poster_error)
                 .into(poster)
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH$backdrop")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(back_drop)
 
             title.text = showName
 
@@ -62,7 +70,34 @@ class SeasonDetailsFragment : Fragment() {
             release_year.text = "($releaseYear)"
 
             episode_number.text = "${seasonArgs.episodeCount} episodes"
+
+            getDetails(showId, seasonArgs.seasonNumber!!)
         }
+    }
+
+    private fun getDetails(showId: Int, seasonNum: Int) {
+
+        viewModel.getSeasonDetails(showId, seasonNum).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let { seasonDetails ->
+
+                            if (seasonDetails != null) {
+
+                                overview.text = seasonDetails.overview
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
+        })
     }
 
 }

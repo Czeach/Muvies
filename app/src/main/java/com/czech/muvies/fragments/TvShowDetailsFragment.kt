@@ -274,7 +274,7 @@ class TvShowDetailsFragment() : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun getDetails(showId: Int) {
+    private fun getDetails(showId: Int) {
 
         viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
@@ -325,7 +325,8 @@ class TvShowDetailsFragment() : Fragment() {
                                         val bundle = bundleOf(
                                             "seasonArgs" to season,
                                             "showId" to showDetails.id,
-                                            "showName" to showDetails.name
+                                            "showName" to showDetails.name,
+                                            "backdrop" to showDetails.backdropPath
                                         )
                                         navController!!.navigate(
                                             R.id.action_tvShowsDetailsFragment_to_seasonDetailsFragment, bundle
