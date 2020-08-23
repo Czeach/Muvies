@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
@@ -37,12 +38,12 @@ class SeasonDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val seasonArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).seasonArgs
-        val showArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showArgs
+        val showId = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showId
+        val showName = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showName
 
-        if (showArgs != null) {
-            title.text = showArgs.name
-        }
+        Toast.makeText(requireContext(), "$showId, $showName", Toast.LENGTH_LONG).show()
+
+        val seasonArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).seasonArgs
 
         if (seasonArgs != null) {
             Glide.with(this)
@@ -50,6 +51,8 @@ class SeasonDetailsFragment : Fragment() {
                 .placeholder(R.drawable.poster_placeholder)
                 .error(R.drawable.poster_error)
                 .into(poster)
+
+            title.text = showName
 
             season_number.text =
                 if (seasonArgs.seasonNumber == 0) "Specials"

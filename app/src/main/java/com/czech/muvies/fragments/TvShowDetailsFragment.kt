@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -19,7 +22,6 @@ import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
-import com.czech.muvies.adapters.seasonsItemClickListener
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
@@ -38,20 +40,24 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class TvShowDetailsFragment : Fragment() {
+class TvShowDetailsFragment() : Fragment() {
 
     private lateinit var viewModel: TvShowDetailsViewModel
     private lateinit var binding: TvShowDetailsFragmentBinding
 
+    var navController: NavController? = null
+
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
-    private val seasonsClickListener by lazy {
-        object : seasonsItemClickListener {
-            override fun invoke(show: TvShowDetails, season: TvShowDetails.Season) {
-            }
-        }
-    }
-    private var seasonsAdapter = SeasonsAdapter(arrayListOf(), seasonsClickListener)
+//    private val seasonsClickListener = object : seasonsItemClickListener {
+//        override fun invoke(season: TvShowDetails.Season) {
+//            val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToSeasonDetailsFragment(
+//                season, null, null
+//            )
+//            findNavController().navigate(args)
+//        }
+//    }
+    private var seasonsAdapter = SeasonsAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +78,8 @@ class TvShowDetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
 
         val airingTodaySArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
         val airingTodayArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
@@ -283,8 +291,6 @@ class TvShowDetailsFragment : Fragment() {
 
                                 genreAdapter.updateList(showDetails.genres as List<TvShowDetails.Genre>)
 
-                                seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
-
                                 original_name.text = showDetails.originalName
 
                                 status.text = showDetails.status
@@ -298,6 +304,10 @@ class TvShowDetailsFragment : Fragment() {
                                 next_episode.text =
                                     "Season ${showDetails.nextEpisodeToAir?.seasonNumber} episode ${showDetails.nextEpisodeToAir?.episodeNumber}"
 
+                                next_episode.text =
+                                    if (showDetails.nextEpisodeToAir?.airDate == null) ""
+                                else "Season ${showDetails.nextEpisodeToAir.seasonNumber} episode ${showDetails.nextEpisodeToAir.episodeNumber}"
+
                                 vote_count.text = "${showDetails.voteCount} votes"
 
                                 seasons.text =
@@ -307,6 +317,22 @@ class TvShowDetailsFragment : Fragment() {
                                 homepage.text = showDetails.homepage
 
                                 synopsis.text = showDetails.overview
+
+                                seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
+
+                                seasonsAdapter.setUpListener(object : SeasonsAdapter.ItemCLickedListener {
+                                    override fun onItemClicked(season: TvShowDetails.Season) {
+                                        val bundle = bundleOf(
+                                            "seasonArgs" to season,
+                                            "showId" to showDetails.id,
+                                            "showName" to showDetails.name
+                                        )
+                                        navController!!.navigate(
+                                            R.id.action_tvShowsDetailsFragment_to_seasonDetailsFragment, bundle
+                                        )
+                                    }
+
+                                })
                             }
                         }
                         details.visibility = View.VISIBLE

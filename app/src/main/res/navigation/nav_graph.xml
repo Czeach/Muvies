@@ -254,8 +254,11 @@
             app:argType="com.czech.muvies.models.TvShowDetails$Season"
             app:nullable="true" />
         <argument
-            android:name="showArgs"
-            app:argType="com.czech.muvies.models.TvShowDetails"
-            app:nullable="true" />
+            android:name="showId"
+            app:argType="integer" />
+        <argument
+            android:name="showName"
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
 </navigation>
