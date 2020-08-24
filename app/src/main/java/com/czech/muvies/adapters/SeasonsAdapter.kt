@@ -16,8 +16,7 @@ import com.czech.muvies.models.TvShows
 import com.czech.muvies.utils.Converter
 import kotlinx.android.synthetic.main.seasons_list.view.*
 
-class SeasonsAdapter(private var list: List<TvShowDetails.Season>):
-    RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder>() {
+class SeasonsAdapter(private var list: List<TvShowDetails.Season>): RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder>() {
 
     lateinit var seasonItemCLicked: ItemCLickedListener
 

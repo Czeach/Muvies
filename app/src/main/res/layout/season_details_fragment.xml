@@ -106,7 +106,7 @@
                 app:layout_constraintStart_toStartOf="@+id/season_number" />
 
             <FrameLayout
-                android:id="@+id/frameLayout3"
+                android:id="@+id/details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -140,11 +140,32 @@
                         android:layout_marginBottom="16dp"
                         android:fontFamily="sans-serif"
                         android:textColor="@color/colorAccentLight"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView4"
                         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/autour_one"
+                        android:text="Episodes"
+                        android:textColor="@color/colorAccentLight"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/textView4"
+                        app:layout_constraintTop_toBottomOf="@+id/overview" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/episodes_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

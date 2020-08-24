@@ -9,21 +9,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.adapters.EpisodeAdapter
 import com.czech.muvies.databinding.SeasonDetailsFragmentBinding
+import com.czech.muvies.models.SeasonDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
 import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
+import com.yarolegovich.discretescrollview.DSVOrientation
 import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class SeasonDetailsFragment : Fragment() {
 
     private lateinit var viewModel: SeasonDetailsViewModel
     private lateinit var binding: SeasonDetailsFragmentBinding
+
+    private var episodeAdapter = EpisodeAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +79,10 @@ class SeasonDetailsFragment : Fragment() {
 
             getDetails(showId, seasonArgs.seasonNumber!!)
         }
+
+        episodes_list.adapter = episodeAdapter
+//        episodes_list.setOrientation(DSVOrientation.HORIZONTAL)
+        episodes_list.orientation = ViewPager2.ORIENTATION_HORIZONTAL
     }
 
     private fun getDetails(showId: Int, seasonNum: Int) {
@@ -86,14 +96,17 @@ class SeasonDetailsFragment : Fragment() {
                             if (seasonDetails != null) {
 
                                 overview.text = seasonDetails.overview
+
+                                episodeAdapter.updateList(seasonDetails.episodes as List<SeasonDetails.Episode>)
                             }
                         }
+                        details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
-
+                        details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
-
+                        details.visibility = View.INVISIBLE
                     }
                 }
             }
