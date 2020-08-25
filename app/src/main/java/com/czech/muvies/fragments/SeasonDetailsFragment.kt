@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
@@ -18,6 +20,7 @@ import com.czech.muvies.databinding.SeasonDetailsFragmentBinding
 import com.czech.muvies.models.SeasonDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Converter
+import com.czech.muvies.utils.EpisodesListTransformer
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
 import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
@@ -80,9 +83,14 @@ class SeasonDetailsFragment : Fragment() {
             getDetails(showId, seasonArgs.seasonNumber!!)
         }
 
-        episodes_list.adapter = episodeAdapter
-//        episodes_list.setOrientation(DSVOrientation.HORIZONTAL)
-        episodes_list.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        episodes_list.apply {
+            adapter = episodeAdapter
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            setPageTransformer(CompositePageTransformer().also {
+                it.addTransformer(EpisodesListTransformer())
+                it.addTransformer(MarginPageTransformer(100))
+            })
+        }
     }
 
     private fun getDetails(showId: Int, seasonNum: Int) {
@@ -95,7 +103,12 @@ class SeasonDetailsFragment : Fragment() {
 
                             if (seasonDetails != null) {
 
-                                overview.text = seasonDetails.overview
+                                if (seasonDetails.overview == null) {
+                                    overview_layout.visibility = View.GONE
+                                } else {
+                                    overview_layout.visibility = View.VISIBLE
+                                    overview.text = seasonDetails.overview
+                                }
 
                                 episodeAdapter.updateList(seasonDetails.episodes as List<SeasonDetails.Episode>)
                             }
@@ -106,7 +119,7 @@ class SeasonDetailsFragment : Fragment() {
                         details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
-                        details.visibility = View.INVISIBLE
+                        details.visibility = View.GONE
                     }
                 }
             }
