@@ -5,17 +5,10 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
-import com.czech.muvies.dataSources.AiringTodayDataSourceFactory
-import com.czech.muvies.dataSources.SimilarMoviesDataSource
 import com.czech.muvies.dataSources.SimilarMoviesDataSourceFactory
-import com.czech.muvies.models.MovieDetails
-import com.czech.muvies.models.Movies
 import com.czech.muvies.models.SimilarMovies
-import com.czech.muvies.models.TvShows
-import com.czech.muvies.network.MoviesApi
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Resource
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

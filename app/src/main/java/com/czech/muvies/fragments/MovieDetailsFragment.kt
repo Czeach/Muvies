@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
@@ -20,6 +22,7 @@ import com.czech.muvies.adapters.MoviesGenreAdapter
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
 import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.pagedAdapters.SimilarMoviesAdapter
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
@@ -32,6 +35,8 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var binding: MovieDetailsFragmentBinding
 
     private var genreAdapter = MoviesGenreAdapter(arrayListOf())
+
+    private var similarMoviesAdapter = SimilarMoviesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -275,6 +280,11 @@ class MovieDetailsFragment : Fragment() {
             adapter = genreAdapter
         }
 
+        binding.similarMovies.apply {
+            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+            adapter = similarMoviesAdapter
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -324,6 +334,10 @@ class MovieDetailsFragment : Fragment() {
                     }
                 }
             }
+        })
+
+        viewModel.getSimilarMovies(movieId).observe(viewLifecycleOwner, Observer {
+            similarMoviesAdapter.submitList(it)
         })
     }
 
