@@ -187,6 +187,14 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): SeasonDetails
+
+    @GET("movie/{id}/similar")
+    suspend fun getSimilarMovies(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<SimilarMovies>
 }
 
 object MoviesApi {
