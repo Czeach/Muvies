@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
@@ -25,6 +26,7 @@ import com.czech.muvies.adapters.ShowsGenreAdapter
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.pagedAdapters.SimilarTvShowsAdapter
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
@@ -49,15 +51,9 @@ class TvShowDetailsFragment() : Fragment() {
 
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
-//    private val seasonsClickListener = object : seasonsItemClickListener {
-//        override fun invoke(season: TvShowDetails.Season) {
-//            val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToSeasonDetailsFragment(
-//                season, null, null
-//            )
-//            findNavController().navigate(args)
-//        }
-//    }
     private var seasonsAdapter = SeasonsAdapter(arrayListOf())
+
+    private var similarAdapter = SimilarTvShowsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -271,6 +267,11 @@ class TvShowDetailsFragment() : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = seasonsAdapter
         }
+
+        binding.similarShows.apply {
+            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+            adapter = similarAdapter
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -346,6 +347,10 @@ class TvShowDetailsFragment() : Fragment() {
                     }
                 }
             }
+        })
+
+        viewModel.getSimilarTvShows(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            similarAdapter.submitList(it)
         })
     }
 

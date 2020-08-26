@@ -1,10 +1,17 @@
 package com.czech.muvies.viewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
+import com.czech.muvies.dataSources.SimilarMoviesDataSourceFactory
+import com.czech.muvies.dataSources.SimilarTvShowsDataSourceFactory
+import com.czech.muvies.models.SimilarMovies
+import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +27,18 @@ class TvShowDetailsViewModel(private val apiService: MoviesApiService) : ViewMod
             emit(Resource.error(data = null, message = e.message ?: "Error getting tv show details"))
         }
     }
+
+    private val pageSize = 1000
+
+    val config = PagedList.Config.Builder()
+        .setPageSize(pageSize)
+        .setEnablePlaceholders(false)
+        .build()
+
+    fun getSimilarTvShows(showId: Int): LiveData<PagedList<SimilarTvShows.SimilarTvShowsResult>> = LivePagedListBuilder(
+        SimilarTvShowsDataSourceFactory(apiService, Dispatchers.IO, showId),
+        config
+    ).build()
 }
 
 class TvShowDetailsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {

@@ -25,14 +25,7 @@ class MovieDetailsViewModel(private val apiService: MoviesApiService) : ViewMode
         }
     }
 
-    private val apiService2 = MoviesApiService.getService()
-    private lateinit var similarMoviesList: LiveData<PagedList<SimilarMovies.SimilarMoviesResult>>
     private val pageSize = 1000
-    private lateinit var similarMoviesDataSourceFactory: SimilarMoviesDataSourceFactory
-
-//    init {
-//
-//    }
 
     val config = PagedList.Config.Builder()
         .setPageSize(pageSize)
@@ -40,7 +33,7 @@ class MovieDetailsViewModel(private val apiService: MoviesApiService) : ViewMode
         .build()
 
     fun getSimilarMovies(movieId: Int): LiveData<PagedList<SimilarMovies.SimilarMoviesResult>> = LivePagedListBuilder(
-            SimilarMoviesDataSourceFactory(apiService2, Dispatchers.IO, movieId),
+            SimilarMoviesDataSourceFactory(apiService, Dispatchers.IO, movieId),
             config
         ).build()
 
