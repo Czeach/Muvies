@@ -6,7 +6,7 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
-import com.czech.muvies.models.SimilarMovies
+import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,35 +15,35 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
-class SimilarMoviesDataSource (private var apiService: MoviesApiService, coroutineContext: CoroutineContext, private var id: Int):
-    PageKeyedDataSource<Int, SimilarMovies.SimilarMoviesResult>() {
+class SimilarTvShowsDataSource(private var apiService: MoviesApiService, coroutineContext: CoroutineContext, private var id: Int):
+        PageKeyedDataSource<Int, SimilarTvShows.SimilarTvShowsResult>() {
 
     private val job = Job()
     private val scope = CoroutineScope(coroutineContext + job)
 
     override fun loadInitial(params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, SimilarMovies.SimilarMoviesResult>) {
+        callback: LoadInitialCallback<Int, SimilarTvShows.SimilarTvShowsResult>) {
         scope.launch {
             try {
-                val response = apiService.getSimilarMovies(id, BuildConfig.API_KEY, LANGUAGE, 1)
+                val response = apiService.getSimilarTvShows(id, BuildConfig.API_KEY, LANGUAGE, 1)
                 when {
                     response.isSuccessful -> {
                         response.body()!!.results?.let {
-                            callback.onResult(it, null, 2)
+                            callback.onResult(it,null, 1)
                         }
                     }
                 }
             } catch (e : Exception){
-                Log.d("SimilarMoviesDataSource", "Failed to fetch similar movies!")
+                Log.d("SimilarTvShowDataSource", "Failed to fetch similar tv shows!")
             }
         }
     }
 
     override fun loadAfter(params: LoadParams<Int>,
-        callback: LoadCallback<Int, SimilarMovies.SimilarMoviesResult>) {
+        callback: LoadCallback<Int, SimilarTvShows.SimilarTvShowsResult>) {
         scope.launch {
             try {
-                val response = apiService.getSimilarMovies(id, BuildConfig.API_KEY, LANGUAGE, params.key)
+                val response = apiService.getSimilarTvShows(id, BuildConfig.API_KEY, LANGUAGE, params.key)
                 when {
                     response.isSuccessful -> {
                         response.body()!!.results?.let {
@@ -52,13 +52,13 @@ class SimilarMoviesDataSource (private var apiService: MoviesApiService, corouti
                     }
                 }
             } catch (e : Exception){
-                Log.d("SimilarMoviesDataSource", "Failed to fetch similar movies!")
+                Log.d("SimilarTvShowDataSource", "Failed to fetch similar tv shows!")
             }
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>,
-        callback: LoadCallback<Int, SimilarMovies.SimilarMoviesResult>) {
+        callback: LoadCallback<Int, SimilarTvShows.SimilarTvShowsResult>) {
     }
 
     override fun invalidate() {
@@ -67,15 +67,15 @@ class SimilarMoviesDataSource (private var apiService: MoviesApiService, corouti
     }
 }
 
-class SimilarMoviesDataSourceFactory(private val apiService: MoviesApiService, coroutineContext: CoroutineContext, private var id: Int):
-    DataSource.Factory<Int, SimilarMovies.SimilarMoviesResult>() {
+class SimilarTvShowsDataSourceFactory(private val apiService: MoviesApiService, coroutineContext: CoroutineContext, private var id: Int):
+        DataSource.Factory<Int, SimilarTvShows.SimilarTvShowsResult>() {
 
-    val similarMoviesDataSourceLiveData = MutableLiveData<SimilarMoviesDataSource>()
+    val similarTvShowsDataSourceLiveData = MutableLiveData<SimilarTvShowsDataSource>()
 
-    override fun create(): DataSource<Int, SimilarMovies.SimilarMoviesResult> {
-        val similarMoviesDataSource = SimilarMoviesDataSource(apiService, Dispatchers.IO, id)
-        similarMoviesDataSourceLiveData.postValue(similarMoviesDataSource)
-        return similarMoviesDataSource
+    override fun create(): DataSource<Int, SimilarTvShows.SimilarTvShowsResult> {
+        val similarTvShowsDataSource = SimilarTvShowsDataSource(apiService, Dispatchers.IO, id)
+        similarTvShowsDataSourceLiveData.postValue(similarTvShowsDataSource)
+        return similarTvShowsDataSource
     }
 
 }
