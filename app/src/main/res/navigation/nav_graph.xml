@@ -250,6 +250,13 @@
         <action
             android:id="@+id/action_tvShowsDetailsFragment_to_seasonDetailsFragment"
             app:destination="@id/seasonDetailsFragment" />
+        <action
+            android:id="@+id/action_tvShowsDetailsFragment_self"
+            app:destination="@id/tvShowsDetailsFragment" />
+        <argument
+            android:name="similarTvArgs"
+            app:argType="com.czech.muvies.models.SimilarTvShows$SimilarTvShowsResult"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/seasonDetailsFragment"

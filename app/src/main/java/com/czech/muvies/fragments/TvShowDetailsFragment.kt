@@ -25,10 +25,12 @@ import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.adapters.ShowCastAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.models.TvShowCredits
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.pagedAdapters.SimilarTvShowsAdapter
+import com.czech.muvies.pagedAdapters.similarTvItemClickListener
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
@@ -57,7 +59,19 @@ class TvShowDetailsFragment() : Fragment() {
 
     private var seasonsAdapter = SeasonsAdapter(arrayListOf())
 
-    private var similarAdapter = SimilarTvShowsAdapter()
+    private val similarTvClickListener by lazy {
+        object : similarTvItemClickListener {
+            override fun invoke(it: SimilarTvShows.SimilarTvShowsResult) {
+                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
+                    null, null, null, null, null, null,
+                    null, null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private var similarAdapter = SimilarTvShowsAdapter(similarTvClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,8 +105,14 @@ class TvShowDetailsFragment() : Fragment() {
         val topRatedTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvArgs
         val trendingTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvSArgs
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
+        val similarTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).similarTvArgs
 
         if (airingTodaySArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${airingTodaySArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = airingTodaySArgs.name
 
@@ -111,6 +131,11 @@ class TvShowDetailsFragment() : Fragment() {
 
         if (airingTodayArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${airingTodayArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = airingTodayArgs.name
 
             release_year.text = Converter.convertDateToYear(airingTodayArgs.firstAirDate)
@@ -127,6 +152,11 @@ class TvShowDetailsFragment() : Fragment() {
         }
 
         if (onAirSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = onAirSArgs.name
 
@@ -145,6 +175,11 @@ class TvShowDetailsFragment() : Fragment() {
 
         if (onAirArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = onAirArgs.name
 
             release_year.text = Converter.convertDateToYear(onAirArgs.firstAirDate)
@@ -161,6 +196,11 @@ class TvShowDetailsFragment() : Fragment() {
         }
 
         if (popularTvSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${popularTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = popularTvSArgs.name
 
@@ -179,6 +219,11 @@ class TvShowDetailsFragment() : Fragment() {
 
         if (popularTvArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${popularTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = popularTvArgs.name
 
             release_year.text = Converter.convertDateToYear(popularTvArgs.firstAirDate)
@@ -195,6 +240,11 @@ class TvShowDetailsFragment() : Fragment() {
         }
 
         if (topRatedTvSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = topRatedTvSArgs.name
 
@@ -213,6 +263,11 @@ class TvShowDetailsFragment() : Fragment() {
 
         if (topRatedTvArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = topRatedTvArgs.name
 
             release_year.text = Converter.convertDateToYear(topRatedTvArgs.firstAirDate)
@@ -229,6 +284,11 @@ class TvShowDetailsFragment() : Fragment() {
         }
 
         if (trendingTvSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = trendingTvSArgs.name
 
@@ -247,6 +307,11 @@ class TvShowDetailsFragment() : Fragment() {
 
         if (trendingTvArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = trendingTvArgs.name
 
             release_year.text = Converter.convertDateToYear(trendingTvArgs.firstAirDate)
@@ -260,6 +325,25 @@ class TvShowDetailsFragment() : Fragment() {
             lang_text.text = trendingTvArgs.originalLanguage
 
             getDetails(trendingTvArgs.id)
+        }
+
+        if (similarTvArgs != null) {
+
+            name.text = similarTvArgs.name
+
+            release_year.text = Converter.convertDateToYear(similarTvArgs.firstAirDate)
+
+            val ratingBar = rating_bar
+            val rating = similarTvArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = similarTvArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = similarTvArgs.originalLanguage
+
+            similarTvArgs.id?.let { getDetails(it) }
         }
 
         binding.showsGenreList.apply {
