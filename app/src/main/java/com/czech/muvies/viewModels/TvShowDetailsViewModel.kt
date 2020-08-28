@@ -28,6 +28,15 @@ class TvShowDetailsViewModel(private val apiService: MoviesApiService) : ViewMod
         }
     }
 
+    fun getCast(showId: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiService.getShowCredits(showId, BuildConfig.API_KEY, LANGUAGE)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error getting tv show credits"))
+        }
+    }
+
     private val pageSize = 1000
 
     val config = PagedList.Config.Builder()

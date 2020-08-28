@@ -22,8 +22,10 @@ import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.SeasonsAdapter
+import com.czech.muvies.adapters.ShowCastAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.models.TvShowCredits
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.pagedAdapters.SimilarTvShowsAdapter
@@ -50,6 +52,8 @@ class TvShowDetailsFragment() : Fragment() {
     var navController: NavController? = null
 
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
+
+    private var castAdapter = ShowCastAdapter(arrayListOf())
 
     private var seasonsAdapter = SeasonsAdapter(arrayListOf())
 
@@ -272,10 +276,35 @@ class TvShowDetailsFragment() : Fragment() {
             layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
             adapter = similarAdapter
         }
+
+        binding.castList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun getDetails(showId: Int) {
+
+        viewModel.getCast(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let {credits ->
+                            if (credits != null) {
+                                castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
+        })
 
         viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->

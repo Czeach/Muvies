@@ -228,6 +228,19 @@
                         app:layout_constraintStart_toStartOf="@+id/textView4"
                         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/autour_one"
+                        android:text="Cast"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccentLight"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/overview"
+                        app:layout_constraintTop_toBottomOf="@+id/overview" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/cast_list"
                         android:layout_width="0dp"
@@ -236,8 +249,8 @@
                         android:layout_marginEnd="8dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/overview"
-                        app:layout_constraintTop_toBottomOf="@+id/overview" />
+                        app:layout_constraintStart_toStartOf="@+id/textView17"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17"/>
 
                     <FrameLayout
                         android:layout_width="0dp"
