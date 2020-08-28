@@ -6,9 +6,14 @@ import androidx.paging.PagedList
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
 import com.czech.muvies.dataSources.SimilarMoviesDataSourceFactory
+import com.czech.muvies.models.MovieCredits
+import com.czech.muvies.models.Movies
 import com.czech.muvies.models.SimilarMovies
+import com.czech.muvies.network.MoviesApi
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.network.MoviesRepository
 import com.czech.muvies.utils.Resource
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -25,8 +30,16 @@ class MovieDetailsViewModel(private val apiService: MoviesApiService) : ViewMode
         }
     }
 
-    private val pageSize = 1000
+    fun getCast(movie_id: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiService.getMovieCredits(movie_id, BuildConfig.API_KEY)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error getting movie cast"))
+        }
+    }
 
+    private val pageSize = 1000
     val config = PagedList.Config.Builder()
         .setPageSize(pageSize)
         .setEnablePlaceholders(false)
@@ -36,8 +49,6 @@ class MovieDetailsViewModel(private val apiService: MoviesApiService) : ViewMode
             SimilarMoviesDataSourceFactory(apiService, Dispatchers.IO, movieId),
             config
         ).build()
-
-
 }
 
 class MovieDetailsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {

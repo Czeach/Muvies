@@ -203,6 +203,12 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Response<SimilarTvShows>
+
+    @GET("movie/{id}/credits")
+    suspend fun getMovieCredits(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): MovieCredits
 }
 
 object MoviesApi {

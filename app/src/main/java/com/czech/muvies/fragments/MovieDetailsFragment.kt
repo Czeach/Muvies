@@ -18,8 +18,10 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.adapters.MovieCastAdapter
 import com.czech.muvies.adapters.MoviesGenreAdapter
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
+import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.pagedAdapters.SimilarMoviesAdapter
@@ -35,6 +37,8 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var binding: MovieDetailsFragmentBinding
 
     private var genreAdapter = MoviesGenreAdapter(arrayListOf())
+
+    private val castAdapter = MovieCastAdapter(arrayListOf())
 
     private var similarMoviesAdapter = SimilarMoviesAdapter()
 
@@ -285,6 +289,11 @@ class MovieDetailsFragment : Fragment() {
             adapter = similarMoviesAdapter
         }
 
+        binding.castList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -327,7 +336,7 @@ class MovieDetailsFragment : Fragment() {
                         details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
-                        details.visibility = View.INVISIBLE
+                        details.visibility = View.GONE
                     }
                     Status.ERROR -> {
 
@@ -338,6 +347,26 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getSimilarMovies(movieId).observe(viewLifecycleOwner, Observer {
             similarMoviesAdapter.submitList(it)
+        })
+
+        viewModel.getCast(movieId).observe(viewLifecycleOwner, Observer {
+            it?.let {  resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let {credits ->
+                            if (credits != null) {
+                                castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
         })
     }
 
