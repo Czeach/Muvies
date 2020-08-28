@@ -179,6 +179,43 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): TvShowDetails
+
+    @GET("tv/{id}/season/{season}")
+    suspend fun getSeasonDetails(
+        @Path("id") tvShowsId: Int,
+        @Path("season") seasonNum: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): SeasonDetails
+
+    @GET("movie/{id}/similar")
+    suspend fun getSimilarMovies(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<SimilarMovies>
+
+    @GET("tv/{id}/similar")
+    suspend fun getSimilarTvShows(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<SimilarTvShows>
+
+    @GET("movie/{id}/credits")
+    suspend fun getMovieCredits(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): MovieCredits
+
+    @GET("tv/{id}/credits")
+    suspend fun getShowCredits(
+        @Path("id") showId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): TvShowCredits
 }
 
 object MoviesApi {

@@ -10,16 +10,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
+import com.czech.muvies.adapters.MovieCastAdapter
 import com.czech.muvies.adapters.MoviesGenreAdapter
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
+import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.MovieDetails
+import com.czech.muvies.models.SimilarMovies
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.pagedAdapters.SimilarMoviesAdapter
+import com.czech.muvies.pagedAdapters.similarItemClickListener
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
@@ -32,6 +40,22 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var binding: MovieDetailsFragmentBinding
 
     private var genreAdapter = MoviesGenreAdapter(arrayListOf())
+
+    private val castAdapter = MovieCastAdapter(arrayListOf())
+
+    private val similarClickListener by lazy {
+        object : similarItemClickListener {
+            override fun invoke(it: SimilarMovies.SimilarMoviesResult) {
+                val args = MovieDetailsFragmentDirections.actionDetailsFragmentSelf(
+                    null, null, null, null, null, null, null,
+                    null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private var similarMoviesAdapter = SimilarMoviesAdapter(similarClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +86,14 @@ class MovieDetailsFragment : Fragment() {
         val topRatedArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).topRatedArgs
         val trendingSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingSArgs
         val trendingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
+        val similarArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).similarArgs
 
         if (inTheatersArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${inTheatersArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             title.text = inTheatersArgs.title
 
@@ -270,9 +300,39 @@ class MovieDetailsFragment : Fragment() {
             getDetails(trendingArgs.id)
         }
 
+        if (similarArgs != null) {
+
+            title.text = similarArgs.title
+
+            release_year.text = Converter.convertDateToYear(similarArgs.releaseDate)
+
+            val ratingBar = rating_bar
+            val rating = similarArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = similarArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = similarArgs.originalLanguage
+
+            similarArgs.id?.let { getDetails(it) }
+
+        }
+
         binding.moviesGenreList.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = genreAdapter
+        }
+
+        binding.similarMovies.apply {
+            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+            adapter = similarMoviesAdapter
+        }
+
+        binding.castList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
         }
 
     }
@@ -317,7 +377,31 @@ class MovieDetailsFragment : Fragment() {
                         details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
-                        details.visibility = View.INVISIBLE
+                        details.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
+        })
+
+        viewModel.getSimilarMovies(movieId).observe(viewLifecycleOwner, Observer {
+            similarMoviesAdapter.submitList(it)
+        })
+
+        viewModel.getCast(movieId).observe(viewLifecycleOwner, Observer {
+            it?.let {  resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let {credits ->
+                            if (credits != null) {
+                                castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
                     }
                     Status.ERROR -> {
 

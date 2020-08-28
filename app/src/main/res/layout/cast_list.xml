@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
-        android:layout_width="125dp"
-        android:layout_height="200dp"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="@color/colorAccentLight"
+        app:cardBackgroundColor="@color/colorBackgroundTrans"
         app:cardCornerRadius="10dp"
         app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,49 +24,51 @@
             android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
-                android:id="@+id/season_poster"
+                android:id="@+id/cast_poster"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="190dp"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/season_number"
-                android:layout_width="wrap_content"
+                android:id="@+id/character"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/convergence"
-                android:text="season 1"
-                android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/number_of_episodes"
-                app:layout_constraintStart_toStartOf="@id/number_of_episodes" />
-
-            <TextView
-                android:id="@+id/air_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/convergence"
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/season_number"
-                app:layout_constraintStart_toEndOf="@+id/season_number"
-                app:layout_constraintTop_toTopOf="@+id/season_number" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/cast_poster" />
 
-            <TextView
-                android:id="@+id/number_of_episodes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
+                android:src="@drawable/person"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/colorAccentDark"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/character"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/character" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

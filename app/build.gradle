@@ -100,4 +100,6 @@ dependencies {
 
     // Material design
     implementation 'com.google.android.material:material:1.1.0-alpha10'
+
+    implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
 }

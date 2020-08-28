@@ -10,19 +10,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.SeasonsAdapter
+import com.czech.muvies.adapters.ShowCastAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
-import com.czech.muvies.adapters.seasonsItemClickListener
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.models.SimilarTvShows
+import com.czech.muvies.models.TvShowCredits
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.pagedAdapters.SimilarTvShowsAdapter
+import com.czech.muvies.pagedAdapters.similarTvItemClickListener
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
@@ -38,20 +46,32 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class TvShowDetailsFragment : Fragment() {
+class TvShowDetailsFragment() : Fragment() {
 
     private lateinit var viewModel: TvShowDetailsViewModel
     private lateinit var binding: TvShowDetailsFragmentBinding
 
+    var navController: NavController? = null
+
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
-    private val seasonsClickListener by lazy {
-        object : seasonsItemClickListener {
-            override fun invoke(show: TvShowDetails, season: TvShowDetails.Season) {
+    private var castAdapter = ShowCastAdapter(arrayListOf())
+
+    private var seasonsAdapter = SeasonsAdapter(arrayListOf())
+
+    private val similarTvClickListener by lazy {
+        object : similarTvItemClickListener {
+            override fun invoke(it: SimilarTvShows.SimilarTvShowsResult) {
+                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
+                    null, null, null, null, null, null,
+                    null, null, null, null, it
+                )
+                findNavController().navigate(args)
             }
+
         }
     }
-    private var seasonsAdapter = SeasonsAdapter(arrayListOf(), seasonsClickListener)
+    private var similarAdapter = SimilarTvShowsAdapter(similarTvClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +93,8 @@ class TvShowDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = Navigation.findNavController(view)
+
         val airingTodaySArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
         val airingTodayArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
         val onAirSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).onAirSArgs
@@ -83,8 +105,14 @@ class TvShowDetailsFragment : Fragment() {
         val topRatedTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).topRatedTvArgs
         val trendingTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvSArgs
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
+        val similarTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).similarTvArgs
 
         if (airingTodaySArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${airingTodaySArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = airingTodaySArgs.name
 
@@ -103,6 +131,11 @@ class TvShowDetailsFragment : Fragment() {
 
         if (airingTodayArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${airingTodayArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = airingTodayArgs.name
 
             release_year.text = Converter.convertDateToYear(airingTodayArgs.firstAirDate)
@@ -119,6 +152,11 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (onAirSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = onAirSArgs.name
 
@@ -137,6 +175,11 @@ class TvShowDetailsFragment : Fragment() {
 
         if (onAirArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${onAirArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = onAirArgs.name
 
             release_year.text = Converter.convertDateToYear(onAirArgs.firstAirDate)
@@ -153,6 +196,11 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (popularTvSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${popularTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = popularTvSArgs.name
 
@@ -171,6 +219,11 @@ class TvShowDetailsFragment : Fragment() {
 
         if (popularTvArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${popularTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = popularTvArgs.name
 
             release_year.text = Converter.convertDateToYear(popularTvArgs.firstAirDate)
@@ -187,6 +240,11 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (topRatedTvSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = topRatedTvSArgs.name
 
@@ -205,6 +263,11 @@ class TvShowDetailsFragment : Fragment() {
 
         if (topRatedTvArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${topRatedTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = topRatedTvArgs.name
 
             release_year.text = Converter.convertDateToYear(topRatedTvArgs.firstAirDate)
@@ -221,6 +284,11 @@ class TvShowDetailsFragment : Fragment() {
         }
 
         if (trendingTvSArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingTvSArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
 
             name.text = trendingTvSArgs.name
 
@@ -239,6 +307,11 @@ class TvShowDetailsFragment : Fragment() {
 
         if (trendingTvArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${trendingTvArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
             name.text = trendingTvArgs.name
 
             release_year.text = Converter.convertDateToYear(trendingTvArgs.firstAirDate)
@@ -254,6 +327,25 @@ class TvShowDetailsFragment : Fragment() {
             getDetails(trendingTvArgs.id)
         }
 
+        if (similarTvArgs != null) {
+
+            name.text = similarTvArgs.name
+
+            release_year.text = Converter.convertDateToYear(similarTvArgs.firstAirDate)
+
+            val ratingBar = rating_bar
+            val rating = similarTvArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = similarTvArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = similarTvArgs.originalLanguage
+
+            similarTvArgs.id?.let { getDetails(it) }
+        }
+
         binding.showsGenreList.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = genreAdapter
@@ -263,10 +355,20 @@ class TvShowDetailsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = seasonsAdapter
         }
+
+        binding.similarShows.apply {
+            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+            adapter = similarAdapter
+        }
+
+        binding.castList.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
+        }
     }
 
     @SuppressLint("SetTextI18n")
-    fun getDetails(showId: Int) {
+    private fun getDetails(showId: Int) {
 
         viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
@@ -283,8 +385,6 @@ class TvShowDetailsFragment : Fragment() {
 
                                 genreAdapter.updateList(showDetails.genres as List<TvShowDetails.Genre>)
 
-                                seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
-
                                 original_name.text = showDetails.originalName
 
                                 status.text = showDetails.status
@@ -298,6 +398,10 @@ class TvShowDetailsFragment : Fragment() {
                                 next_episode.text =
                                     "Season ${showDetails.nextEpisodeToAir?.seasonNumber} episode ${showDetails.nextEpisodeToAir?.episodeNumber}"
 
+                                next_episode.text =
+                                    if (showDetails.nextEpisodeToAir?.airDate == null) ""
+                                else "Season ${showDetails.nextEpisodeToAir.seasonNumber} episode ${showDetails.nextEpisodeToAir.episodeNumber}"
+
                                 vote_count.text = "${showDetails.voteCount} votes"
 
                                 seasons.text =
@@ -307,6 +411,23 @@ class TvShowDetailsFragment : Fragment() {
                                 homepage.text = showDetails.homepage
 
                                 synopsis.text = showDetails.overview
+
+                                seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
+
+                                seasonsAdapter.setUpListener(object : SeasonsAdapter.ItemCLickedListener {
+                                    override fun onItemClicked(season: TvShowDetails.Season) {
+                                        val bundle = bundleOf(
+                                            "seasonArgs" to season,
+                                            "showId" to showDetails.id,
+                                            "showName" to showDetails.name,
+                                            "backdrop" to showDetails.backdropPath
+                                        )
+                                        navController!!.navigate(
+                                            R.id.action_tvShowsDetailsFragment_to_seasonDetailsFragment, bundle
+                                        )
+                                    }
+
+                                })
                             }
                         }
                         details.visibility = View.VISIBLE
@@ -316,6 +437,30 @@ class TvShowDetailsFragment : Fragment() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(requireContext(), "error", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
+
+        viewModel.getSimilarTvShows(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            similarAdapter.submitList(it)
+        })
+
+        viewModel.getCast(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let {credits ->
+                            if (credits != null) {
+                                castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
                     }
                 }
             }

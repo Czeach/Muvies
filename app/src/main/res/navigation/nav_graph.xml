@@ -189,6 +189,13 @@
             android:name="trendingSArgs"
             app:argType="com.czech.muvies.models.Movies$MoviesResult"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_detailsFragment_self"
+            app:destination="@id/detailsFragment" />
+        <argument
+            android:name="similarArgs"
+            app:argType="com.czech.muvies.models.SimilarMovies$SimilarMoviesResult"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -243,6 +250,13 @@
         <action
             android:id="@+id/action_tvShowsDetailsFragment_to_seasonDetailsFragment"
             app:destination="@id/seasonDetailsFragment" />
+        <action
+            android:id="@+id/action_tvShowsDetailsFragment_self"
+            app:destination="@id/tvShowsDetailsFragment" />
+        <argument
+            android:name="similarTvArgs"
+            app:argType="com.czech.muvies.models.SimilarTvShows$SimilarTvShowsResult"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/seasonDetailsFragment"
@@ -254,8 +268,15 @@
             app:argType="com.czech.muvies.models.TvShowDetails$Season"
             app:nullable="true" />
         <argument
-            android:name="showArgs"
-            app:argType="com.czech.muvies.models.TvShowDetails"
+            android:name="showId"
+            app:argType="integer" />
+        <argument
+            android:name="showName"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="backdrop"
+            app:argType="string"
             app:nullable="true" />
     </fragment>
 </navigation>
