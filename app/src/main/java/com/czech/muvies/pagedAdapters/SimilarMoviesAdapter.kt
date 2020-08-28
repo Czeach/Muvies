@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.models.SimilarMovies
+import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.paged_list.view.*
 import kotlinx.android.synthetic.main.similar_list.view.*
 
-class SimilarMoviesAdapter(): PagedListAdapter<SimilarMovies.SimilarMoviesResult, SimilarMoviesAdapter.SimilarMoviesViewHolder>(diffUtil) {
+typealias similarItemClickListener = (SimilarMovies.SimilarMoviesResult) -> Unit
+
+class SimilarMoviesAdapter(private val clickListener: similarItemClickListener):
+        PagedListAdapter<SimilarMovies.SimilarMoviesResult, SimilarMoviesAdapter.SimilarMoviesViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarMoviesViewHolder {
         return SimilarMoviesViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.similar_list, parent, false))
@@ -40,7 +45,7 @@ class SimilarMoviesAdapter(): PagedListAdapter<SimilarMovies.SimilarMoviesResult
         }
     }
 
-    inner class SimilarMoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class SimilarMoviesViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster
 
@@ -50,6 +55,15 @@ class SimilarMoviesAdapter(): PagedListAdapter<SimilarMovies.SimilarMoviesResult
                 .placeholder(R.drawable.poster_placeholder)
                 .error(R.drawable.poster_error)
                 .into(poster)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val movie = getItem(adapterPosition)
+            movie?.let { clickListener.invoke(it) }
         }
     }
 }

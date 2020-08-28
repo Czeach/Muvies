@@ -286,26 +286,6 @@ class TvShowDetailsFragment() : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun getDetails(showId: Int) {
 
-        viewModel.getCast(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        resource.data.let {credits ->
-                            if (credits != null) {
-                                castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
-                            }
-                        }
-                    }
-                    Status.LOADING -> {
-
-                    }
-                    Status.ERROR -> {
-
-                    }
-                }
-            }
-        })
-
         viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -380,6 +360,26 @@ class TvShowDetailsFragment() : Fragment() {
 
         viewModel.getSimilarTvShows(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             similarAdapter.submitList(it)
+        })
+
+        viewModel.getCast(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data.let {credits ->
+                            if (credits != null) {
+                                castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            }
         })
     }
 
