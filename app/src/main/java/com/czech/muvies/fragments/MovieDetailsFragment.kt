@@ -49,7 +49,7 @@ class MovieDetailsFragment : Fragment() {
     private val castClickListener by lazy {
         object : castItemClickListener {
             override fun invoke(it: MovieCredits.Cast) {
-                val args = MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(it)
+                val args = MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(it, null)
                 findNavController().navigate(args)
             }
 

@@ -13,7 +13,10 @@ import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.TvShowCredits
 import kotlinx.android.synthetic.main.cast_list.view.*
 
-class ShowCastAdapter(private var list: List<TvShowCredits.Cast>): RecyclerView.Adapter<ShowCastAdapter.ShowCastViewHolder>() {
+typealias showCastItemClickListener = (TvShowCredits.Cast) -> Unit
+
+class ShowCastAdapter(private var list: List<TvShowCredits.Cast>, private val clickListener: showCastItemClickListener):
+    RecyclerView.Adapter<ShowCastAdapter.ShowCastViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowCastViewHolder {
         return ShowCastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cast_list, parent, false))
@@ -32,7 +35,7 @@ class ShowCastAdapter(private var list: List<TvShowCredits.Cast>): RecyclerView.
         notifyDataSetChanged()
     }
 
-    inner class ShowCastViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class ShowCastViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var castImage: ImageView = itemView.cast_poster
         private var character: TextView = itemView.character
@@ -47,6 +50,15 @@ class ShowCastAdapter(private var list: List<TvShowCredits.Cast>): RecyclerView.
 
             character.text = cast.character
             name.text = cast.name
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val cast = list[adapterPosition]
+            clickListener.invoke(cast)
         }
     }
 }

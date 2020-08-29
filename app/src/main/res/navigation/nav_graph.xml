@@ -260,6 +260,9 @@
             android:name="similarTvArgs"
             app:argType="com.czech.muvies.models.SimilarTvShows$SimilarTvShowsResult"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_tvShowsDetailsFragment_to_castDetailsFragment"
+            app:destination="@id/castDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/seasonDetailsFragment"
@@ -288,8 +291,12 @@
         android:label="cast_details_fragment"
         tools:layout="@layout/cast_details_fragment" >
         <argument
-            android:name="personArgs"
+            android:name="moviePersonArgs"
             app:argType="com.czech.muvies.models.MovieCredits$Cast"
+            app:nullable="true" />
+        <argument
+            android:name="showPersonArgs"
+            app:argType="com.czech.muvies.models.TvShowCredits$Cast"
             app:nullable="true" />
     </fragment>
 </navigation>

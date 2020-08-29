@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -40,15 +39,21 @@ class CastDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val personArgs = CastDetailsFragmentArgs.fromBundle(requireArguments()).personArgs
+        val moviePerson = CastDetailsFragmentArgs.fromBundle(requireArguments()).moviePersonArgs
+        val showPerson = CastDetailsFragmentArgs.fromBundle(requireArguments()).showPersonArgs
 
-        if (personArgs != null) {
+        if (moviePerson != null) {
 
-            personArgs.id?.let { getDetails(it) }
+            moviePerson.id?.let { getDetails(it) }
+        }
+
+        if (showPerson != null) {
+
+            showPerson.id?.let { getDetails(it) }
         }
     }
 
-    fun getDetails(personId: Int) {
+    private fun getDetails(personId: Int) {
         viewModel.getCastDetails(personId).observe(viewLifecycleOwner, Observer {
             it?.let {resource ->
                 when (resource.status) {
