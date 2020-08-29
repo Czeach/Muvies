@@ -196,6 +196,9 @@
             android:name="similarArgs"
             app:argType="com.czech.muvies.models.SimilarMovies$SimilarMoviesResult"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_detailsFragment_to_castDetailsFragment"
+            app:destination="@id/castDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -277,6 +280,16 @@
         <argument
             android:name="backdrop"
             app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/castDetailsFragment"
+        android:name="com.czech.muvies.fragments.CastDetailsFragment"
+        android:label="cast_details_fragment"
+        tools:layout="@layout/cast_details_fragment" >
+        <argument
+            android:name="personArgs"
+            app:argType="com.czech.muvies.models.MovieCredits$Cast"
             app:nullable="true" />
     </fragment>
 </navigation>

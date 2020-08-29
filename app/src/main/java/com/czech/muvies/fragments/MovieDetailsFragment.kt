@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,7 @@ import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.MovieCastAdapter
 import com.czech.muvies.adapters.MoviesGenreAdapter
+import com.czech.muvies.adapters.castItemClickListener
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
 import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.MovieDetails
@@ -39,9 +42,20 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var binding: MovieDetailsFragmentBinding
 
+    var navController: NavController? = null
+
     private var genreAdapter = MoviesGenreAdapter(arrayListOf())
 
-    private val castAdapter = MovieCastAdapter(arrayListOf())
+    private val castClickListener by lazy {
+        object : castItemClickListener {
+            override fun invoke(it: MovieCredits.Cast) {
+                val args = MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(it)
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private val castAdapter = MovieCastAdapter(arrayListOf(), castClickListener)
 
     private val similarClickListener by lazy {
         object : similarItemClickListener {
