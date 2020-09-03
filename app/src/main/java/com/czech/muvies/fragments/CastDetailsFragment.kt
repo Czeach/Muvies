@@ -7,20 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.adapters.TabAdapter
 import com.czech.muvies.databinding.CastDetailsFragmentBinding
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.CastDetailsViewModel
 import com.czech.muvies.viewModels.CastDetailsViewModelFactory
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.cast_details_fragment.*
 
 class CastDetailsFragment : Fragment() {
 
     private lateinit var viewModel: CastDetailsViewModel
     private lateinit var binding: CastDetailsFragmentBinding
+
+    private lateinit var tabAdapter: TabAdapter
+    val args: CastDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +57,30 @@ class CastDetailsFragment : Fragment() {
 
             showPerson.id?.let { getDetails(it) }
         }
+
+        tabAdapter = TabAdapter(this, createTabs())
+        view_pager.adapter = tabAdapter
+
+        TabLayoutMediator(tab_layout, view_pager) {tab, position ->
+            when(position) {
+                0 -> tab.text = "Movies"
+                1 -> tab.text = "Tv Shows"
+            }
+        }.attach()
+    }
+
+    private fun createTabs(): ArrayList<Fragment> {
+        val fragments: ArrayList<Fragment> = arrayListOf()
+
+        fragments.add(MoviesTabFragment().apply {
+
+        })
+
+        fragments.add(TvShowsTabFragment().apply {
+
+        })
+
+        return fragments
     }
 
     private fun getDetails(personId: Int) {
@@ -73,13 +103,13 @@ class CastDetailsFragment : Fragment() {
                                 biography.text = personDetails.biography
                             }
                         }
-                        details.visibility = View.VISIBLE
+                        bio.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
-                        details.visibility = View.INVISIBLE
+                        bio.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
-                        details.visibility = View.GONE
+                        bio.visibility = View.GONE
                     }
                 }
             }
