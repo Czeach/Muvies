@@ -50,12 +50,12 @@ class CastDetailsFragment : Fragment() {
 
         if (moviePerson != null) {
 
-            moviePerson.id?.let { getDetails(it) }
+            moviePerson.id?.let { getPersonDetails(it) }
         }
 
         if (showPerson != null) {
 
-            showPerson.id?.let { getDetails(it) }
+            showPerson.id?.let { getPersonDetails(it) }
         }
 
         tabAdapter = TabAdapter(this, createTabs())
@@ -72,18 +72,25 @@ class CastDetailsFragment : Fragment() {
     private fun createTabs(): ArrayList<Fragment> {
         val fragments: ArrayList<Fragment> = arrayListOf()
 
-        fragments.add(MoviesTabFragment().apply {
+        val moviePerson = CastDetailsFragmentArgs.fromBundle(requireArguments()).moviePersonArgs
+        val showPerson = CastDetailsFragmentArgs.fromBundle(requireArguments()).showPersonArgs
 
+        fragments.add(MoviesTabFragment().apply {
+            arguments = Bundle().apply {
+                moviePerson?.id?.let { putInt("moviePerson", it) }
+            }
         })
 
         fragments.add(TvShowsTabFragment().apply {
-
+            arguments = Bundle().apply {
+                showPerson?.id?.let { putInt("showPerson", it) }
+            }
         })
 
         return fragments
     }
 
-    private fun getDetails(personId: Int) {
+    private fun getPersonDetails(personId: Int) {
         viewModel.getCastDetails(personId).observe(viewLifecycleOwner, Observer {
             it?.let {resource ->
                 when (resource.status) {
@@ -99,6 +106,12 @@ class CastDetailsFragment : Fragment() {
                                     .into(cast_image)
 
                                 name.text = personDetails.name
+
+                                when(personDetails.gender) {
+
+                                    1 -> gender.text = "female"
+                                    2 -> gender.text = "male"
+                                }
 
                                 biography.text = personDetails.biography
                             }

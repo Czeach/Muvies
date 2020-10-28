@@ -1,17 +1,23 @@
 package com.czech.muvies.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 data class PersonMovies(
     val cast: List<Cast?>? = null,
     val crew: List<Crew?>? = null,
     val id: Int? = null
-) {
+): Parcelable {
+
+    @Parcelize
     data class Cast(
         val adult: Boolean? = null,
         @SerializedName("backdrop_path")
-        val backdropPath: Any? = null,
+        val backdropPath: @RawValue Any? = null,
         val character: String? = null,
         @SerializedName("credit_id")
         val creditId: String? = null,
@@ -34,12 +40,13 @@ data class PersonMovies(
         val voteAverage: Double? = null,
         @SerializedName("vote_count")
         val voteCount: Int? = null
-    )
+    ): Parcelable
 
+    @Parcelize
     data class Crew(
         val adult: Boolean? = null,
         @SerializedName("backdrop_path")
-        val backdropPath: Any? = null,
+        val backdropPath: @RawValue Any? = null,
         @SerializedName("credit_id")
         val creditId: String? = null,
         val department: String? = null,
@@ -54,7 +61,7 @@ data class PersonMovies(
         val overview: String? = null,
         val popularity: Double? = null,
         @SerializedName("poster_path")
-        val posterPath: Any? = null,
+        val posterPath: @RawValue Any? = null,
         @SerializedName("release_date")
         val releaseDate: String? = null,
         val title: String? = null,
@@ -63,5 +70,5 @@ data class PersonMovies(
         val voteAverage: Double? = null,
         @SerializedName("vote_count")
         val voteCount: Int? = null
-    )
+    ): Parcelable
 }

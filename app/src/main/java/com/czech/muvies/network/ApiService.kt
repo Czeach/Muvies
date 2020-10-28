@@ -223,6 +223,13 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): TvShowCredits
+
+    @GET("person/{id}/movie_credits")
+    suspend fun getPersonMovies(
+        @Path("id") personId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): PersonMovies
 }
 
 object MoviesApi {
