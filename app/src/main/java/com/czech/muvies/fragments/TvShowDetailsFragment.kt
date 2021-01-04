@@ -24,6 +24,7 @@ import com.czech.muvies.R
 import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.adapters.ShowCastAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
+import com.czech.muvies.adapters.showCastItemClickListener
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
 import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.models.TvShowCredits
@@ -55,7 +56,16 @@ class TvShowDetailsFragment() : Fragment() {
 
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
-    private var castAdapter = ShowCastAdapter(arrayListOf())
+    private val showCastListener by lazy {
+        object : showCastItemClickListener {
+            override fun invoke(it: TvShowCredits.Cast) {
+                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToCastDetailsFragment(null, it)
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private var castAdapter = ShowCastAdapter(arrayListOf(), showCastListener)
 
     private var seasonsAdapter = SeasonsAdapter(arrayListOf())
 

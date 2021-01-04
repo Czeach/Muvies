@@ -25,11 +25,6 @@ class MoviesViewModel : ViewModel() {
 
     private val repository: MoviesRepository = MoviesRepository(MoviesApi.retrofitService)
 
-    private var _upcomingLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
-
-    val upcomingLiveData: LiveData<MutableList<Movies.MoviesResult>>
-        get() = _upcomingLiveData
-
     init {
         getUpcomingList()
         getPopularList()
@@ -37,6 +32,11 @@ class MoviesViewModel : ViewModel() {
         getInTheatersList()
         getTrendingMovies()
     }
+
+    private var _upcomingLiveData = MutableLiveData<MutableList<Movies.MoviesResult>>()
+
+    val upcomingLiveData: LiveData<MutableList<Movies.MoviesResult>>
+        get() = _upcomingLiveData
 
     private fun getUpcomingList() {
         coroutineScope.launch {

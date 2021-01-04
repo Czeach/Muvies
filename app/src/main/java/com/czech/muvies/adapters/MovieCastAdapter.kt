@@ -10,11 +10,15 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.models.MovieCredits
+import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.cast_list.view.*
 import kotlinx.android.synthetic.main.seasons_list.view.*
 
-class MovieCastAdapter(private var list: List<MovieCredits.Cast>): RecyclerView.Adapter<MovieCastAdapter.MovieCastViewHolder>() {
+typealias castItemClickListener = (MovieCredits.Cast) -> Unit
+
+class MovieCastAdapter(private var list: List<MovieCredits.Cast>, private val clickListener: castItemClickListener):
+        RecyclerView.Adapter<MovieCastAdapter.MovieCastViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCastViewHolder {
         return MovieCastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cast_list, parent, false))
@@ -24,7 +28,6 @@ class MovieCastAdapter(private var list: List<MovieCredits.Cast>): RecyclerView.
 
     override fun onBindViewHolder(holder: MovieCastViewHolder, position: Int) {
         val cast: MovieCredits.Cast = list[position]
-
         holder.bind(cast)
     }
 
@@ -33,7 +36,7 @@ class MovieCastAdapter(private var list: List<MovieCredits.Cast>): RecyclerView.
         notifyDataSetChanged()
     }
 
-    inner class MovieCastViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class MovieCastViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var castImage: ImageView = itemView.cast_poster
         private var character: TextView = itemView.character
@@ -48,6 +51,15 @@ class MovieCastAdapter(private var list: List<MovieCredits.Cast>): RecyclerView.
 
             character.text = cast.character
             name.text = cast.name
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val cast = list[adapterPosition]
+            clickListener.invoke(cast)
         }
     }
 }
