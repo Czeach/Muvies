@@ -42,8 +42,6 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var binding: MovieDetailsFragmentBinding
 
-    var navController: NavController? = null
-
     private var genreAdapter = MoviesGenreAdapter(arrayListOf())
 
     private val castClickListener by lazy {

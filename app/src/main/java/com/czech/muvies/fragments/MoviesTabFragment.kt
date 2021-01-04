@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.CastMoviesTabAdapter
 import com.czech.muvies.models.PersonMovies
@@ -39,30 +40,30 @@ class MoviesTabFragment : Fragment() {
         val moviePerson = arguments?.getInt("moviePerson")
 
         person_movies_tab.apply {
-            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = moviesTabAdapter
         }
 
-        if (moviePerson != null) {
-            viewModel.getPersonMovies(moviePerson).observe(viewLifecycleOwner, Observer {
-                it.let {resource ->
-                   when(resource.status) {
-                       Status.SUCCESS -> {
-                           resource.data.let {personMovies ->
-                               if (personMovies != null) {
-                                   moviesTabAdapter.updateList(personMovies?.cast as List<PersonMovies.Cast>)
-                               }
-                           }
-                       }
-                       Status.LOADING -> {
-
-                       }
-                       Status.ERROR -> {
-
-                       }
-                   }
-                }
-            })
-        }
+//        if (moviePerson != null) {
+//            viewModel.getPersonMovies(moviePerson).observe(viewLifecycleOwner, Observer {
+//                it.let {resource ->
+//                   when(resource.status) {
+//                       Status.SUCCESS -> {
+//                           resource.data.let {personMovies ->
+//                               if (personMovies != null) {
+//                                   moviesTabAdapter.updateList(personMovies.cast as List<PersonMovies.Cast>)
+//                               }
+//                           }
+//                       }
+//                       Status.LOADING -> {
+//
+//                       }
+//                       Status.ERROR -> {
+//
+//                       }
+//                   }
+//                }
+//            })
+//        }
     }
 }

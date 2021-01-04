@@ -113,7 +113,7 @@
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_layout"
-                        android:layout_width="150dp"
+                        android:layout_width="300dp"
                         android:layout_height="35dp"
                         android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="parent"
