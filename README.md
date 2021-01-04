@@ -3,7 +3,7 @@ This is a native android application written in Kotlin. It is a movies app which
 
 ## Libraries used
 * [Retrofit2](https://square.github.io/retrofit/) a REST Client library (Helper Library) used in Android and Java to create an HTTP request and also to process the HTTP response from a REST API. 
-* [ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel#:~:text=Application%20context%20aware%20ViewModel%20.,calling%20the%20business%20logic%20classes).) a class that is responsible for preparing and managing the data for an Activity or a Fragment.
+* [ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel#:~:text=Application%20context%20aware%20ViewModel%20.,calling%20the%20business%20logic%20classes) a class that is responsible for preparing and managing the data for an Activity or a Fragment.
 * [Kotlin coroutines](https://developer.android.com/kotlin/coroutines) a concurrency design pattern that you can use on Android to simplify code that executes asynchronously. On Android, coroutines help to manage long-running tasks that might otherwise block the main thread and cause your app to become unresponsive.
 * [Android navigation component](https://developer.android.com/guide/navigation) to make navigations between fragments and passing of data between destinations easier.
 * [Paging](https://developer.android.com/topic/libraries/architecture/paging) to  load and display small chunks of data at a time.
