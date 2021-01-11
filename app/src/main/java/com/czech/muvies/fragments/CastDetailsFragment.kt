@@ -59,9 +59,9 @@ class CastDetailsFragment : Fragment() {
         }
 
         tabAdapter = TabAdapter(this, createTabs())
-        view_pager.adapter = tabAdapter
+        cast_view_pager.adapter = tabAdapter
 
-        TabLayoutMediator(tab_layout, view_pager) {tab, position ->
+        TabLayoutMediator(cast_tab_layout, cast_view_pager) { tab, position ->
             when(position) {
                 0 -> tab.text = "Movies"
                 1 -> tab.text = "Tv Shows"
