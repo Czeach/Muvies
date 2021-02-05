@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.czech.muvies.viewModels.MoviesTabViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w780"

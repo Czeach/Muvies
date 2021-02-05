@@ -148,7 +148,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.czech.muvies.fragments.MovieDetailsFragment"
         android:label=""
-        tools:layout="@layout/movie_details_fragment" >
+        tools:layout="@layout/movie_details_fragment">
         <argument
             android:name="inTheaterArgs"
             app:argType="com.czech.muvies.models.Movies$MoviesResult"
@@ -199,12 +199,46 @@
         <action
             android:id="@+id/action_detailsFragment_to_castDetailsFragment"
             app:destination="@id/castDetailsFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.czech.muvies.fragments.FavoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/favorites_fragment" />
+        tools:layout="@layout/favorites_fragment" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="movieTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieOverview"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="moviePoster"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieBackdrop"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieDate"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieVote"
+            app:argType="float" />
+        <argument
+            android:name="movieLang"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/tvShowsDetailsFragment"
         android:name="com.czech.muvies.fragments.TvShowDetailsFragment"

@@ -64,7 +64,7 @@ class CastDetailsFragment : Fragment() {
         TabLayoutMediator(cast_tab_layout, cast_view_pager) { tab, position ->
             when(position) {
                 0 -> tab.text = "Movies"
-                1 -> tab.text = "Tv Shows"
+                1 -> tab.text = "Shows"
             }
         }.attach()
     }

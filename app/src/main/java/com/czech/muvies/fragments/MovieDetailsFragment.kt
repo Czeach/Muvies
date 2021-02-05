@@ -347,6 +347,19 @@ class MovieDetailsFragment : Fragment() {
             adapter = castAdapter
         }
 
+        binding.favMovieButton.setOnCheckedChangeListener { _, isChecked ->
+
+            if (isChecked) {
+
+                Toast.makeText(requireContext(), "Checked", Toast.LENGTH_LONG).show()
+
+            } else {
+
+                Toast.makeText(requireContext(), "Unchecked", Toast.LENGTH_LONG).show()
+
+            }
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -422,6 +435,7 @@ class MovieDetailsFragment : Fragment() {
             }
         })
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
