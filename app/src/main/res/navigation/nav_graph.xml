@@ -152,7 +152,7 @@
         <argument
             android:name="inTheaterArgs"
             app:argType="com.czech.muvies.models.Movies$MoviesResult"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="inTheaterSArgs"
             app:argType="com.czech.muvies.models.Movies$MoviesResult"
@@ -202,43 +202,15 @@
         <action
             android:id="@+id/action_detailsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_favMoviesTabFragment"
+            app:destination="@id/favMoviesTabFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.czech.muvies.fragments.FavoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/favorites_fragment" >
-        <argument
-            android:name="movieId"
-            app:argType="integer" />
-        <argument
-            android:name="movieTitle"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="movieOverview"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="moviePoster"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="movieBackdrop"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="movieDate"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="movieVote"
-            app:argType="float" />
-        <argument
-            android:name="movieLang"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
+        tools:layout="@layout/favorites_fragment" />
     <fragment
         android:id="@+id/tvShowsDetailsFragment"
         android:name="com.czech.muvies.fragments.TvShowDetailsFragment"
@@ -331,6 +303,42 @@
         <argument
             android:name="showPersonArgs"
             app:argType="com.czech.muvies.models.TvShowCredits$Cast"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/favMoviesTabFragment"
+        android:name="com.czech.muvies.fragments.FavMoviesTabFragment"
+        android:label="fragment_fav_movies_tab"
+        tools:layout="@layout/fragment_fav_movies_tab" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="movieTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieOverview"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="moviePoster"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieBackdrop"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieDate"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieVote"
+            app:argType="float" />
+        <argument
+            android:name="movieLang"
+            app:argType="string"
             app:nullable="true" />
     </fragment>
 </navigation>

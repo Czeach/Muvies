@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [MoviesEntity::class], version = 1)
+@Database(entities = [MoviesEntity::class], version = 2)
 abstract class MoviesDatabase: RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao
