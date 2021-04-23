@@ -3,9 +3,11 @@ package com.czech.muvies.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +43,16 @@ import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.movie_details_fragment.*
+import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
+import kotlinx.android.synthetic.main.movie_details_fragment.details
+import kotlinx.android.synthetic.main.movie_details_fragment.homepage
+import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
+import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
+import kotlinx.android.synthetic.main.movie_details_fragment.rating_fraction
+import kotlinx.android.synthetic.main.movie_details_fragment.release_year
+import kotlinx.android.synthetic.main.movie_details_fragment.status
+import kotlinx.android.synthetic.main.movie_details_fragment.vote_count
+import kotlinx.android.synthetic.main.tv_show_details_fragment.*
 
 class MovieDetailsFragment : Fragment() {
     private lateinit var viewModel: MovieDetailsViewModel
@@ -78,7 +90,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = MovieDetailsFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this, MovieDetailsViewModelFactory(MoviesApiService.getService()))
@@ -351,6 +363,18 @@ class MovieDetailsFragment : Fragment() {
         binding.castList.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = castAdapter
+        }
+
+        homepage.movementMethod = LinkMovementMethod.getInstance()
+        homepage.setOnClickListener {
+
+//            homepage.setTextColor(resources.getColor(R.color.colorPrimary))
+            homepage.highlightColor = resources.getColor(R.color.colorPrimary)
+
+            val url = homepage.text.toString()
+            val browserIntent = Intent(Intent.ACTION_VIEW)
+            browserIntent.data = Uri.parse(url)
+            startActivity(browserIntent)
         }
 
     }

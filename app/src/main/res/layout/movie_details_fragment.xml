@@ -440,6 +440,7 @@
                                 android:fontFamily="sans-serif"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp"
+                                android:autoLink="web"
                                 app:layout_constraintEnd_toEndOf="@+id/tag_line"
                                 app:layout_constraintStart_toStartOf="@+id/tag_line"
                                 app:layout_constraintTop_toTopOf="@+id/textView9" />

@@ -487,6 +487,7 @@
                                 android:fontFamily="sans-serif"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp"
+                                android:autoLink="web"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="@+id/seasons"
                                 app:layout_constraintStart_toStartOf="@+id/seasons"
