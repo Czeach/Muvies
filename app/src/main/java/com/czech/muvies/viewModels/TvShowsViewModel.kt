@@ -3,15 +3,9 @@ package com.czech.muvies.viewModels
 import androidx.lifecycle.*
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
-import com.czech.muvies.models.*
-import com.czech.muvies.network.MoviesApi
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.network.MoviesRepository
 import com.czech.muvies.utils.Resource
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class TvShowsViewModel(private val apiService: MoviesApiService) : ViewModel() {
