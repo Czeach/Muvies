@@ -213,6 +213,44 @@ class MoviesFragment : Fragment() {
                 }
             })
 
+            getTopRated().observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+
+                            resource.data.let { credits ->
+                                if (credits != null) {
+                                    topRatedAdapter.updateTopRatedList(credits.results as MutableList<Movies.MoviesResult>)
+                                }
+                            }
+                        }
+
+                        Status.LOADING -> {}
+
+                        Status.ERROR -> {}
+                    }
+                }
+            })
+
+            getTrending().observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+
+                            resource.data.let { credits ->
+                                if (credits != null) {
+                                    trendingMoviesAdapter.updateTrendingMoviesList(credits.results as MutableList<Movies.MoviesResult>)
+                                }
+                            }
+                        }
+
+                        Status.LOADING -> {}
+
+                        Status.ERROR -> {}
+                    }
+                }
+            })
+
 //            trendingMoviesLiveData.observe(viewLifecycleOwner, Observer {
 //                trendingMoviesAdapter.updateTrendingMoviesList(it)
 //            })

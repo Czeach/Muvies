@@ -68,11 +68,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("movie/top_rated")
-    fun getTopRatedMoviesAsync(
+    suspend fun getTopRatedMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/top_rated")
     suspend fun getPagedTopRatedMoviesList(
@@ -80,13 +80,6 @@ interface MoviesApiService {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Response<Movies>
-
-//    @GET("movie/now_playing")
-//    fun getInTheatersMoviesAsync(
-//        @Query("api_key") apiKey: String,
-//        @Query("language") language: String,
-//        @Query("page") page: Int
-//    ): Deferred<Response<Movies>>
 
     @GET("movie/now_playing")
     suspend fun getInTheatersMoviesAsync(
@@ -159,9 +152,9 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("trending/movie/day")
-    fun getTrendingMoviesAsync(
+    suspend fun getTrendingMoviesAsync(
         @Query("api_key") apiKey: String
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("trending/movie/day")
     suspend fun getPagedTrendingMoviesList(

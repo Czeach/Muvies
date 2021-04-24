@@ -144,6 +144,26 @@ class MoviesViewModel(private val apiService: MoviesApiService) : ViewModel() {
             emit(Resource.error(data = null, message = e.message?: "Error getting Popular movies"))
         }
     }
+
+    fun getTopRated() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+
+        try {
+            emit(Resource.success(data = apiService.getTopRatedMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
+        } catch (e:Exception) {
+            emit(Resource.error(data = null, message = e.message?: "Error getting Top Rated movies"))
+        }
+    }
+
+    fun getTrending() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+
+        try {
+            emit(Resource.success(data = apiService.getTrendingMoviesAsync(BuildConfig.API_KEY)))
+        } catch (e:Exception) {
+            emit(Resource.error(data = null, message = e.message?: "Error getting Trending movies"))
+        }
+    }
 }
 
 class MovieViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {

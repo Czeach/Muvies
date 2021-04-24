@@ -23,13 +23,13 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
 //        return popularMoviesResponse?.results!!.toMutableList()
 //    }
 
-    suspend fun getTopRatedMovies(): MutableList<Movies.MoviesResult> {
-        val topRatedMoviesResponse = safeCall(
-            call = {apiService.getTopRatedMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
-            error = "Error fetching top rated movies"
-        )
-        return topRatedMoviesResponse?.results!!.toMutableList()
-    }
+//    suspend fun getTopRatedMovies(): MutableList<Movies.MoviesResult> {
+//        val topRatedMoviesResponse = safeCall(
+//            call = {apiService.getTopRatedMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
+//            error = "Error fetching top rated movies"
+//        )
+//        return topRatedMoviesResponse?.results!!.toMutableList()
+//    }
 
 //    suspend fun getInTheatersMovies(): MutableList<Movies.MoviesResult> {
 //        val inTheatresMoviesResponse = safeCall(
@@ -76,14 +76,14 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
         return topRatedTvResponse?.results!!.toMutableList()
     }
 
-    suspend fun getTrendingMovies(): MutableList<Movies.MoviesResult>? {
-        val trendingMovies = safeCall(
-            call = {apiService.getTrendingMoviesAsync(BuildConfig.API_KEY).await()},
-            error = "Error fetching trending movies list"
-        )
-
-        return trendingMovies?.results!!.toMutableList()
-    }
+//    suspend fun getTrendingMovies(): MutableList<Movies.MoviesResult>? {
+//        val trendingMovies = safeCall(
+//            call = {apiService.getTrendingMoviesAsync(BuildConfig.API_KEY).await()},
+//            error = "Error fetching trending movies list"
+//        )
+//
+//        return trendingMovies?.results!!.toMutableList()
+//    }
 
     suspend fun getTrendingTv(): MutableList<TvShows.TvShowsResult>? {
         val trendingTv = safeCall(
