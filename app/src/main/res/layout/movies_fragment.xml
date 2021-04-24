@@ -70,6 +70,7 @@
                 app:layout_constraintStart_toStartOf="@+id/in_theatres_title"
                 app:layout_constraintTop_toBottomOf="@+id/in_theaters_mini_list_recycler" />
 
+
             <TextView
                 android:id="@+id/upcoming_see_all"
                 style="@style/TextAppearance.AppCompat.SeeAll"
@@ -158,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="TRENDING MOVIES"
+                android:text="TRENDING"
                 app:layout_constraintStart_toStartOf="@+id/top_rated_title"
                 app:layout_constraintTop_toBottomOf="@+id/top_rated_list_recycler" />
 

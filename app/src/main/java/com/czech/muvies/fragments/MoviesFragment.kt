@@ -14,8 +14,13 @@ import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.models.*
+import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.Status
+import com.czech.muvies.viewModels.MovieViewModelFactory
 import com.czech.muvies.viewModels.MoviesViewModel
+import kotlinx.android.synthetic.main.movies_fragment.*
 
+@Suppress("UNCHECKED_CAST")
 class MoviesFragment : Fragment() {
 
     private lateinit var viewModel: MoviesViewModel
@@ -104,7 +109,8 @@ class MoviesFragment : Fragment() {
     ): View? {
 
         binding = MoviesFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProvider(this, MovieViewModelFactory(MoviesApiService.getService()))
+            .get(MoviesViewModel::class.java)
         binding.lifecycleOwner = this
         binding.moviesViewModel = viewModel
 
@@ -132,21 +138,84 @@ class MoviesFragment : Fragment() {
         }
 
         viewModel.apply {
-            upcomingLiveData.observe(viewLifecycleOwner, Observer {
-                upcomingAdapter.updateUpcomingList(it)
+//            upcomingLiveData.observe(viewLifecycleOwner, Observer {
+//                upcomingAdapter.updateUpcomingList(it)
+//            })
+//            popularLiveData.observe(viewLifecycleOwner, Observer {
+//                popularAdapter.updatePopularList(it)
+//            })
+//            topRatedLiveData.observe(viewLifecycleOwner, Observer {
+//                topRatedAdapter.updateTopRatedList(it)
+//            })
+//            inTheatersLiveData.observe(viewLifecycleOwner, Observer {
+//                inTheatersAdapter.updateInTheatreList(it)
+//            })
+
+            getInTheater().observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+
+                            resource.data.let { credits ->
+                                if (credits != null) {
+                                    inTheatersAdapter.updateInTheatreList(credits.results as MutableList<Movies.MoviesResult>)
+                                }
+                            }
+                        }
+
+                        Status.LOADING -> {
+
+                        }
+
+                        Status.ERROR -> {
+                        }
+                    }
+                }
             })
-            popularLiveData.observe(viewLifecycleOwner, Observer {
-                popularAdapter.updatePopularList(it)
+
+            getUpcoming().observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+
+                            resource.data.let { credits ->
+                                if (credits != null) {
+                                    upcomingAdapter.updateUpcomingList(credits.results as MutableList<Movies.MoviesResult>)
+                                }
+                            }
+                        }
+
+                        Status.LOADING -> {}
+
+                        Status.ERROR -> {
+
+                        }
+                    }
+                }
             })
-            topRatedLiveData.observe(viewLifecycleOwner, Observer {
-                topRatedAdapter.updateTopRatedList(it)
+
+            getPopular().observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+
+                            resource.data.let { credits ->
+                                if (credits != null) {
+                                    popularAdapter.updatePopularList(credits.results as MutableList<Movies.MoviesResult>)
+                                }
+                            }
+                        }
+
+                        Status.LOADING -> {}
+
+                        Status.ERROR -> {}
+                    }
+                }
             })
-            inTheatersLiveData.observe(viewLifecycleOwner, Observer {
-                inTheatersAdapter.updateInTheatreList(it)
-            })
-            trendingMoviesLiveData.observe(viewLifecycleOwner, Observer {
-                trendingMoviesAdapter.updateTrendingMoviesList(it)
-            })
+
+//            trendingMoviesLiveData.observe(viewLifecycleOwner, Observer {
+//                trendingMoviesAdapter.updateTrendingMoviesList(it)
+//            })
         }
 
         return binding.root

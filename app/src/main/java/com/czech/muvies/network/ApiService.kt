@@ -32,12 +32,19 @@ interface MoviesApiService {
         }
     }
 
+//    @GET("movie/upcoming")
+//    fun getUpcomingMoviesAsync(
+//        @Query("api_key") apiKey: String,
+//        @Query("language") language: String,
+//        @Query("page") page: Int
+//    ): Deferred<Response<Movies>>
+
     @GET("movie/upcoming")
-    fun getUpcomingMoviesAsync(
+    suspend fun getUpcomingMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/upcoming")
     suspend fun getPagedUpcomingList(
@@ -47,11 +54,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("movie/popular")
-    fun getPopularMoviesAsync(
+    suspend fun getPopularMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/popular")
     suspend fun getPagedPopularList(
@@ -74,12 +81,19 @@ interface MoviesApiService {
         @Query("page") page: Int
     ): Response<Movies>
 
+//    @GET("movie/now_playing")
+//    fun getInTheatersMoviesAsync(
+//        @Query("api_key") apiKey: String,
+//        @Query("language") language: String,
+//        @Query("page") page: Int
+//    ): Deferred<Response<Movies>>
+
     @GET("movie/now_playing")
-    fun getInTheatersMoviesAsync(
+    suspend fun getInTheatersMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/now_playing")
     suspend fun getPagedInTheatersList(

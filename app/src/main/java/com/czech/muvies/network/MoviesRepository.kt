@@ -7,21 +7,21 @@ import com.czech.muvies.utils.BaseRepository
 
 class MoviesRepository(private val apiService: MoviesApiService): BaseRepository() {
 
-    suspend fun getUpcomingMovies(): MutableList<Movies.MoviesResult>? {
-        val upcomingMoviesResponse = safeCall(
-            call = {apiService.getUpcomingMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
-            error = "Error fetching upcoming movies"
-        )
-        return upcomingMoviesResponse?.results!!.toMutableList()
-    }
+//    suspend fun getUpcomingMovies(): MutableList<Movies.MoviesResult>? {
+//        val upcomingMoviesResponse = safeCall(
+//            call = {apiService.getUpcomingMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
+//            error = "Error fetching upcoming movies"
+//        )
+//        return upcomingMoviesResponse?.results!!.toMutableList()
+//    }
 
-    suspend fun getPopularMovies(): MutableList<Movies.MoviesResult> {
-        val popularMoviesResponse = safeCall(
-            call = {apiService.getPopularMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
-            error = "Error fetching popular movies"
-        )
-        return popularMoviesResponse?.results!!.toMutableList()
-    }
+//    suspend fun getPopularMovies(): MutableList<Movies.MoviesResult> {
+//        val popularMoviesResponse = safeCall(
+//            call = {apiService.getPopularMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
+//            error = "Error fetching popular movies"
+//        )
+//        return popularMoviesResponse?.results!!.toMutableList()
+//    }
 
     suspend fun getTopRatedMovies(): MutableList<Movies.MoviesResult> {
         val topRatedMoviesResponse = safeCall(
@@ -31,14 +31,14 @@ class MoviesRepository(private val apiService: MoviesApiService): BaseRepository
         return topRatedMoviesResponse?.results!!.toMutableList()
     }
 
-    suspend fun getInTheatersMovies(): MutableList<Movies.MoviesResult> {
-        val inTheatresMoviesResponse = safeCall(
-            call = {apiService.getInTheatersMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
-            error = "Error fetching in theatres movies"
-        )
-
-        return  inTheatresMoviesResponse?.results!!.toMutableList()
-    }
+//    suspend fun getInTheatersMovies(): MutableList<Movies.MoviesResult> {
+//        val inTheatresMoviesResponse = safeCall(
+//            call = {apiService.getInTheatersMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1).await()},
+//            error = "Error fetching in theatres movies"
+//        )
+//
+//        return  inTheatresMoviesResponse?.results!!.toMutableList()
+//    }
 
     suspend fun getAiringTodayTV(): MutableList<TvShows.TvShowsResult> {
         val airingTodayTvResponse = safeCall(

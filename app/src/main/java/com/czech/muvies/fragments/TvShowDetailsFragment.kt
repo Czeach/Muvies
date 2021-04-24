@@ -386,7 +386,6 @@ class TvShowDetailsFragment() : Fragment() {
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {
 
-//            homepage.setTextColor(resources.getColor(R.color.colorPrimary))
             homepage.highlightColor = resources.getColor(R.color.colorPrimary)
 
             val url = homepage.text.toString()
