@@ -96,11 +96,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("tv/airing_today")
-    fun getAiringTodayTVAsync(
+    suspend fun getAiringTodayTVAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/airing_today")
     suspend fun getPagedAiringTodayList(
@@ -110,11 +110,11 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("tv/on_the_air")
-    fun getOnAirTvAsync(
+    suspend fun getOnAirTvAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/on_the_air")
     suspend fun getPagedOnAirTvList(
@@ -124,11 +124,11 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("tv/popular")
-    fun getPopularTVAsync(
+    suspend fun getPopularTVAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/popular")
     suspend fun getPagedPopularTVList(
@@ -138,11 +138,11 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("tv/top_rated")
-    fun getTopRatedTVAsync(
+    suspend fun getTopRatedTVAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/top_rated")
     suspend fun getPagedTopRatedTVList(
@@ -163,9 +163,9 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("trending/tv/day")
-    fun getTrendingTVAsync(
+    suspend fun getTrendingTVAsync(
         @Query("api_key") apiKey: String
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("trending/tv/day")
     suspend fun getPagedTrendingTVList(
