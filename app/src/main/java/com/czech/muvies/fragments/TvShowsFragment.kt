@@ -129,21 +129,21 @@ class TvShowsFragment : Fragment() {
         }
 
         viewModel.apply {
-            airingTodayLiveData.observe(viewLifecycleOwner, Observer {
-                airingTodayAdapter.updateAiringTodayList(it)
-            })
-            onAirLiveData.observe(viewLifecycleOwner, Observer {
-                onAirAdapter.updateOnAirList(it)
-            })
-            popularTvLiveData.observe(viewLifecycleOwner, Observer {
-                popularTvAdapter.updatePopularTvList(it)
-            })
-            topRatedTvLiveData.observe(viewLifecycleOwner, Observer {
-              topRatedTvAdapter.updateTopRatedTvList(it)
-            })
-            trendingTvLiveData.observe(viewLifecycleOwner, Observer {
-                trendingTvAdapter.updateTrendingTvList(it)
-            })
+//            airingTodayLiveData.observe(viewLifecycleOwner, Observer {
+//                airingTodayAdapter.updateAiringTodayList(it)
+//            })
+//            onAirLiveData.observe(viewLifecycleOwner, Observer {
+//                onAirAdapter.updateOnAirList(it)
+//            })
+//            popularTvLiveData.observe(viewLifecycleOwner, Observer {
+//                popularTvAdapter.updatePopularTvList(it)
+//            })
+//            topRatedTvLiveData.observe(viewLifecycleOwner, Observer {
+//              topRatedTvAdapter.updateTopRatedTvList(it)
+//            })
+//            trendingTvLiveData.observe(viewLifecycleOwner, Observer {
+//                trendingTvAdapter.updateTrendingTvList(it)
+//            })
         }
 
         return binding.root

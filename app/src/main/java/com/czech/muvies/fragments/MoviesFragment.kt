@@ -138,18 +138,6 @@ class MoviesFragment : Fragment() {
         }
 
         viewModel.apply {
-//            upcomingLiveData.observe(viewLifecycleOwner, Observer {
-//                upcomingAdapter.updateUpcomingList(it)
-//            })
-//            popularLiveData.observe(viewLifecycleOwner, Observer {
-//                popularAdapter.updatePopularList(it)
-//            })
-//            topRatedLiveData.observe(viewLifecycleOwner, Observer {
-//                topRatedAdapter.updateTopRatedList(it)
-//            })
-//            inTheatersLiveData.observe(viewLifecycleOwner, Observer {
-//                inTheatersAdapter.updateInTheatreList(it)
-//            })
 
             getInTheater().observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
@@ -250,10 +238,6 @@ class MoviesFragment : Fragment() {
                     }
                 }
             })
-
-//            trendingMoviesLiveData.observe(viewLifecycleOwner, Observer {
-//                trendingMoviesAdapter.updateTrendingMoviesList(it)
-//            })
         }
 
         return binding.root
