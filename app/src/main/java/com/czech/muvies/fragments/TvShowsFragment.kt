@@ -135,43 +135,6 @@ class TvShowsFragment : Fragment() {
         }
 
         viewModel.apply {
-//            airingTodayLiveData.observe(viewLifecycleOwner, Observer {
-//                airingTodayAdapter.updateAiringTodayList(it)
-//            })
-//            onAirLiveData.observe(viewLifecycleOwner, Observer {
-//                onAirAdapter.updateOnAirList(it)
-//            })
-//            popularTvLiveData.observe(viewLifecycleOwner, Observer {
-//                popularTvAdapter.updatePopularTvList(it)
-//            })
-//            topRatedTvLiveData.observe(viewLifecycleOwner, Observer {
-//              topRatedTvAdapter.updateTopRatedTvList(it)
-//            })
-//            trendingTvLiveData.observe(viewLifecycleOwner, Observer {
-//                trendingTvAdapter.updateTrendingTvList(it)
-//            })
-
-//            getInTheater().observe(viewLifecycleOwner, Observer {
-//                it?.let { resource ->
-//                    when (resource.status) {
-//                        Status.SUCCESS -> {
-//
-//                            resource.data.let { credits ->
-//                                if (credits != null) {
-//                                    inTheatersAdapter.updateInTheatreList(credits.results as MutableList<Movies.MoviesResult>)
-//                                }
-//                            }
-//                        }
-//
-//                        Status.LOADING -> {
-//
-//                        }
-//
-//                        Status.ERROR -> {
-//                        }
-//                    }
-//                }
-//            })
 
             getAiringToday().observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
