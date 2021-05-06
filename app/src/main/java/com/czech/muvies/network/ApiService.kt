@@ -14,11 +14,6 @@ import retrofit2.http.Query
 
 const val BASE_URL = "https://api.themoviedb.org/3/"
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL).build()
-
 interface MoviesApiService {
 
     companion object {
@@ -32,18 +27,11 @@ interface MoviesApiService {
         }
     }
 
-//    @GET("movie/upcoming")
-//    fun getUpcomingMoviesAsync(
-//        @Query("api_key") apiKey: String,
-//        @Query("language") language: String,
-//        @Query("page") page: Int
-//    ): Deferred<Response<Movies>>
-
     @GET("movie/upcoming")
     suspend fun getUpcomingMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): Movies
 
     @GET("movie/upcoming")
@@ -244,10 +232,4 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): PersonTvShows
-}
-
-object MoviesApi {
-    val retrofitService: MoviesApiService by lazy {
-        retrofit.create(MoviesApiService::class.java)
-    }
 }
