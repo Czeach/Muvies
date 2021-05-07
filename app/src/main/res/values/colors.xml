@@ -10,6 +10,7 @@
     <color name="colorBackgroundLight">#534343</color>
     <color name="colorBackgroundTrans">#90160000</color>
     <color name="bottomNavIconColor">#A6060C</color>
+    <color name="colorSkeleton">#262626</color>
 
 </resources>
 
