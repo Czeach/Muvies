@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground"
     tools:context="com.czech.muvies.fragments.FavoritesFragment">
 
+    <data>
+        <variable
+            name="favoritesViewModel"
+            type="com.czech.muvies.viewModels.FavoritesViewModel" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fav_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="@color/colorAccentLight"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/colorAccentLight"
+            app:tabTextColor="@color/colorAccentDark"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/fav_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fav_tab_layout"
+            app:tabGravity="fill" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

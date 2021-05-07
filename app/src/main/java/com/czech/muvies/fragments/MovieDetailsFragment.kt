@@ -2,8 +2,12 @@ package com.czech.muvies.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +18,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,14 +40,27 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
 import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.movie_details_fragment.*
+import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
+import kotlinx.android.synthetic.main.movie_details_fragment.details
+import kotlinx.android.synthetic.main.movie_details_fragment.homepage
+import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
+import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
+import kotlinx.android.synthetic.main.movie_details_fragment.rating_fraction
+import kotlinx.android.synthetic.main.movie_details_fragment.release_year
+import kotlinx.android.synthetic.main.movie_details_fragment.status
+import kotlinx.android.synthetic.main.movie_details_fragment.vote_count
+import kotlinx.android.synthetic.main.tv_show_details_fragment.*
 
 class MovieDetailsFragment : Fragment() {
-
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var binding: MovieDetailsFragmentBinding
 
     private var genreAdapter = MoviesGenreAdapter(arrayListOf())
+
+    var navController: NavController? = null
 
     private val castClickListener by lazy {
         object : castItemClickListener {
@@ -72,7 +90,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = MovieDetailsFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this, MovieDetailsViewModelFactory(MoviesApiService.getService()))
@@ -347,6 +365,17 @@ class MovieDetailsFragment : Fragment() {
             adapter = castAdapter
         }
 
+        homepage.movementMethod = LinkMovementMethod.getInstance()
+        homepage.setOnClickListener {
+
+            homepage.highlightColor = resources.getColor(R.color.colorPrimary)
+
+            val url = homepage.text.toString()
+            val browserIntent = Intent(Intent.ACTION_VIEW)
+            browserIntent.data = Uri.parse(url)
+            startActivity(browserIntent)
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -384,6 +413,38 @@ class MovieDetailsFragment : Fragment() {
                                 vote_count.text = "${movieDetails.voteCount.toString()} votes"
 
                                 overview.text = movieDetails.overview
+                            }
+
+                            if (movieDetails != null) {
+
+                                binding.favMovieButton.setOnCheckedChangeListener { _, isChecked ->
+
+                                    val intent = Intent()
+
+                                    if (isChecked) {
+
+                                        Toast.makeText(requireContext(), "Checked", Toast.LENGTH_LONG).show()
+
+                                        val toFavorites = ToFavorites(
+                                            movieDetails.id,
+                                            movieDetails.title,
+                                            movieDetails.overview,
+                                            movieDetails.posterPath,
+                                            movieDetails.backdropPath,
+                                            movieDetails.releaseDate,
+                                            movieDetails.voteAverage,
+                                            movieDetails.originalLanguage
+                                        )
+
+                                        intent.putExtra(EXTRA_REPLY, toFavorites)
+
+
+                                    } else if (!isChecked) {
+
+                                        Toast.makeText(requireContext(), "Unchecked", Toast.LENGTH_LONG).show()
+
+                                    }
+                                }
                             }
                         }
                         details.visibility = View.VISIBLE
@@ -423,6 +484,11 @@ class MovieDetailsFragment : Fragment() {
         })
     }
 
+    companion object {
+        const val EXTRA_REPLY = "com.example.android.favmovieslistsql.REPLY"
+    }
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).hideBottomNavigation()
@@ -433,3 +499,15 @@ class MovieDetailsFragment : Fragment() {
         (activity as MainActivity).showBottomNavigation()
     }
 }
+
+@Parcelize
+class ToFavorites(
+    var movieId: Int?,
+    var movieTitle: String?,
+    var movieOverview: String?,
+    var moviePoster: String?,
+    var movieBackdrop: String?,
+    var movieDate: String?,
+    var movieVote: Double?,
+    var movieLang: String?
+): Parcelable {}

@@ -14,11 +14,6 @@ import retrofit2.http.Query
 
 const val BASE_URL = "https://api.themoviedb.org/3/"
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL).build()
-
 interface MoviesApiService {
 
     companion object {
@@ -33,11 +28,11 @@ interface MoviesApiService {
     }
 
     @GET("movie/upcoming")
-    fun getUpcomingMoviesAsync(
+    suspend fun getUpcomingMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-        @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+        @Query("page") page: Int,
+    ): Movies
 
     @GET("movie/upcoming")
     suspend fun getPagedUpcomingList(
@@ -47,11 +42,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("movie/popular")
-    fun getPopularMoviesAsync(
+    suspend fun getPopularMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/popular")
     suspend fun getPagedPopularList(
@@ -61,11 +56,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("movie/top_rated")
-    fun getTopRatedMoviesAsync(
+    suspend fun getTopRatedMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/top_rated")
     suspend fun getPagedTopRatedMoviesList(
@@ -75,11 +70,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("movie/now_playing")
-    fun getInTheatersMoviesAsync(
+    suspend fun getInTheatersMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("movie/now_playing")
     suspend fun getPagedInTheatersList(
@@ -89,11 +84,11 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("tv/airing_today")
-    fun getAiringTodayTVAsync(
+    suspend fun getAiringTodayTVAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/airing_today")
     suspend fun getPagedAiringTodayList(
@@ -103,11 +98,11 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("tv/on_the_air")
-    fun getOnAirTvAsync(
+    suspend fun getOnAirTvAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/on_the_air")
     suspend fun getPagedOnAirTvList(
@@ -117,11 +112,11 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("tv/popular")
-    fun getPopularTVAsync(
+    suspend fun getPopularTVAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/popular")
     suspend fun getPagedPopularTVList(
@@ -131,11 +126,11 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("tv/top_rated")
-    fun getTopRatedTVAsync(
+    suspend fun getTopRatedTVAsync(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("tv/top_rated")
     suspend fun getPagedTopRatedTVList(
@@ -145,9 +140,9 @@ interface MoviesApiService {
     ): Response<TvShows>
 
     @GET("trending/movie/day")
-    fun getTrendingMoviesAsync(
+    suspend fun getTrendingMoviesAsync(
         @Query("api_key") apiKey: String
-    ): Deferred<Response<Movies>>
+    ): Movies
 
     @GET("trending/movie/day")
     suspend fun getPagedTrendingMoviesList(
@@ -156,9 +151,9 @@ interface MoviesApiService {
     ): Response<Movies>
 
     @GET("trending/tv/day")
-    fun getTrendingTVAsync(
+    suspend fun getTrendingTVAsync(
         @Query("api_key") apiKey: String
-    ): Deferred<Response<TvShows>>
+    ): TvShows
 
     @GET("trending/tv/day")
     suspend fun getPagedTrendingTVList(
@@ -237,10 +232,4 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): PersonTvShows
-}
-
-object MoviesApi {
-    val retrofitService: MoviesApiService by lazy {
-        retrofit.create(MoviesApiService::class.java)
-    }
 }

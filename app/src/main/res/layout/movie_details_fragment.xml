@@ -12,6 +12,7 @@
     </data>
 
     <ScrollView
+        android:id="@+id/movie_details_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
@@ -115,13 +116,14 @@
                         app:layout_constraintStart_toEndOf="@+id/rating_bar"
                         app:layout_constraintTop_toTopOf="@+id/rating_bar" />
 
-                    <ImageView
-                        android:id="@+id/favorite_image"
+                    <androidx.appcompat.widget.AppCompatToggleButton
+                        android:id="@+id/fav_movie_button"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/unchecked_favorite"
+                        android:background="@drawable/toggle_button_bg"
+                        style="@style/toggleButton"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/lang_button" />
 
@@ -438,6 +440,7 @@
                                 android:fontFamily="sans-serif"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp"
+                                android:autoLink="web"
                                 app:layout_constraintEnd_toEndOf="@+id/tag_line"
                                 app:layout_constraintStart_toStartOf="@+id/tag_line"
                                 app:layout_constraintTop_toTopOf="@+id/textView9" />
