@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,6 +40,8 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
 import com.czech.muvies.viewModels.TvShowDetailsViewModelFactory
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
@@ -90,6 +93,42 @@ class TvShowDetailsFragment() : Fragment() {
     }
     private var similarAdapter = SimilarTvShowsAdapter(similarTvClickListener)
 
+    private fun genreSkeleton() {
+
+        binding.showsGenreList.loadSkeleton(R.layout.genre_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
+    private fun castSkeleton() {
+
+        binding.castList.loadSkeleton(R.layout.cast_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
+    private fun seasonSkeleton() {
+
+        binding.seasonsList.loadSkeleton(R.layout.seasons_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
+    private fun similarSkeleton() {
+
+        binding.similarShows.loadSkeleton(R.layout.similar_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -100,6 +139,11 @@ class TvShowDetailsFragment() : Fragment() {
             .get(TvShowDetailsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.tvShowsDetailsViewModel = viewModel
+
+        genreSkeleton()
+        castSkeleton()
+        seasonSkeleton()
+        similarSkeleton()
 
         // Inflate the layout for this fragment
         return binding.root
@@ -411,6 +455,11 @@ class TvShowDetailsFragment() : Fragment() {
                                     .placeholder(R.drawable.backdrop_placeholder)
                                     .into(backdrop)
 
+                                Handler().postDelayed({
+
+                                    binding.showsGenreList.hideSkeleton()
+                                }, 2000)
+
                                 genreAdapter.updateList(showDetails.genres as List<TvShowDetails.Genre>)
 
                                 original_name.text = showDetails.originalName
@@ -440,6 +489,11 @@ class TvShowDetailsFragment() : Fragment() {
 
                                 synopsis.text = showDetails.overview
 
+                                Handler().postDelayed({
+
+                                    binding.seasonsList.hideSkeleton()
+                                }, 2000)
+
                                 seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
 
                                 seasonsAdapter.setUpListener(object : SeasonsAdapter.ItemCLickedListener {
@@ -461,6 +515,10 @@ class TvShowDetailsFragment() : Fragment() {
                         details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
+
+                        genreSkeleton()
+                        seasonSkeleton()
+
                         details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
@@ -471,6 +529,10 @@ class TvShowDetailsFragment() : Fragment() {
         })
 
         viewModel.getSimilarTvShows(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            Handler().postDelayed({
+                binding.similarShows.hideSkeleton()
+            }, 2000)
             similarAdapter.submitList(it)
         })
 
@@ -480,12 +542,17 @@ class TvShowDetailsFragment() : Fragment() {
                     Status.SUCCESS -> {
                         resource.data.let {credits ->
                             if (credits != null) {
+
+                                Handler().postDelayed({
+
+                                    binding.castList.hideSkeleton()
+                                }, 2000)
                                 castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
                             }
                         }
                     }
                     Status.LOADING -> {
-
+                        castSkeleton()
                     }
                     Status.ERROR -> {
 

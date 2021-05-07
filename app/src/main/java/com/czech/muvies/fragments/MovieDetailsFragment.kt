@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.Parcelable
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
@@ -40,6 +41,8 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
 import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.movie_details_fragment.*
@@ -87,6 +90,33 @@ class MovieDetailsFragment : Fragment() {
     }
     private var similarMoviesAdapter = SimilarMoviesAdapter(similarClickListener)
 
+    private fun genreSkeleton() {
+
+        binding.moviesGenreList.loadSkeleton(R.layout.genre_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
+    private fun castSkeleton() {
+
+        binding.castList.loadSkeleton(R.layout.cast_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
+    private fun similarSkeleton() {
+
+        binding.similarMovies.loadSkeleton(R.layout.similar_list) {
+
+            color(R.color.colorSkeleton)
+            shimmer(true)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,6 +127,10 @@ class MovieDetailsFragment : Fragment() {
             .get(MovieDetailsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.moviesDetailsViewModel = viewModel
+
+        genreSkeleton()
+        castSkeleton()
+        similarSkeleton()
 
         return binding.root
     }
@@ -394,6 +428,11 @@ class MovieDetailsFragment : Fragment() {
                                     .placeholder(R.drawable.backdrop_placeholder)
                                     .into(backdrop)
 
+                                Handler().postDelayed({
+
+                                    binding.moviesGenreList.hideSkeleton()
+                                }, 2000)
+
                                 genreAdapter.updateList(movieDetails.genres as List<MovieDetails.Genre>)
 
                                 lang_text.text = movieDetails.originalLanguage
@@ -450,6 +489,8 @@ class MovieDetailsFragment : Fragment() {
                         details.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {
+
+                        genreSkeleton()
                         details.visibility = View.GONE
                     }
                     Status.ERROR -> {
@@ -460,6 +501,11 @@ class MovieDetailsFragment : Fragment() {
         })
 
         viewModel.getSimilarMovies(movieId).observe(viewLifecycleOwner, Observer {
+
+            Handler().postDelayed({
+
+                binding.similarMovies.hideSkeleton()
+            }, 2000)
             similarMoviesAdapter.submitList(it)
         })
 
@@ -469,12 +515,16 @@ class MovieDetailsFragment : Fragment() {
                     Status.SUCCESS -> {
                         resource.data.let {credits ->
                             if (credits != null) {
+
+                                Handler().postDelayed({
+                                    binding.castList.hideSkeleton()
+                                }, 2000)
                                 castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
                             }
                         }
                     }
                     Status.LOADING -> {
-
+                        castSkeleton()
                     }
                     Status.ERROR -> {
 

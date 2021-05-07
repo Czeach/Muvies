@@ -118,4 +118,7 @@ dependencies {
 //    kapt "androidx.databinding:databinding-compiler:4.1.1"
 
     implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
+
+    // Koleton
+    implementation 'com.ericktijerou.koleton:koleton:0.8.8'
 }
