@@ -198,14 +198,14 @@ class MoviesFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.inTheatersMiniListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.inTheatersMiniListRecycler.hideSkeleton()
+
+                                    }, 2000)
 
                                     inTheatersAdapter.updateInTheatreList(credits.results as MutableList<Movies.MoviesResult>)
 
@@ -230,14 +230,15 @@ class MoviesFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.upcomingListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.upcomingListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
                                     upcomingAdapter.updateUpcomingList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
                             }
@@ -260,14 +261,15 @@ class MoviesFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.popularListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.popularListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
                                     popularAdapter.updatePopularList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
                             }
@@ -288,14 +290,15 @@ class MoviesFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.topRatedListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.topRatedListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
                                     topRatedAdapter.updateTopRatedList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
                             }
@@ -316,14 +319,15 @@ class MoviesFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.trendingMoviesRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.trendingMoviesRecycler.hideSkeleton()
+
+                                    }, 2000)
+
                                     trendingMoviesAdapter.updateTrendingMoviesList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
                             }

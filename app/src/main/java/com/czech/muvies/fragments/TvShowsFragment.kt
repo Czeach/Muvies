@@ -195,14 +195,15 @@ class TvShowsFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.airingTodayListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.airingTodayListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
                                     airingTodayAdapter.updateAiringTodayList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
                             }
@@ -223,14 +224,15 @@ class TvShowsFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.onAirListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
                                 if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.onAirListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
                                     onAirAdapter.updateOnAirList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
                             }
@@ -251,14 +253,17 @@ class TvShowsFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.popularTvListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
-                                popularTvAdapter.updatePopularTvList(credits?.results as MutableList<TvShows.TvShowsResult>)
+                                if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.popularTvListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
+                                    popularTvAdapter.updatePopularTvList(credits.results as MutableList<TvShows.TvShowsResult>)
+                                }
                             }
                         }
 
@@ -277,14 +282,17 @@ class TvShowsFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.topRatedTvListRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let {credits ->
-                                topRatedTvAdapter.updateTopRatedTvList(credits?.results as MutableList<TvShows.TvShowsResult>)
+                                if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.topRatedTvListRecycler.hideSkeleton()
+
+                                    }, 2000)
+
+                                    topRatedTvAdapter.updateTopRatedTvList(credits.results as MutableList<TvShows.TvShowsResult>)
+                                }
                             }
                         }
 
@@ -303,14 +311,17 @@ class TvShowsFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
 
-                            Handler().postDelayed({
-
-                                binding.trendingTvRecycler.hideSkeleton()
-
-                            }, 2000)
-
                             resource.data.let { credits ->
-                                trendingTvAdapter.updateTrendingTvList(credits?.results as MutableList<TvShows.TvShowsResult>)
+                                if (credits != null) {
+
+                                    Handler().postDelayed({
+
+                                        binding.trendingTvRecycler.hideSkeleton()
+
+                                    }, 2000)
+
+                                    trendingTvAdapter.updateTrendingTvList(credits.results as MutableList<TvShows.TvShowsResult>)
+                                }
                             }
                         }
 

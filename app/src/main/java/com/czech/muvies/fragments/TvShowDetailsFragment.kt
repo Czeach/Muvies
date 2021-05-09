@@ -140,10 +140,29 @@ class TvShowDetailsFragment() : Fragment() {
         binding.lifecycleOwner = this
         binding.tvShowsDetailsViewModel = viewModel
 
-        genreSkeleton()
-        castSkeleton()
-        seasonSkeleton()
-        similarSkeleton()
+        binding.apply {
+
+            showsGenreList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = genreAdapter
+            }
+
+            seasonsList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = seasonsAdapter
+            }
+
+            similarShows.apply {
+                layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+                adapter = similarAdapter
+            }
+
+            castList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = castAdapter
+            }
+
+        }
 
         // Inflate the layout for this fragment
         return binding.root
@@ -407,25 +426,7 @@ class TvShowDetailsFragment() : Fragment() {
             similarTvArgs.id?.let { getDetails(it) }
         }
 
-        binding.showsGenreList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = genreAdapter
-        }
 
-        binding.seasonsList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = seasonsAdapter
-        }
-
-        binding.similarShows.apply {
-            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
-            adapter = similarAdapter
-        }
-
-        binding.castList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = castAdapter
-        }
 
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {
@@ -442,10 +443,16 @@ class TvShowDetailsFragment() : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun getDetails(showId: Int) {
 
+        genreSkeleton()
+        castSkeleton()
+        seasonSkeleton()
+        similarSkeleton()
+
         viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+
                         resource.data.let { showDetails ->
 
                             if (showDetails != null) {
@@ -533,6 +540,7 @@ class TvShowDetailsFragment() : Fragment() {
             Handler().postDelayed({
                 binding.similarShows.hideSkeleton()
             }, 2000)
+
             similarAdapter.submitList(it)
         })
 
@@ -540,13 +548,15 @@ class TvShowDetailsFragment() : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+
+                        Handler().postDelayed({
+
+                            binding.castList.hideSkeleton()
+                        }, 2000)
+
                         resource.data.let {credits ->
                             if (credits != null) {
 
-                                Handler().postDelayed({
-
-                                    binding.castList.hideSkeleton()
-                                }, 2000)
                                 castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
                             }
                         }

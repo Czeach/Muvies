@@ -117,6 +117,7 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -128,9 +129,23 @@ class MovieDetailsFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.moviesDetailsViewModel = viewModel
 
-        genreSkeleton()
-        castSkeleton()
-        similarSkeleton()
+        binding.apply {
+
+            moviesGenreList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = genreAdapter
+            }
+
+            similarMovies.apply {
+                layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+                adapter = similarMoviesAdapter
+            }
+
+            castList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = castAdapter
+            }
+        }
 
         return binding.root
     }
@@ -175,6 +190,7 @@ class MovieDetailsFragment : Fragment() {
         }
 
         if (inTheatersSArgs != null) {
+
             Glide.with(this)
                 .load("$BASE_IMAGE_PATH${inTheatersSArgs.backdropPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
@@ -384,21 +400,6 @@ class MovieDetailsFragment : Fragment() {
 
         }
 
-        binding.moviesGenreList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = genreAdapter
-        }
-
-        binding.similarMovies.apply {
-            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
-            adapter = similarMoviesAdapter
-        }
-
-        binding.castList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = castAdapter
-        }
-
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {
 
@@ -415,10 +416,15 @@ class MovieDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun getDetails(movieId: Int) {
 
+        genreSkeleton()
+        castSkeleton()
+        similarSkeleton()
+
         viewModel.getMovieDetails(movieId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+
                         resource.data.let {movieDetails ->
 
                             if (movieDetails != null) {
@@ -491,6 +497,8 @@ class MovieDetailsFragment : Fragment() {
                     Status.LOADING -> {
 
                         genreSkeleton()
+                        castSkeleton()
+
                         details.visibility = View.GONE
                     }
                     Status.ERROR -> {
@@ -506,6 +514,7 @@ class MovieDetailsFragment : Fragment() {
 
                 binding.similarMovies.hideSkeleton()
             }, 2000)
+
             similarMoviesAdapter.submitList(it)
         })
 
@@ -513,18 +522,20 @@ class MovieDetailsFragment : Fragment() {
             it?.let {  resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+
                         resource.data.let {credits ->
                             if (credits != null) {
 
                                 Handler().postDelayed({
                                     binding.castList.hideSkeleton()
                                 }, 2000)
+
                                 castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
                             }
                         }
                     }
                     Status.LOADING -> {
-                        castSkeleton()
+//                        castSkeleton()
                     }
                     Status.ERROR -> {
 
