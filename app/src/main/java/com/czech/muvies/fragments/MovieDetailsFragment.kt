@@ -41,8 +41,8 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
 import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
+//import koleton.api.hideSkeleton
+//import koleton.api.loadSkeleton
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.movie_details_fragment.*
@@ -68,7 +68,8 @@ class MovieDetailsFragment : Fragment() {
     private val castClickListener by lazy {
         object : castItemClickListener {
             override fun invoke(it: MovieCredits.Cast) {
-                val args = MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(it, null)
+
+                val args = MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(null, it)
                 findNavController().navigate(args)
             }
 
@@ -92,29 +93,29 @@ class MovieDetailsFragment : Fragment() {
 
     private fun genreSkeleton() {
 
-        binding.moviesGenreList.loadSkeleton(R.layout.genre_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.movieGenreList.loadSkeleton(R.layout.genre_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun castSkeleton() {
 
-        binding.castList.loadSkeleton(R.layout.cast_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.castList.loadSkeleton(R.layout.cast_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun similarSkeleton() {
 
-        binding.similarMovies.loadSkeleton(R.layout.similar_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.similarMovies.loadSkeleton(R.layout.similar_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -131,7 +132,7 @@ class MovieDetailsFragment : Fragment() {
 
         binding.apply {
 
-            moviesGenreList.apply {
+            movieGenreList.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = genreAdapter
             }
@@ -434,10 +435,10 @@ class MovieDetailsFragment : Fragment() {
                                     .placeholder(R.drawable.backdrop_placeholder)
                                     .into(backdrop)
 
-                                Handler().postDelayed({
-
-                                    binding.moviesGenreList.hideSkeleton()
-                                }, 2000)
+//                                Handler().postDelayed({
+//
+//                                    binding.movieGenreList.hideSkeleton()
+//                                }, 2000)
 
                                 genreAdapter.updateList(movieDetails.genres as List<MovieDetails.Genre>)
 
@@ -510,10 +511,10 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getSimilarMovies(movieId).observe(viewLifecycleOwner, Observer {
 
-            Handler().postDelayed({
-
-                binding.similarMovies.hideSkeleton()
-            }, 2000)
+//            Handler().postDelayed({
+//
+//                binding.similarMovies.hideSkeleton()
+//            }, 2000)
 
             similarMoviesAdapter.submitList(it)
         })
@@ -526,9 +527,9 @@ class MovieDetailsFragment : Fragment() {
                         resource.data.let {credits ->
                             if (credits != null) {
 
-                                Handler().postDelayed({
-                                    binding.castList.hideSkeleton()
-                                }, 2000)
+//                                Handler().postDelayed({
+//                                    binding.castList.hideSkeleton()
+//                                }, 2000)
 
                                 castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
                             }

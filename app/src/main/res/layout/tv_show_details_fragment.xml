@@ -541,7 +541,7 @@
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="8dp"
                                 android:fontFamily="@font/autour_one"
-                                android:text="Similar Movies"
+                                android:text="Similar Shows"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccentLight"
                                 android:textSize="16sp"

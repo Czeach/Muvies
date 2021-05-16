@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
@@ -20,8 +21,8 @@ import com.czech.muvies.viewModels.MovieViewModelFactory
 import com.czech.muvies.viewModels.MoviesViewModel
 import com.czech.muvies.viewModels.TvShowsViewModel
 import com.czech.muvies.viewModels.TvShowsViewModelFactory
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
+//import koleton.api.hideSkeleton
+//import koleton.api.loadSkeleton
 
 class TvShowsFragment : Fragment() {
 
@@ -105,47 +106,47 @@ class TvShowsFragment : Fragment() {
 
     private fun airingTodaySkeleton() {
 
-        binding.airingTodayListRecycler.loadSkeleton(R.layout.airing_today_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.airingTodayListRecycler.loadSkeleton(R.layout.airing_today_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun onAirSkeleton() {
 
-        binding.onAirListRecycler.loadSkeleton(R.layout.on_air_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.onAirListRecycler.loadSkeleton(R.layout.on_air_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun popularSkeleton() {
 
-        binding.popularTvListRecycler.loadSkeleton(R.layout.popular_tv_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.popularTvListRecycler.loadSkeleton(R.layout.popular_tv_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun topRatedSkeleton() {
 
-        binding.topRatedTvListRecycler.loadSkeleton(R.layout.top_rated_tv_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.topRatedTvListRecycler.loadSkeleton(R.layout.top_rated_tv_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun trendingSkeleton() {
 
-        binding.trendingTvRecycler.loadSkeleton(R.layout.trending_tv_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.trendingTvRecycler.loadSkeleton(R.layout.trending_tv_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     override fun onCreateView(
@@ -198,11 +199,11 @@ class TvShowsFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.airingTodayListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.airingTodayListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     airingTodayAdapter.updateAiringTodayList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
@@ -227,11 +228,11 @@ class TvShowsFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.onAirListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.onAirListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     onAirAdapter.updateOnAirList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
@@ -256,11 +257,11 @@ class TvShowsFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.popularTvListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.popularTvListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     popularTvAdapter.updatePopularTvList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
@@ -285,11 +286,11 @@ class TvShowsFragment : Fragment() {
                             resource.data.let {credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.topRatedTvListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.topRatedTvListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     topRatedTvAdapter.updateTopRatedTvList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
@@ -314,11 +315,11 @@ class TvShowsFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.trendingTvRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.trendingTvRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     trendingTvAdapter.updateTrendingTvList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }

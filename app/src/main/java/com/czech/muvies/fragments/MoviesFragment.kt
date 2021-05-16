@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
@@ -19,8 +20,8 @@ import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieViewModelFactory
 import com.czech.muvies.viewModels.MoviesViewModel
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
+//import koleton.api.hideSkeleton
+//import koleton.api.loadSkeleton
 import kotlinx.android.synthetic.main.movies_fragment.*
 
 @Suppress("UNCHECKED_CAST")
@@ -108,47 +109,47 @@ class MoviesFragment : Fragment() {
 
     private fun inTheatersSkeleton() {
 
-        binding.inTheatersMiniListRecycler.loadSkeleton(R.layout.in_theatres_mini_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.inTheatersMiniListRecycler.loadSkeleton(R.layout.in_theatres_mini_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun upcomingSkeleton() {
 
-        binding.upcomingListRecycler.loadSkeleton(R.layout.upcoming_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.upcomingListRecycler.loadSkeleton(R.layout.upcoming_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun popularSkeleton() {
 
-        binding.popularListRecycler.loadSkeleton(R.layout.popular_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.popularListRecycler.loadSkeleton(R.layout.popular_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun topRatedSkeleton() {
 
-        binding.topRatedListRecycler.loadSkeleton(R.layout.top_rated_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.topRatedListRecycler.loadSkeleton(R.layout.top_rated_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     private fun trendingSkeleton() {
 
-        binding.trendingMoviesRecycler.loadSkeleton(R.layout.trending_movies_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
+//        binding.trendingMoviesRecycler.loadSkeleton(R.layout.trending_movies_list) {
+//
+//            color(R.color.colorSkeleton)
+//            shimmer(true)
+//        }
     }
 
     override fun onCreateView(
@@ -201,11 +202,11 @@ class MoviesFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.inTheatersMiniListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.inTheatersMiniListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     inTheatersAdapter.updateInTheatreList(credits.results as MutableList<Movies.MoviesResult>)
 
@@ -233,11 +234,11 @@ class MoviesFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.upcomingListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.upcomingListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     upcomingAdapter.updateUpcomingList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
@@ -264,11 +265,11 @@ class MoviesFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.popularListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.popularListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     popularAdapter.updatePopularList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
@@ -292,12 +293,12 @@ class MoviesFragment : Fragment() {
 
                             resource.data.let { credits ->
                                 if (credits != null) {
-
-                                    Handler().postDelayed({
-
-                                        binding.topRatedListRecycler.hideSkeleton()
-
-                                    }, 2000)
+//
+//                                    Handler().postDelayed({
+//
+//                                        binding.topRatedListRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     topRatedAdapter.updateTopRatedList(credits.results as MutableList<Movies.MoviesResult>)
                                 }
@@ -322,11 +323,11 @@ class MoviesFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    Handler().postDelayed({
-
-                                        binding.trendingMoviesRecycler.hideSkeleton()
-
-                                    }, 2000)
+//                                    Handler().postDelayed({
+//
+//                                        binding.trendingMoviesRecycler.hideSkeleton()
+//
+//                                    }, 2000)
 
                                     trendingMoviesAdapter.updateTrendingMoviesList(credits.results as MutableList<Movies.MoviesResult>)
                                 }

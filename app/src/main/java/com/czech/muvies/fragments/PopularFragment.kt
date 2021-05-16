@@ -1,5 +1,6 @@
 package com.czech.muvies.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -10,14 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.databinding.PopularFragmentBinding
 import com.czech.muvies.models.Movies
 import com.czech.muvies.pagedAdapters.PopularMainAdapter
 import com.czech.muvies.pagedAdapters.popularItemClickListener
 import com.czech.muvies.viewModels.PopularViewModel
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
+//import koleton.api.hideSkeleton
+//import koleton.api.loadSkeleton
 
 class PopularFragment : Fragment() {
 
@@ -59,23 +61,33 @@ class PopularFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = popularAdapter
 
-            loadSkeleton(R.layout.paged_list) {
-
-                color(R.color.colorSkeleton)
-                shimmer(true)
-            }
+//            loadSkeleton(R.layout.paged_list) {
+//
+//                color(R.color.colorSkeleton)
+//                shimmer(true)
+//            }
         }
 
         viewModel.getPopularList().observe(viewLifecycleOwner, Observer {
 
-            Handler().postDelayed({
-
-                binding.popularMainList.hideSkeleton()
-
-            }, 2000)
+//            Handler().postDelayed({
+//
+//                binding.popularMainList.hideSkeleton()
+//
+//            }, 2000)
 
             popularAdapter.submitList(it)
         })
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        (activity as MainActivity).showBottomNavigation()
     }
 
 }

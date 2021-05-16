@@ -197,14 +197,14 @@
             app:argType="com.czech.muvies.models.SimilarMovies$SimilarMoviesResult"
             app:nullable="true" />
         <action
-            android:id="@+id/action_detailsFragment_to_castDetailsFragment"
-            app:destination="@id/castDetailsFragment" />
-        <action
             android:id="@+id/action_detailsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
         <action
             android:id="@+id/action_detailsFragment_to_favMoviesTabFragment"
             app:destination="@id/favMoviesTabFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_castDetailsFragment"
+            app:destination="@id/castDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -292,20 +292,6 @@
             app:nullable="true" />
     </fragment>
     <fragment
-        android:id="@+id/castDetailsFragment"
-        android:name="com.czech.muvies.fragments.CastDetailsFragment"
-        android:label="cast_details_fragment"
-        tools:layout="@layout/cast_details_fragment" >
-        <argument
-            android:name="moviePersonArgs"
-            app:argType="com.czech.muvies.models.MovieCredits$Cast"
-            app:nullable="true" />
-        <argument
-            android:name="showPersonArgs"
-            app:argType="com.czech.muvies.models.TvShowCredits$Cast"
-            app:nullable="true" />
-    </fragment>
-    <fragment
         android:id="@+id/favMoviesTabFragment"
         android:name="com.czech.muvies.fragments.FavMoviesTabFragment"
         android:label="fragment_fav_movies_tab"
@@ -339,6 +325,20 @@
         <argument
             android:name="movieLang"
             app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/castDetailsFragment"
+        android:name="com.czech.muvies.fragments.CastDetailsFragment"
+        android:label="cast_details_fragment"
+        tools:layout="@layout/cast_details_fragment" >
+        <argument
+            android:name="showPersonArgs"
+            app:argType="com.czech.muvies.models.TvShowCredits$Cast"
+            app:nullable="true" />
+        <argument
+            android:name="moviePersonArgs"
+            app:argType="com.czech.muvies.models.MovieCredits$Cast"
             app:nullable="true" />
     </fragment>
 </navigation>
