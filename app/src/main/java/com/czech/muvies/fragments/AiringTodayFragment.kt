@@ -2,7 +2,6 @@ package com.czech.muvies.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.MainActivity
-import com.czech.muvies.R
 import com.czech.muvies.databinding.AiringTodayFragmentBinding
 import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.AiringTodayMainAdapter
 import com.czech.muvies.pagedAdapters.airingTodayItemClickListener
 import com.czech.muvies.viewModels.AiringTodayViewModel
-//import koleton.api.hideSkeleton
-//import koleton.api.loadSkeleton
 
 class AiringTodayFragment : Fragment() {
 
@@ -60,21 +56,9 @@ class AiringTodayFragment : Fragment() {
         binding.airingTodayMainList.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = airingTodayAdapter
-
-//            loadSkeleton(R.layout.paged_list) {
-//
-//                color(R.color.colorSkeleton)
-//                shimmer(true)
-//            }
         }
 
         viewModel.getAiringTodayList().observe(viewLifecycleOwner, Observer {
-
-//            Handler().postDelayed({
-//
-//                binding.airingTodayMainList.hideSkeleton()
-//
-//            }, 2000)
 
             airingTodayAdapter.submitList(it)
         })

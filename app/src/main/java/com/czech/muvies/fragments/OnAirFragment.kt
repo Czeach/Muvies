@@ -2,7 +2,6 @@ package com.czech.muvies.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +17,6 @@ import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.OnAirMainAdapter
 import com.czech.muvies.pagedAdapters.onAirItemClickListener
 import com.czech.muvies.viewModels.OnAirViewModel
-//import koleton.api.hideSkeleton
-//import koleton.api.loadSkeleton
 
 class OnAirFragment : Fragment() {
 
@@ -59,21 +56,9 @@ class OnAirFragment : Fragment() {
         binding.onAirMainList.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = onAirAdapter
-
-//            loadSkeleton(R.layout.paged_list) {
-//
-//                color(R.color.colorSkeleton)
-//                shimmer(true)
-//            }
         }
 
         viewModel.getOnAirList().observe(viewLifecycleOwner, Observer {
-
-//            Handler().postDelayed({
-//
-//                binding.onAirMainList.hideSkeleton()
-//
-//            }, 2000)
 
             onAirAdapter.submitList(it)
         })
