@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.core.os.postDelayed
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.czech.muvies.viewModels.MoviesTabViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w780"
@@ -33,8 +33,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.favoritesFragment
             )
         )
-        setupActionBarWithNavController(navController, appBarConfig)
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     fun showBottomNavigation() {
@@ -47,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val navController = findNavController(R.id.nav_host_fragment)
+
 
         if (navController.graph.startDestination == navController.currentDestination?.id) {
             if (backPressedOnce) {

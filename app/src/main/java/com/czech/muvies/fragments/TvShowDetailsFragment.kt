@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,9 +39,6 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
 import com.czech.muvies.viewModels.TvShowDetailsViewModelFactory
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
-import kotlinx.android.synthetic.main.movie_details_fragment.*
 import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
 import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
@@ -53,9 +49,6 @@ import kotlinx.android.synthetic.main.tv_show_details_fragment.details
 import kotlinx.android.synthetic.main.tv_show_details_fragment.homepage
 import kotlinx.android.synthetic.main.tv_show_details_fragment.status
 import kotlinx.android.synthetic.main.tv_show_details_fragment.vote_count
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 class TvShowDetailsFragment() : Fragment() {
 
@@ -69,7 +62,7 @@ class TvShowDetailsFragment() : Fragment() {
     private val showCastListener by lazy {
         object : showCastItemClickListener {
             override fun invoke(it: TvShowCredits.Cast) {
-                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToCastDetailsFragment(null, it)
+                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToCastDetailsFragment(it, null)
                 findNavController().navigate(args)
             }
 
@@ -93,42 +86,6 @@ class TvShowDetailsFragment() : Fragment() {
     }
     private var similarAdapter = SimilarTvShowsAdapter(similarTvClickListener)
 
-    private fun genreSkeleton() {
-
-        binding.showsGenreList.loadSkeleton(R.layout.genre_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
-    }
-
-    private fun castSkeleton() {
-
-        binding.castList.loadSkeleton(R.layout.cast_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
-    }
-
-    private fun seasonSkeleton() {
-
-        binding.seasonsList.loadSkeleton(R.layout.seasons_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
-    }
-
-    private fun similarSkeleton() {
-
-        binding.similarShows.loadSkeleton(R.layout.similar_list) {
-
-            color(R.color.colorSkeleton)
-            shimmer(true)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -140,10 +97,29 @@ class TvShowDetailsFragment() : Fragment() {
         binding.lifecycleOwner = this
         binding.tvShowsDetailsViewModel = viewModel
 
-        genreSkeleton()
-        castSkeleton()
-        seasonSkeleton()
-        similarSkeleton()
+        binding.apply {
+
+            showsGenreList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = genreAdapter
+            }
+
+            seasonsList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = seasonsAdapter
+            }
+
+            similarShows.apply {
+                layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
+                adapter = similarAdapter
+            }
+
+            castList.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = castAdapter
+            }
+
+        }
 
         // Inflate the layout for this fragment
         return binding.root
@@ -407,25 +383,7 @@ class TvShowDetailsFragment() : Fragment() {
             similarTvArgs.id?.let { getDetails(it) }
         }
 
-        binding.showsGenreList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = genreAdapter
-        }
 
-        binding.seasonsList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = seasonsAdapter
-        }
-
-        binding.similarShows.apply {
-            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
-            adapter = similarAdapter
-        }
-
-        binding.castList.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = castAdapter
-        }
 
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {
@@ -446,6 +404,7 @@ class TvShowDetailsFragment() : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+
                         resource.data.let { showDetails ->
 
                             if (showDetails != null) {
@@ -454,11 +413,6 @@ class TvShowDetailsFragment() : Fragment() {
                                     .load("$BASE_IMAGE_PATH${showDetails.backdropPath}")
                                     .placeholder(R.drawable.backdrop_placeholder)
                                     .into(backdrop)
-
-                                Handler().postDelayed({
-
-                                    binding.showsGenreList.hideSkeleton()
-                                }, 2000)
 
                                 genreAdapter.updateList(showDetails.genres as List<TvShowDetails.Genre>)
 
@@ -489,11 +443,6 @@ class TvShowDetailsFragment() : Fragment() {
 
                                 synopsis.text = showDetails.overview
 
-                                Handler().postDelayed({
-
-                                    binding.seasonsList.hideSkeleton()
-                                }, 2000)
-
                                 seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
 
                                 seasonsAdapter.setUpListener(object : SeasonsAdapter.ItemCLickedListener {
@@ -516,9 +465,6 @@ class TvShowDetailsFragment() : Fragment() {
                     }
                     Status.LOADING -> {
 
-                        genreSkeleton()
-                        seasonSkeleton()
-
                         details.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
@@ -530,9 +476,6 @@ class TvShowDetailsFragment() : Fragment() {
 
         viewModel.getSimilarTvShows(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
-            Handler().postDelayed({
-                binding.similarShows.hideSkeleton()
-            }, 2000)
             similarAdapter.submitList(it)
         })
 
@@ -540,19 +483,15 @@ class TvShowDetailsFragment() : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+
                         resource.data.let {credits ->
                             if (credits != null) {
 
-                                Handler().postDelayed({
-
-                                    binding.castList.hideSkeleton()
-                                }, 2000)
                                 castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
                             }
                         }
                     }
                     Status.LOADING -> {
-                        castSkeleton()
                     }
                     Status.ERROR -> {
 

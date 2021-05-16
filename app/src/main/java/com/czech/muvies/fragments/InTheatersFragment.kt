@@ -1,7 +1,7 @@
 package com.czech.muvies.fragments
 
+import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.R
+import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.InTheatersFragmentBinding
 import com.czech.muvies.models.Movies
 import com.czech.muvies.pagedAdapters.InTheatersMainListAdapter
 import com.czech.muvies.pagedAdapters.inTheatersItemClickListener
 import com.czech.muvies.viewModels.InTheatersViewModel
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
 
 class InTheatersFragment : Fragment() {
 
@@ -57,22 +55,23 @@ class InTheatersFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                 adapter = inTheatersAdapter
 
-                loadSkeleton(R.layout.paged_list) {
-
-                    color(R.color.colorSkeleton)
-                    shimmer(true)
-                }
             }
         }
 
         viewModel.getInTheatersList().observe(viewLifecycleOwner, Observer {
 
-            Handler().postDelayed({
-                binding.inTheatersMainListRecycler.hideSkeleton()
-            }, 2000)
-
             inTheatersAdapter.submitList(it)
         })
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        (activity as MainActivity).showBottomNavigation()
     }
 
 }
