@@ -8,15 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.adapters.CastMoviesTabAdapter
-import com.czech.muvies.adapters.CastTvShowsTabAdapter
-import com.czech.muvies.adapters.TabAdapter
+import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.CastDetailsFragmentBinding
 import com.czech.muvies.models.PersonMovies
 import com.czech.muvies.models.PersonTvShows
@@ -34,8 +33,33 @@ class CastDetailsFragment : Fragment() {
 
     private lateinit var tabAdapter: TabAdapter
 
-    private var moviesAdapter = CastMoviesTabAdapter(arrayListOf())
-    private var showsAdapter = CastTvShowsTabAdapter(arrayListOf())
+    private val castMoviesListener by lazy {
+        object : castMoviesClickListener {
+            override fun invoke(it: PersonMovies.Cast) {
+                val args = CastDetailsFragmentDirections.actionCastDetailsFragmentToDetailsFragment(null, null,
+                null, null, null, null, null, null, null,
+                null, null, it)
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+
+    private var moviesAdapter = CastMoviesTabAdapter(arrayListOf(), castMoviesListener)
+
+    private val castShowsListener by lazy {
+        object : castShowsClickListener {
+            override fun invoke(it: PersonTvShows.Cast) {
+                val args = CastDetailsFragmentDirections.actionCastDetailsFragmentToTvShowsDetailsFragment(null, null,
+                    null, null, null, null, null, null, null,
+                    null, null, it)
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+
+    private var showsAdapter = CastTvShowsTabAdapter(arrayListOf(), castShowsListener)
 
     val args: CastDetailsFragmentArgs by navArgs()
 
@@ -131,6 +155,7 @@ class CastDetailsFragment : Fragment() {
                                 biography.text = personDetails.biography
                             }
                         }
+
                         bio.visibility = View.VISIBLE
                     }
                     Status.LOADING -> {

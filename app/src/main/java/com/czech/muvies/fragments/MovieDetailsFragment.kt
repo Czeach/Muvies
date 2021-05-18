@@ -61,7 +61,6 @@ class MovieDetailsFragment : Fragment() {
     private val castClickListener by lazy {
         object : castItemClickListener {
             override fun invoke(it: MovieCredits.Cast) {
-
                 val args = MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(null, it)
                 findNavController().navigate(args)
             }
@@ -75,8 +74,7 @@ class MovieDetailsFragment : Fragment() {
             override fun invoke(it: SimilarMovies.SimilarMoviesResult) {
                 val args = MovieDetailsFragmentDirections.actionDetailsFragmentSelf(
                     null, null, null, null, null, null, null,
-                    null, null, null, it
-                )
+                    null, null, null, it, null)
                 findNavController().navigate(args)
             }
 
@@ -133,6 +131,7 @@ class MovieDetailsFragment : Fragment() {
         val trendingSArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingSArgs
         val trendingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
         val similarArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).similarArgs
+        val castMovieArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).castMovieArgs
 
         if (inTheatersArgs != null) {
 
@@ -365,6 +364,29 @@ class MovieDetailsFragment : Fragment() {
 
             similarArgs.id?.let { getDetails(it) }
 
+        }
+
+        if (castMovieArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${castMovieArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            title.text = castMovieArgs.title
+
+            release_year.text = Converter.convertDateToYear(castMovieArgs.releaseDate)
+
+            val ratingBar = rating_bar
+            val rating = castMovieArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = castMovieArgs.voteAverage?.toFloat().toString() + "/10"
+
+            lang_text.text = castMovieArgs.originalLanguage
+
+            castMovieArgs.id?.let { getDetails(it) }
         }
 
         homepage.movementMethod = LinkMovementMethod.getInstance()

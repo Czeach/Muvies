@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="16dp"
     tools:context="com.czech.muvies.fragments.CastDetailsFragment">
 
     <data>
@@ -103,8 +104,8 @@
                         android:fontFamily="sans-serif"
                         android:textColor="@color/colorAccentLight"
                         android:textSize="14sp"
-                        android:maxLines="4"
-                        android:ellipsize="end"
+                        android:maxLines="5"
+                        android:scrollHorizontally="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />

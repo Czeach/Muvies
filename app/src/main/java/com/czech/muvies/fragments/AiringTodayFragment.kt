@@ -27,8 +27,7 @@ class AiringTodayFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = AiringTodayFragmentDirections.actionAiringTodayFragmentToTvShowsDetailsFragment(
                     it, null, null, null, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 

@@ -205,6 +205,10 @@
         <action
             android:id="@+id/action_detailsFragment_to_castDetailsFragment"
             app:destination="@id/castDetailsFragment" />
+        <argument
+            android:name="castMovieArgs"
+            app:argType="com.czech.muvies.models.PersonMovies$Cast"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -269,6 +273,10 @@
         <action
             android:id="@+id/action_tvShowsDetailsFragment_to_castDetailsFragment"
             app:destination="@id/castDetailsFragment" />
+        <argument
+            android:name="castShowArgs"
+            app:argType="com.czech.muvies.models.PersonTvShows$Cast"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/seasonDetailsFragment"
@@ -340,5 +348,11 @@
             android:name="moviePersonArgs"
             app:argType="com.czech.muvies.models.MovieCredits$Cast"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_castDetailsFragment_to_tvShowsDetailsFragment"
+            app:destination="@id/tvShowsDetailsFragment" />
+        <action
+            android:id="@+id/action_castDetailsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

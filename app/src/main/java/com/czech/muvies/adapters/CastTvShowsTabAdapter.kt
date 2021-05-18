@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.paged_list.view.*
 import kotlinx.android.synthetic.main.similar_list.view.*
 import kotlinx.android.synthetic.main.similar_list.view.poster
 
-class CastTvShowsTabAdapter(private var list: List<PersonTvShows.Cast>):
+typealias castShowsClickListener = (PersonTvShows.Cast) -> Unit
+
+class CastTvShowsTabAdapter(private var list: List<PersonTvShows.Cast>, private val clickListener: castShowsClickListener):
     RecyclerView.Adapter<CastTvShowsTabAdapter.CastTvShowsTabViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastTvShowsTabViewHolder {
@@ -35,12 +37,10 @@ class CastTvShowsTabAdapter(private var list: List<PersonTvShows.Cast>):
         notifyDataSetChanged()
     }
 
-    inner class CastTvShowsTabViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class CastTvShowsTabViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster
         private var title: TextView? = itemView.movie_title
-//        private var date: TextView = itemView.date
-//        private var rating: TextView = itemView.vote
 
         fun bind(tvShow: PersonTvShows.Cast) {
             Glide.with(itemView)
@@ -50,8 +50,15 @@ class CastTvShowsTabAdapter(private var list: List<PersonTvShows.Cast>):
                 .into(poster)
 
             title?.text = tvShow.originalName
-//            date.text = tvShow.firstAirDate
-//            rating.text = tvShow.voteAverage.toString()
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val castShows = list[adapterPosition]
+            clickListener.invoke(castShows)
         }
     }
 
