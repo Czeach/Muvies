@@ -41,7 +41,6 @@ class CastDetailsFragment : Fragment() {
                 null, null, it)
                 findNavController().navigate(args)
             }
-
         }
     }
 
@@ -55,7 +54,6 @@ class CastDetailsFragment : Fragment() {
                     null, null, it)
                 findNavController().navigate(args)
             }
-
         }
     }
 
