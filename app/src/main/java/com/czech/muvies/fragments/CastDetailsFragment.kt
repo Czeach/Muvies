@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
+import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.CastDetailsFragmentBinding
@@ -41,7 +42,6 @@ class CastDetailsFragment : Fragment() {
                 null, null, it)
                 findNavController().navigate(args)
             }
-
         }
     }
 
@@ -55,7 +55,6 @@ class CastDetailsFragment : Fragment() {
                     null, null, it)
                 findNavController().navigate(args)
             }
-
         }
     }
 
