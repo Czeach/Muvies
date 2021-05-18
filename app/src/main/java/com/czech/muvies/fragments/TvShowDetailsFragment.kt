@@ -39,6 +39,7 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
 import com.czech.muvies.viewModels.TvShowDetailsViewModelFactory
+import kotlinx.android.synthetic.main.movie_details_fragment.*
 import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
 import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
 import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
@@ -77,8 +78,7 @@ class TvShowDetailsFragment() : Fragment() {
             override fun invoke(it: SimilarTvShows.SimilarTvShowsResult) {
                 val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
                     null, null, null, null, null, null,
-                    null, null, null, null, it
-                )
+                    null, null, null, null, it, null)
                 findNavController().navigate(args)
             }
 
@@ -143,6 +143,7 @@ class TvShowDetailsFragment() : Fragment() {
         val trendingTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvSArgs
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
         val similarTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).similarTvArgs
+        val castShowArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).castShowArgs
 
         if (airingTodaySArgs != null) {
 
@@ -164,6 +165,29 @@ class TvShowDetailsFragment() : Fragment() {
             lang_text.text = airingTodaySArgs.originalLanguage
 
             getDetails(airingTodaySArgs.id)
+        }
+
+        if (castShowArgs != null) {
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${castShowArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            name.text = castShowArgs.name
+
+            release_year.text = Converter.convertDateToYear(castShowArgs.firstAirDate)
+
+            val ratingBar = rating_bar
+            val rating = castShowArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = castShowArgs.voteAverage?.toFloat().toString() + "/10"
+
+            lang_text.text = castShowArgs.originalLanguage
+
+            castShowArgs.id?.let { getDetails(it) }
         }
 
         if (airingTodayArgs != null) {

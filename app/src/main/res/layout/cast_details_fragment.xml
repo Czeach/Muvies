@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="16dp"
     tools:context="com.czech.muvies.fragments.CastDetailsFragment">
 
     <data>
@@ -56,14 +57,25 @@
                 app:layout_constraintStart_toStartOf="@+id/name"
                 app:layout_constraintTop_toBottomOf="@+id/name" />
 
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/colorAccentDark"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/gender"
+                app:layout_constraintStart_toStartOf="@+id/gender"
+                app:layout_constraintTop_toBottomOf="@+id/gender" />
+
             <FrameLayout
                 android:id="@+id/bio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gender">
+                app:layout_constraintTop_toBottomOf="@+id/birthday">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -92,12 +104,69 @@
                         android:fontFamily="sans-serif"
                         android:textColor="@color/colorAccentLight"
                         android:textSize="14sp"
+                        android:maxLines="5"
+                        android:scrollHorizontally="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
+
+            <ToggleButton
+                android:id="@+id/cast_movies_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/border"
+                android:fontFamily="@font/autour_one"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccentLight"
+                android:textOff="Movies"
+                android:textOn="Movies"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bio" />
+
+            <ToggleButton
+                android:id="@+id/cast_shows_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/border"
+                android:fontFamily="@font/autour_one"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccentLight"
+                android:textOff="Shows"
+                android:textOn="Shows"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cast_movies_toggle"
+                app:layout_constraintStart_toEndOf="@+id/cast_movies_toggle"
+                app:layout_constraintTop_toTopOf="@+id/cast_movies_toggle" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cast_movies"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cast_movies_toggle" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cast_shows"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cast_movies_toggle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

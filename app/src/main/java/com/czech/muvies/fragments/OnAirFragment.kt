@@ -28,8 +28,7 @@ class OnAirFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
                     null, null, it, null, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 

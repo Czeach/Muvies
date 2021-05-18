@@ -28,8 +28,7 @@ class PopularFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = PopularFragmentDirections.actionPopularToDetailsFragment(
                     null, null, null, null, it, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 

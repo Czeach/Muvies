@@ -15,6 +15,7 @@
         android:id="@+id/movie_details_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="16dp"
         android:background="@color/colorBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout

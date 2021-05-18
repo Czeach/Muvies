@@ -21,6 +21,24 @@ class CastDetailsViewModel(private val apiService: MoviesApiService) : ViewModel
             emit(com.czech.muvies.utils.Resource.error(data = null, message = e.message ?: "Error getting cast details"))
         }
     }
+
+    fun getCastMovies(personId: Int) = liveData(Dispatchers.IO) {
+        emit(com.czech.muvies.utils.Resource.loading(data = null))
+        try {
+            emit(com.czech.muvies.utils.Resource.success(data = apiService.getPersonMovies(personId, BuildConfig.API_KEY, LANGUAGE)))
+        } catch (e: IOException) {
+            emit(com.czech.muvies.utils.Resource.error(data = null, message = e.message ?: "Error getting Cast Movies"))
+        }
+    }
+
+    fun getCastShows(personId: Int) = liveData(Dispatchers.IO) {
+        emit(com.czech.muvies.utils.Resource.loading(data = null))
+        try {
+            emit(com.czech.muvies.utils.Resource.success(data = apiService.getPersonTvShows(personId, BuildConfig.API_KEY, LANGUAGE)))
+        } catch (e: IOException) {
+            emit(com.czech.muvies.utils.Resource.error(data = null, message = e.message ?: "Error getting Cast Tv Shows"))
+        }
+    }
 }
 
 class CastDetailsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {
