@@ -125,6 +125,11 @@ class TvShowsFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = trendingTvAdapter
             }
+
+            searchShows.setOnClickListener {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToSearchShowsFragment2()
+                findNavController().navigate(args)
+            }
         }
 
         viewModel.apply {

@@ -129,6 +129,11 @@ class MoviesFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = trendingMoviesAdapter
             }
+
+            searchMovies.setOnClickListener {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToSearchMoviesFragment()
+                findNavController().navigate(args)
+            }
         }
 
         viewModel.apply {

@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_moviesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_searchMoviesFragment"
+            app:destination="@id/searchMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -53,6 +56,9 @@
         <action
             android:id="@+id/action_tvShowsFragment_to_tvShowsDetailsFragment"
             app:destination="@id/tvShowsDetailsFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_searchShowsFragment2"
+            app:destination="@id/searchShowsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
@@ -355,4 +361,14 @@
             android:id="@+id/action_castDetailsFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchShowsFragment2"
+        android:name="com.czech.muvies.fragments.SearchShowsFragment"
+        android:label="search_shows_fragment"
+        tools:layout="@layout/search_shows_fragment" />
+    <fragment
+        android:id="@+id/searchMoviesFragment"
+        android:name="com.czech.muvies.fragments.SearchMoviesFragment"
+        android:label="search_movies_fragment"
+        tools:layout="@layout/search_movies_fragment" />
 </navigation>
