@@ -503,7 +503,6 @@ class MovieDetailsFragment : Fragment() {
                         }
                     }
                     Status.LOADING -> {
-//                        castSkeleton()
                     }
                     Status.ERROR -> {
 

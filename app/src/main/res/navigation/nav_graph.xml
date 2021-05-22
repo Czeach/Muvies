@@ -287,7 +287,7 @@
     <fragment
         android:id="@+id/seasonDetailsFragment"
         android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
-        android:label="season details"
+        android:label=""
         tools:layout="@layout/season_details_fragment" >
         <argument
             android:name="seasonArgs"
@@ -308,7 +308,7 @@
     <fragment
         android:id="@+id/favMoviesTabFragment"
         android:name="com.czech.muvies.fragments.FavMoviesTabFragment"
-        android:label="fragment_fav_movies_tab"
+        android:label=""
         tools:layout="@layout/fragment_fav_movies_tab" >
         <argument
             android:name="movieId"
@@ -344,7 +344,7 @@
     <fragment
         android:id="@+id/castDetailsFragment"
         android:name="com.czech.muvies.fragments.CastDetailsFragment"
-        android:label="cast_details_fragment"
+        android:label=""
         tools:layout="@layout/cast_details_fragment" >
         <argument
             android:name="showPersonArgs"
@@ -364,11 +364,11 @@
     <fragment
         android:id="@+id/searchShowsFragment2"
         android:name="com.czech.muvies.fragments.SearchShowsFragment"
-        android:label="search_shows_fragment"
+        android:label=""
         tools:layout="@layout/search_shows_fragment" />
     <fragment
         android:id="@+id/searchMoviesFragment"
         android:name="com.czech.muvies.fragments.SearchMoviesFragment"
-        android:label="search_movies_fragment"
+        android:label=""
         tools:layout="@layout/search_movies_fragment" />
 </navigation>
