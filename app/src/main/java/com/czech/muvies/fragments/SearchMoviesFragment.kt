@@ -40,6 +40,13 @@ class SearchMoviesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.searchMoviesViewModel = viewModel
 
+        binding.movieSearchResult.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            adapter = searchAdapter
+        }
+
+//        searchAdapter.updateSearchList(emptyList())
+
         return binding.root
     }
 
@@ -47,14 +54,6 @@ class SearchMoviesFragment : Fragment() {
     @FlowPreview
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.movieSearchResult.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            adapter = searchAdapter
-        }
-
-        searchAdapter.updateSearchList(emptyList())
-
 
         search_movies_et.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {

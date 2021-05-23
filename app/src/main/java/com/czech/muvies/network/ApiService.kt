@@ -238,4 +238,10 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("query") searchQuery: String
     ): SearchMovies
+
+    @GET("search/tv")
+    suspend fun searchShow(
+        @Query("api_key") apiKey: String,
+        @Query("query") searchQuery: String
+    ): SearchShows
 }
