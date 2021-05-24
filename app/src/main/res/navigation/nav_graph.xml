@@ -12,26 +12,14 @@
         android:label="Movies"
         tools:layout="@layout/movies_fragment" >
         <action
-            android:id="@+id/action_moviesFragment_to_inTheatersFragment"
-            app:destination="@id/inTheatersFragment" />
-        <action
-            android:id="@+id/action_moviesFragment_to_upcomingFragment"
-            app:destination="@id/upcoming" />
-        <action
-            android:id="@+id/action_moviesFragment_to_popularFragment"
-            app:destination="@id/popular" />
-        <action
-            android:id="@+id/action_moviesFragment_to_topRatedMoviesFragment"
-            app:destination="@id/topRatedMoviesFragment" />
-        <action
-            android:id="@+id/action_moviesFragment_to_trendingMoviesFragment"
-            app:destination="@id/trendingMoviesFragment" />
-        <action
             android:id="@+id/action_moviesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
         <action
             android:id="@+id/action_moviesFragment_to_searchMoviesFragment"
             app:destination="@id/searchMoviesFragment" />
+        <action
+            android:id="@+id/action_moviesFragment_to_pagedMoviesFragment"
+            app:destination="@id/pagedMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
@@ -59,51 +47,6 @@
         <action
             android:id="@+id/action_tvShowsFragment_to_searchShowsFragment2"
             app:destination="@id/searchShowsFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/inTheatersFragment"
-        android:name="com.czech.muvies.fragments.InTheatersFragment"
-        android:label="In Theaters"
-        tools:layout="@layout/in_theaters_fragment" >
-        <action
-            android:id="@+id/action_inTheatersFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/upcoming"
-        android:name="com.czech.muvies.fragments.UpcomingFragment"
-        android:label="Upcoming"
-        tools:layout="@layout/upcoming_fragment">
-        <action
-            android:id="@+id/action_upcoming_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/popular"
-        android:name="com.czech.muvies.fragments.PopularFragment"
-        android:label="Popular"
-        tools:layout="@layout/popular_fragment">
-        <action
-            android:id="@+id/action_popular_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/topRatedMoviesFragment"
-        android:name="com.czech.muvies.fragments.TopRatedMoviesFragment"
-        android:label="Top Rated"
-        tools:layout="@layout/top_rated_movies_fragment">
-        <action
-            android:id="@+id/action_topRatedMoviesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/trendingMoviesFragment"
-        android:name="com.czech.muvies.fragments.TrendingMoviesFragment"
-        android:label="Trending Movies"
-        tools:layout="@layout/trending_movies_fragment">
-        <action
-            android:id="@+id/action_trendingMoviesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/airingTodayFragment"
@@ -371,4 +314,33 @@
         android:name="com.czech.muvies.fragments.SearchMoviesFragment"
         android:label=""
         tools:layout="@layout/search_movies_fragment" />
+    <fragment
+        android:id="@+id/pagedMoviesFragment"
+        android:name="com.czech.muvies.fragments.PagedMoviesFragment"
+        android:label="paged_movies_fragment"
+        tools:layout="@layout/paged_movies_fragment" >
+        <argument
+            android:name="inTheaterArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="upcomingArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="popularArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="topRatedArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="trendingArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_pagedMoviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

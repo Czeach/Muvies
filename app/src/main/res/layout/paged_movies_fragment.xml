@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.InTheatersFragment">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.PagedMoviesFragment">
+    
     <data>
         <variable
-            name="inTheatersVieModel"
-            type="com.czech.muvies.viewModels.InTheatersViewModel" />
+            name="pagedMoviesViewModel"
+            type="com.czech.muvies.viewModels.PagedMoviesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,12 +20,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/discover_title"
+            android:id="@+id/paged_title"
             style="@style/TextAppearance.AppCompat.ListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="IN THEATERS"
+            android:text=""
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,12 +35,12 @@
             android:layout_width="40dp"
             android:layout_height="2dp"
             android:src="@drawable/selected"
-            app:layout_constraintEnd_toEndOf="@+id/discover_title"
-            app:layout_constraintStart_toStartOf="@+id/discover_title"
-            app:layout_constraintTop_toBottomOf="@+id/discover_title" />
+            app:layout_constraintEnd_toEndOf="@+id/paged_title"
+            app:layout_constraintStart_toStartOf="@+id/paged_title"
+            app:layout_constraintTop_toBottomOf="@+id/paged_title" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/in_theaters_main_list_recycler"
+            android:id="@+id/paged_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
