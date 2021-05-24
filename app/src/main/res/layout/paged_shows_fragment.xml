@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.PagedMoviesFragment">
-    
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.PagedShowsFragment">
+
     <data>
         <variable
-            name="pagedMoviesViewModel"
-            type="com.czech.muvies.viewModels.PagedMoviesViewModel" />
+            name="pagedShowsViewModel"
+            type="com.czech.muvies.viewModels.PagedShowsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

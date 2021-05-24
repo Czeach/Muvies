@@ -27,71 +27,14 @@
         android:label="Tv Shows"
         tools:layout="@layout/tv_shows_fragment" >
         <action
-            android:id="@+id/action_tvShowsFragment_to_airingTodayFragment"
-            app:destination="@id/airingTodayFragment" />
-        <action
-            android:id="@+id/action_tvShowsFragment_to_onAirFragment"
-            app:destination="@id/onAirFragment" />
-        <action
-            android:id="@+id/action_tvShowsFragment_to_popularShowsFragment"
-            app:destination="@id/popularShowsFragment" />
-        <action
-            android:id="@+id/action_tvShowsFragment_to_topRatedShowsFragment"
-            app:destination="@id/topRatedShowsFragment" />
-        <action
-            android:id="@+id/action_tvShowsFragment_to_trendingShowsFragment"
-            app:destination="@id/trendingShowsFragment" />
-        <action
             android:id="@+id/action_tvShowsFragment_to_tvShowsDetailsFragment"
             app:destination="@id/tvShowsDetailsFragment" />
         <action
             android:id="@+id/action_tvShowsFragment_to_searchShowsFragment2"
             app:destination="@id/searchShowsFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/airingTodayFragment"
-        android:name="com.czech.muvies.fragments.AiringTodayFragment"
-        android:label="Airing Today"
-        tools:layout="@layout/airing_today_fragment">
         <action
-            android:id="@+id/action_airingTodayFragment_to_tvShowsDetailsFragment"
-            app:destination="@id/tvShowsDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/onAirFragment"
-        android:name="com.czech.muvies.fragments.OnAirFragment"
-        android:label="On Air"
-        tools:layout="@layout/on_air_fragment">
-        <action
-            android:id="@+id/action_onAirFragment_to_tvShowsDetailsFragment"
-            app:destination="@id/tvShowsDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/popularShowsFragment"
-        android:name="com.czech.muvies.fragments.PopularShowsFragment"
-        android:label="Popular Shows"
-        tools:layout="@layout/popular_shows_fragment">
-        <action
-            android:id="@+id/action_popularShowsFragment_to_tvShowsDetailsFragment"
-            app:destination="@id/tvShowsDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/topRatedShowsFragment"
-        android:name="com.czech.muvies.fragments.TopRatedShowsFragment"
-        android:label="Top Rated Shows"
-        tools:layout="@layout/top_rated_shows_fragment">
-        <action
-            android:id="@+id/action_topRatedShowsFragment_to_tvShowsDetailsFragment"
-            app:destination="@id/tvShowsDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/trendingShowsFragment"
-        android:name="com.czech.muvies.fragments.TrendingShowsFragment"
-        android:label="Trending Shows"
-        tools:layout="@layout/trending_shows_fragment">
-        <action
-            android:id="@+id/action_trendingShowsFragment_to_tvShowsDetailsFragment"
-            app:destination="@id/tvShowsDetailsFragment" />
+            android:id="@+id/action_tvShowsFragment_to_pagedShowsFragment"
+            app:destination="@id/pagedShowsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -317,7 +260,7 @@
     <fragment
         android:id="@+id/pagedMoviesFragment"
         android:name="com.czech.muvies.fragments.PagedMoviesFragment"
-        android:label="paged_movies_fragment"
+        android:label=""
         tools:layout="@layout/paged_movies_fragment" >
         <argument
             android:name="inTheaterArgs"
@@ -342,5 +285,34 @@
         <action
             android:id="@+id/action_pagedMoviesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pagedShowsFragment"
+        android:name="com.czech.muvies.fragments.PagedShowsFragment"
+        android:label=""
+        tools:layout="@layout/paged_shows_fragment" >
+        <argument
+            android:name="airingTodayArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="onAirArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="popularArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="topRatedArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="trendingArgs"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_pagedShowsFragment_to_tvShowsDetailsFragment"
+            app:destination="@id/tvShowsDetailsFragment" />
     </fragment>
 </navigation>

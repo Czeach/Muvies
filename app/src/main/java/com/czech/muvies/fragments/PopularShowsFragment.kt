@@ -25,10 +25,10 @@ class PopularShowsFragment : Fragment() {
     private val popularClickListener by lazy {
         object : popularTvItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = PopularShowsFragmentDirections.actionPopularShowsFragmentToTvShowsDetailsFragment(
-                    null, null, null, null, it, null,
-                    null, null, null, null, null, null)
-                findNavController().navigate(args)
+//                val args = PopularShowsFragmentDirections.actionPopularShowsFragmentToTvShowsDetailsFragment(
+//                    null, null, null, null, it, null,
+//                    null, null, null, null, null, null)
+//                findNavController().navigate(args)
             }
 
         }

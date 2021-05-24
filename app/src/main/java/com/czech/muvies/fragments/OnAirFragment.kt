@@ -26,10 +26,10 @@ class OnAirFragment : Fragment() {
     private val onAirClickListener by lazy {
         object : onAirItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
-                    null, null, it, null, null, null,
-                    null, null, null, null, null, null)
-                findNavController().navigate(args)
+//                val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
+//                    null, null, it, null, null, null,
+//                    null, null, null, null, null, null)
+//                findNavController().navigate(args)
             }
 
         }
