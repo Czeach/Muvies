@@ -128,6 +128,7 @@ class MovieDetailsFragment : Fragment() {
         val trendingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
         val similarArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).similarArgs
         val castMovieArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).castMovieArgs
+        val searchArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).searchArgs
 
         if (inTheatersArgs != null) {
 
@@ -383,6 +384,30 @@ class MovieDetailsFragment : Fragment() {
             lang_text.text = castMovieArgs.originalLanguage
 
             castMovieArgs.id?.let { getDetails(it) }
+        }
+
+        if (searchArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${searchArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            title.text = searchArgs.title
+
+            release_year.text = Converter.convertDateToYear(searchArgs.releaseDate)
+
+            val ratingBar = rating_bar
+            val rating = searchArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = searchArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = searchArgs.originalLanguage
+
+            searchArgs.id?.let { getDetails(it) }
         }
 
         homepage.movementMethod = LinkMovementMethod.getInstance()

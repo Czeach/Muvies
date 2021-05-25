@@ -139,6 +139,7 @@ class TvShowDetailsFragment() : Fragment() {
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
         val similarTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).similarTvArgs
         val castShowArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).castShowArgs
+        val searchArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).searchArgs
 
         if (airingTodaySArgs != null) {
 
@@ -402,7 +403,29 @@ class TvShowDetailsFragment() : Fragment() {
             similarTvArgs.id?.let { getDetails(it) }
         }
 
+        if (searchArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${searchArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            name.text = searchArgs.name
+
+            release_year.text = Converter.convertDateToYear(searchArgs.firstAirDate)
+
+            val ratingBar = rating_bar
+            val rating = searchArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = searchArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = searchArgs.originalLanguage
+
+            searchArgs.id?.let { getDetails(it) }
+        }
 
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {

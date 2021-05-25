@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.SearchShowsAdapter
+import com.czech.muvies.adapters.searchShowsClickListener
 import com.czech.muvies.databinding.SearchShowsFragmentBinding
 import com.czech.muvies.models.SearchShows
 import com.czech.muvies.network.MoviesApiService
@@ -29,7 +31,19 @@ class SearchShowsFragment : Fragment() {
     private lateinit var binding: SearchShowsFragmentBinding
     private lateinit var viewModel: SearchShowsViewModel
 
-    private var searchShowsAdapter = SearchShowsAdapter(arrayListOf())
+    private val searchClickListener by lazy {
+        object : searchShowsClickListener {
+            override fun invoke(it: SearchShows.Result) {
+                val args = SearchShowsFragmentDirections.actionSearchShowsFragment2ToTvShowsDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, null, null, null, null,
+                    it)
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private var searchShowsAdapter = SearchShowsAdapter(arrayListOf(), searchClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

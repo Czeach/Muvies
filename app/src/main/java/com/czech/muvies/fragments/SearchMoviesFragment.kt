@@ -11,9 +11,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.MainActivity
 import com.czech.muvies.adapters.SearchMoviesAdapter
+import com.czech.muvies.adapters.searchMoviesClickListener
 import com.czech.muvies.databinding.SearchMoviesFragmentBinding
 import com.czech.muvies.models.SearchMovies
 import com.czech.muvies.network.MoviesApiService
@@ -27,7 +29,19 @@ class SearchMoviesFragment : Fragment() {
     private lateinit var binding: SearchMoviesFragmentBinding
     private lateinit var viewModel: SearchMoviesViewModel
 
-    private var searchAdapter = SearchMoviesAdapter(arrayListOf())
+    private val searchClickListener by lazy {
+        object : searchMoviesClickListener {
+            override fun invoke(it: SearchMovies.Result) {
+                val args = SearchMoviesFragmentDirections.actionSearchMoviesFragmentToDetailsFragment(
+                    null, null, null, null, null, null,
+                    null, null, null, null, null, null, it
+                )
+                findNavController().navigate(args)
+            }
+
+        }
+    }
+    private var searchAdapter = SearchMoviesAdapter(arrayListOf(), searchClickListener)
 
     @ExperimentalCoroutinesApi
     override fun onCreateView(
