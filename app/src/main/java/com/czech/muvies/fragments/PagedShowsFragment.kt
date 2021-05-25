@@ -28,8 +28,7 @@ class PagedShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = PagedShowsFragmentDirections.actionPagedShowsFragmentToTvShowsDetailsFragment(
                     it, null, null, null, null, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -42,8 +41,7 @@ class PagedShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = PagedShowsFragmentDirections.actionPagedShowsFragmentToTvShowsDetailsFragment(
                     null, null, it, null, null, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -56,8 +54,7 @@ class PagedShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = PagedShowsFragmentDirections.actionPagedShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, it, null,
-                    null, null, null, null, null, null
-                )
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -70,8 +67,7 @@ class PagedShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = PagedShowsFragmentDirections.actionPagedShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
-                    it, null, null, null, null, null
-                )
+                    it, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -84,8 +80,7 @@ class PagedShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = PagedShowsFragmentDirections.actionPagedShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
-                    null, null, it, null, null, null
-                )
+                    null, null, it, null, null, null, null)
                 findNavController().navigate(args)
             }
 

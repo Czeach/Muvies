@@ -101,6 +101,10 @@
             android:name="castMovieArgs"
             app:argType="com.czech.muvies.models.PersonMovies$Cast"
             app:nullable="true" />
+        <argument
+            android:name="searchArgs"
+            app:argType="com.czech.muvies.models.SearchMovies$Result"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -168,6 +172,10 @@
         <argument
             android:name="castShowArgs"
             app:argType="com.czech.muvies.models.PersonTvShows$Cast"
+            app:nullable="true" />
+        <argument
+            android:name="searchArgs"
+            app:argType="com.czech.muvies.models.SearchShows$Result"
             app:nullable="true" />
     </fragment>
     <fragment
@@ -251,12 +259,20 @@
         android:id="@+id/searchShowsFragment2"
         android:name="com.czech.muvies.fragments.SearchShowsFragment"
         android:label=""
-        tools:layout="@layout/search_shows_fragment" />
+        tools:layout="@layout/search_shows_fragment" >
+        <action
+            android:id="@+id/action_searchShowsFragment2_to_tvShowsDetailsFragment"
+            app:destination="@id/tvShowsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchMoviesFragment"
         android:name="com.czech.muvies.fragments.SearchMoviesFragment"
         android:label=""
-        tools:layout="@layout/search_movies_fragment" />
+        tools:layout="@layout/search_movies_fragment" >
+        <action
+            android:id="@+id/action_searchMoviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pagedMoviesFragment"
         android:name="com.czech.muvies.fragments.PagedMoviesFragment"

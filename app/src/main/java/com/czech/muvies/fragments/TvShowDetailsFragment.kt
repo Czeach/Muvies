@@ -78,7 +78,7 @@ class TvShowDetailsFragment() : Fragment() {
             override fun invoke(it: SimilarTvShows.SimilarTvShowsResult) {
                 val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
                     null, null, null, null, null, null,
-                    null, null, null, null, it, null)
+                    null, null, null, null, it, null, null)
                 findNavController().navigate(args)
             }
 

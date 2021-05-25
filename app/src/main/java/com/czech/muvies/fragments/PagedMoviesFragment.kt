@@ -30,8 +30,7 @@ class PagedMoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = PagedMoviesFragmentDirections.actionPagedMoviesFragmentToDetailsFragment(
                     it, null, null, null, null, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -44,8 +43,7 @@ class PagedMoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = PagedMoviesFragmentDirections.actionPagedMoviesFragmentToDetailsFragment(
                     null, null, it, null, null, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -58,8 +56,7 @@ class PagedMoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = PagedMoviesFragmentDirections.actionPagedMoviesFragmentToDetailsFragment(
                     null, null, null, null, it, null, null,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -72,8 +69,7 @@ class PagedMoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = PagedMoviesFragmentDirections.actionPagedMoviesFragmentToDetailsFragment(
                     it, null, null, null, null, null, it,
-                    null, null, null, null, null
-                )
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -86,8 +82,7 @@ class PagedMoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = PagedMoviesFragmentDirections.actionPagedMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null, null,
-                    null, it, null, null, null
-                )
+                    null, it, null, null, null, null)
                 findNavController().navigate(args)
             }
 

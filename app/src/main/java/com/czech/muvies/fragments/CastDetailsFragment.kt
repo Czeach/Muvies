@@ -39,7 +39,7 @@ class CastDetailsFragment : Fragment() {
             override fun invoke(it: PersonMovies.Cast) {
                 val args = CastDetailsFragmentDirections.actionCastDetailsFragmentToDetailsFragment(null, null,
                 null, null, null, null, null, null, null,
-                null, null, it)
+                null, null, it, null)
                 findNavController().navigate(args)
             }
         }
@@ -52,7 +52,7 @@ class CastDetailsFragment : Fragment() {
             override fun invoke(it: PersonTvShows.Cast) {
                 val args = CastDetailsFragmentDirections.actionCastDetailsFragmentToTvShowsDetailsFragment(null, null,
                     null, null, null, null, null, null, null,
-                    null, null, it)
+                    null, null, it, null)
                 findNavController().navigate(args)
             }
         }

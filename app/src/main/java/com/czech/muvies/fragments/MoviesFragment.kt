@@ -30,7 +30,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, it, null, null, null,
-                    null, null, null, null, null)
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -44,7 +44,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, it, null, null, null, null, null,
-                    null, null, null, null, null)
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -58,7 +58,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, it,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -72,7 +72,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
-                    null, it, null, null, null, null)
+                    null, it, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -86,7 +86,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
-                    null, null, null, it, null, null)
+                    null, null, null, it, null, null, null)
                 findNavController().navigate(args)
             }
 

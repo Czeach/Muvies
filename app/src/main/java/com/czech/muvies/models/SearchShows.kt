@@ -1,8 +1,11 @@
 package com.czech.muvies.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class SearchShows(
     val page: Int?,
     val results: List<Result?>?,
@@ -10,7 +13,9 @@ data class SearchShows(
     val totalPages: Int?,
     @SerializedName("total_results")
     val totalResults: Int?
-) {
+): Parcelable {
+
+    @Parcelize
     data class Result(
         @SerializedName("backdrop_path")
         val backdropPath: String?,
@@ -34,5 +39,5 @@ data class SearchShows(
         val voteAverage: Double?,
         @SerializedName("vote_count")
         val voteCount: Int?
-    )
+    ): Parcelable
 }

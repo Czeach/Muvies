@@ -28,7 +28,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, it, null, null, null, null,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -42,7 +42,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, it, null, null,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -56,7 +56,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, it,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -70,7 +70,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
-                    null, it, null, null, null, null)
+                    null, it, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -84,7 +84,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
-                    null, null, null, it, null, null)
+                    null, null, null, it, null, null, null)
                 findNavController().navigate(args)
             }
 

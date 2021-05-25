@@ -74,7 +74,7 @@ class MovieDetailsFragment : Fragment() {
             override fun invoke(it: SimilarMovies.SimilarMoviesResult) {
                 val args = MovieDetailsFragmentDirections.actionDetailsFragmentSelf(
                     null, null, null, null, null, null, null,
-                    null, null, null, it, null)
+                    null, null, null, it, null, null)
                 findNavController().navigate(args)
             }
 
