@@ -17,7 +17,6 @@ import com.czech.muvies.adapters.PagedMoviesAdapter
 import com.czech.muvies.adapters.pagedMovieClickListener
 import com.czech.muvies.databinding.PagedMoviesFragmentBinding
 import com.czech.muvies.models.Movies
-import com.czech.muvies.pagedAdapters.InTheatersMainListAdapter
 import com.czech.muvies.viewModels.PagedMoviesViewModel
 
 class PagedMoviesFragment : Fragment() {

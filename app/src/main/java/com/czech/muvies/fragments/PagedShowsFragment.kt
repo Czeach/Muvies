@@ -15,7 +15,6 @@ import com.czech.muvies.adapters.PagedShowsAdapter
 import com.czech.muvies.adapters.pagedShowClickListener
 import com.czech.muvies.databinding.PagedShowsFragmentBinding
 import com.czech.muvies.models.TvShows
-import com.czech.muvies.pagedAdapters.AiringTodayMainAdapter
 import com.czech.muvies.viewModels.PagedShowsViewModel
 
 class PagedShowsFragment : Fragment() {

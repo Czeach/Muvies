@@ -5,7 +5,6 @@ import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
 import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.pagedAdapters.topRatedItemClickListener
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine

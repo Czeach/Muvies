@@ -24,16 +24,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
-import com.czech.muvies.adapters.MovieCastAdapter
-import com.czech.muvies.adapters.MoviesGenreAdapter
-import com.czech.muvies.adapters.castItemClickListener
+import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
 import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.models.SimilarMovies
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.pagedAdapters.SimilarMoviesAdapter
-import com.czech.muvies.pagedAdapters.similarItemClickListener
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
