@@ -24,16 +24,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
-import com.czech.muvies.adapters.MovieCastAdapter
-import com.czech.muvies.adapters.MoviesGenreAdapter
-import com.czech.muvies.adapters.castItemClickListener
+import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
 import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.models.SimilarMovies
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.pagedAdapters.SimilarMoviesAdapter
-import com.czech.muvies.pagedAdapters.similarItemClickListener
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
@@ -74,7 +70,7 @@ class MovieDetailsFragment : Fragment() {
             override fun invoke(it: SimilarMovies.SimilarMoviesResult) {
                 val args = MovieDetailsFragmentDirections.actionDetailsFragmentSelf(
                     null, null, null, null, null, null, null,
-                    null, null, null, it, null)
+                    null, null, null, it, null, null)
                 findNavController().navigate(args)
             }
 
@@ -132,6 +128,7 @@ class MovieDetailsFragment : Fragment() {
         val trendingArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).trendingArgs
         val similarArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).similarArgs
         val castMovieArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).castMovieArgs
+        val searchArgs = MovieDetailsFragmentArgs.fromBundle(requireArguments()).searchArgs
 
         if (inTheatersArgs != null) {
 
@@ -389,6 +386,30 @@ class MovieDetailsFragment : Fragment() {
             castMovieArgs.id?.let { getDetails(it) }
         }
 
+        if (searchArgs != null) {
+
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${searchArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            title.text = searchArgs.title
+
+            release_year.text = Converter.convertDateToYear(searchArgs.releaseDate)
+
+            val ratingBar = rating_bar
+            val rating = searchArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = searchArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = searchArgs.originalLanguage
+
+            searchArgs.id?.let { getDetails(it) }
+        }
+
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {
 
@@ -503,7 +524,6 @@ class MovieDetailsFragment : Fragment() {
                         }
                     }
                     Status.LOADING -> {
-//                        castSkeleton()
                     }
                     Status.ERROR -> {
 

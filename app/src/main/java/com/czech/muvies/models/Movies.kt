@@ -39,8 +39,18 @@ data class Movies(
         val voteAverage: Double = 0.0,
         val overview: String = "",
         @SerializedName("release_date")
-        val releaseDate: String = ""
+        val releaseDate: String = "",
+//        var movieCategory: MovieCategory? = null
     ): Parcelable
+//    {
+//        enum class MovieCategory {
+//            IN_THEATER,
+//            UPCOMING,
+//            POPULAR,
+//            TOP_RATED,
+//            TRENDING
+//        }
+//    }
 
     @Parcelize
     data class InTheatersDates(

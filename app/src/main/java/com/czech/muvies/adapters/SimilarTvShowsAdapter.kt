@@ -1,4 +1,4 @@
-package com.czech.muvies.pagedAdapters
+package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
 import android.view.View

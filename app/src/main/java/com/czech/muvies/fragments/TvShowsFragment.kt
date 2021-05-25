@@ -28,7 +28,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, it, null, null, null, null,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -42,7 +42,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, it, null, null,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -56,7 +56,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, it,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -70,7 +70,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
-                    null, it, null, null, null, null)
+                    null, it, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -84,7 +84,7 @@ class TvShowsFragment : Fragment() {
             override fun invoke(it: TvShows.TvShowsResult) {
                 val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
-                    null, null, null, it, null, null)
+                    null, null, null, it, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -124,6 +124,11 @@ class TvShowsFragment : Fragment() {
             trendingTvRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = trendingTvAdapter
+            }
+
+            searchShows.setOnClickListener {
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToSearchShowsFragment2()
+                findNavController().navigate(args)
             }
         }
 
@@ -243,19 +248,34 @@ class TvShowsFragment : Fragment() {
 
         binding.apply {
             airingTodaySeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_tvShowsFragment_to_airingTodayFragment)
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToPagedShowsFragment(
+                    airingTodayTitle.toString(), null, null, null, null
+                )
+                findNavController().navigate(args)
             }
             onAirSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_tvShowsFragment_to_onAirFragment)
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToPagedShowsFragment(
+                    null, onAirTitle.toString(), null, null, null
+                )
+                findNavController().navigate(args)
             }
             popularSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_tvShowsFragment_to_popularShowsFragment)
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToPagedShowsFragment(
+                    null, null, popularTvTitle.toString(), null, null
+                )
+                findNavController().navigate(args)
             }
             topRatedSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_tvShowsFragment_to_topRatedShowsFragment)
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToPagedShowsFragment(
+                    null, null, null, topRatedTvTitle.toString(), null
+                )
+                findNavController().navigate(args)
             }
             trendingSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_tvShowsFragment_to_trendingShowsFragment)
+                val args = TvShowsFragmentDirections.actionTvShowsFragmentToPagedShowsFragment(
+                    null, null, null, null, trendingTvTitle.toString()
+                )
+                findNavController().navigate(args)
             }
         }
     }

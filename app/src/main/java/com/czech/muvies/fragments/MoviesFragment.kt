@@ -30,7 +30,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, it, null, null, null,
-                    null, null, null, null, null)
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -44,7 +44,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, it, null, null, null, null, null,
-                    null, null, null, null, null)
+                    null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -58,7 +58,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, it,
-                    null, null, null, null, null, null)
+                    null, null, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -72,7 +72,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
-                    null, it, null, null, null, null)
+                    null, it, null, null, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -86,7 +86,7 @@ class MoviesFragment : Fragment() {
             override fun invoke(it: Movies.MoviesResult) {
                 val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
-                    null, null, null, it, null, null)
+                    null, null, null, it, null, null, null)
                 findNavController().navigate(args)
             }
 
@@ -128,6 +128,11 @@ class MoviesFragment : Fragment() {
             trendingMoviesRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = trendingMoviesAdapter
+            }
+
+            searchMovies.setOnClickListener {
+                val args = MoviesFragmentDirections.actionMoviesFragmentToSearchMoviesFragment()
+                findNavController().navigate(args)
             }
         }
 
@@ -253,19 +258,34 @@ class MoviesFragment : Fragment() {
         binding.apply {
 
             inTheatersSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_moviesFragment_to_inTheatersFragment)
+                val args = MoviesFragmentDirections.actionMoviesFragmentToPagedMoviesFragment(
+                    inTheatresTitle.toString(), null, null, null, null
+                )
+                findNavController().navigate(args)
             }
             upcomingSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_moviesFragment_to_upcomingFragment)
+                val args = MoviesFragmentDirections.actionMoviesFragmentToPagedMoviesFragment(
+                    null, upcomingTitle.toString(), null, null, null
+                )
+                findNavController().navigate(args)
             }
             popularSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_moviesFragment_to_popularFragment)
+                val args = MoviesFragmentDirections.actionMoviesFragmentToPagedMoviesFragment(
+                    null, null, popularTitle.toString(), null, null
+                )
+                findNavController().navigate(args)
             }
             topRatedSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_moviesFragment_to_topRatedMoviesFragment)
+                val args = MoviesFragmentDirections.actionMoviesFragmentToPagedMoviesFragment(
+                    null, null, null, topRatedTitle.toString(), null
+                )
+                findNavController().navigate(args)
             }
             trendingSeeAll.setOnClickListener {
-                findNavController().navigate(R.id.action_moviesFragment_to_trendingMoviesFragment)
+                val args = MoviesFragmentDirections.actionMoviesFragmentToPagedMoviesFragment(
+                    null, null, null, null, trendingMoviesTitle.toString()
+                )
+                findNavController().navigate(args)
             }
         }
     }

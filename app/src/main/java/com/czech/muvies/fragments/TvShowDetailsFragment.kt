@@ -24,17 +24,12 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.MainActivity
 import com.czech.muvies.R
-import com.czech.muvies.adapters.SeasonsAdapter
-import com.czech.muvies.adapters.ShowCastAdapter
-import com.czech.muvies.adapters.ShowsGenreAdapter
-import com.czech.muvies.adapters.showCastItemClickListener
+import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
 import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.models.TvShowCredits
 import com.czech.muvies.models.TvShowDetails
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.pagedAdapters.SimilarTvShowsAdapter
-import com.czech.muvies.pagedAdapters.similarTvItemClickListener
 import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
@@ -78,7 +73,7 @@ class TvShowDetailsFragment() : Fragment() {
             override fun invoke(it: SimilarTvShows.SimilarTvShowsResult) {
                 val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
                     null, null, null, null, null, null,
-                    null, null, null, null, it, null)
+                    null, null, null, null, it, null, null)
                 findNavController().navigate(args)
             }
 
@@ -144,6 +139,7 @@ class TvShowDetailsFragment() : Fragment() {
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
         val similarTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).similarTvArgs
         val castShowArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).castShowArgs
+        val searchArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).searchArgs
 
         if (airingTodaySArgs != null) {
 
@@ -407,7 +403,29 @@ class TvShowDetailsFragment() : Fragment() {
             similarTvArgs.id?.let { getDetails(it) }
         }
 
+        if (searchArgs != null) {
 
+            Glide.with(this)
+                .load("$BASE_IMAGE_PATH${searchArgs.backdropPath}")
+                .placeholder(R.drawable.backdrop_placeholder)
+                .into(backdrop)
+
+            name.text = searchArgs.name
+
+            release_year.text = Converter.convertDateToYear(searchArgs.firstAirDate)
+
+            val ratingBar = rating_bar
+            val rating = searchArgs.voteAverage?.div(2)
+            if (rating != null) {
+                ratingBar.rating = rating.toFloat()
+            }
+
+            rating_fraction.text = searchArgs.voteAverage?.toFloat().toString() + "/10.0"
+
+            lang_text.text = searchArgs.originalLanguage
+
+            searchArgs.id?.let { getDetails(it) }
+        }
 
         homepage.movementMethod = LinkMovementMethod.getInstance()
         homepage.setOnClickListener {

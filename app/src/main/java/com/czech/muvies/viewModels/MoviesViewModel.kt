@@ -3,9 +3,12 @@ package com.czech.muvies.viewModels
 import androidx.lifecycle.*
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.LANGUAGE
+import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MoviesViewModel(private val apiService: MoviesApiService) : ViewModel() {
@@ -59,6 +62,53 @@ class MoviesViewModel(private val apiService: MoviesApiService) : ViewModel() {
             emit(Resource.error(data = null, message = e.message?: "Error getting Trending movies"))
         }
     }
+
+    fun getAllMovies() = liveData(Dispatchers.IO) {
+
+        val trending = emit(Resource.loading(data = null))
+
+        try {
+            emit(Resource.success(data = apiService.getTrendingMoviesAsync(BuildConfig.API_KEY)))
+        } catch (e:Exception) {
+            emit(Resource.error(data = null, message = e.message?: "Error getting Trending movies"))
+        }
+    }
+
+
+
+//    private val _movieResponse = MutableLiveData<Resource<List<Movies.MoviesResult>>>()
+//    val movieResponse: LiveData<Resource<List<Movies.MoviesResult>>> get() = _movieResponse
+//
+//    fun getAllMovies() = viewModelScope.launch {
+//
+//        val topRated = liveData(Dispatchers.IO) {
+//            emit(Resource.loading(data = null))
+//
+//            try {
+//                emit(Resource.success(data = apiService.getTopRatedMoviesAsync(BuildConfig.API_KEY,
+//                    LANGUAGE,
+//                    1)))
+//            } catch (e: Exception) {
+//                emit(Resource.error(data = null,
+//                    message = e.message ?: "Error getting Top Rated movies"))
+//            }
+//        }
+//
+//        val trending = liveData(Dispatchers.IO) {
+//            emit(Resource.loading(data = null))
+//
+//            try {
+//                emit(Resource.success(data = apiService.getTrendingMoviesAsync(BuildConfig.API_KEY)))
+//            } catch (e: Exception) {
+//                emit(Resource.error(data = null,
+//                    message = e.message ?: "Error getting Trending movies"))
+//            }
+//        }
+//        combine(
+//            topRated, trending
+//        )
+//    }
+
 }
 
 class MovieViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {

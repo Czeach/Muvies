@@ -232,4 +232,16 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): PersonTvShows
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("api_key") apiKey: String,
+        @Query("query") searchQuery: String
+    ): SearchMovies
+
+    @GET("search/tv")
+    suspend fun searchShow(
+        @Query("api_key") apiKey: String,
+        @Query("query") searchQuery: String
+    ): SearchShows
 }

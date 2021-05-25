@@ -1,4 +1,4 @@
-package com.czech.muvies.pagedAdapters
+package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.databinding.InTheatresMiniListBinding
 import com.czech.muvies.models.Movies
+import com.czech.muvies.models.TvShows
+import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 import kotlinx.android.synthetic.main.paged_list.view.*
 
-typealias trendingItemClickListener = (Movies.MoviesResult) -> Unit
+typealias pagedMovieClickListener = (Movies.MoviesResult) -> Unit
 
-class TrendingMoviesMainAdapter(private val clickListener: trendingItemClickListener):
-    PagedListAdapter<Movies.MoviesResult, TrendingMoviesMainAdapter.TrendingMoviesMainViewHolder>(diffUtil) {
+class PagedMoviesAdapter(private val clickListener: pagedMovieClickListener):
+    PagedListAdapter<Movies.MoviesResult, PagedMoviesAdapter.PagedMoviesViewModel>(diffUtil) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesMainViewHolder {
-        return TrendingMoviesMainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagedMoviesViewModel {
+        return PagedMoviesViewModel(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
     }
 
-    override fun onBindViewHolder(holder: TrendingMoviesMainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PagedMoviesViewModel, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
         }
@@ -36,12 +39,12 @@ class TrendingMoviesMainAdapter(private val clickListener: trendingItemClickList
             }
 
             override fun areContentsTheSame(oldItem: Movies.MoviesResult, newItem: Movies.MoviesResult): Boolean {
-                return oldItem == newItem
+                return  oldItem == newItem
             }
         }
     }
 
-    inner class TrendingMoviesMainViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class PagedMoviesViewModel(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title
@@ -49,9 +52,9 @@ class TrendingMoviesMainAdapter(private val clickListener: trendingItemClickList
         private var vote: TextView = itemView.vote
 
         fun bind(result: Movies.MoviesResult) {
-            title.text = result.title
             date.text = result.releaseDate
             vote.text = result.voteAverage.toString()
+            title.text = result.title
             Glide.with(itemView)
                 .load("$BASE_IMAGE_PATH${result.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
@@ -64,8 +67,8 @@ class TrendingMoviesMainAdapter(private val clickListener: trendingItemClickList
         }
 
         override fun onClick(v: View?) {
-            val trending = getItem(adapterPosition)
-            trending?.let { clickListener.invoke(it) }
+            val airingToday = getItem(adapterPosition)
+            airingToday?.let { clickListener.invoke(it) }
         }
     }
 }
