@@ -8,7 +8,7 @@ import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.network.ShowsRepository
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -64,8 +64,13 @@ class TvShowsViewModel(
                 popular.results,
                 topRated.results,
                 trending.results
-            )
-        }
+            ).flatten()
+        }.onStart { _showsResponse.postValue(Resource.loading(data = null)) }
+            .catch { _showsResponse.postValue(Resource.error(data = null, "Something went wrong")) }
+            .flowOn(Dispatchers.IO)
+            .collect {
+                _showsResponse.postValue(Resource.success(it))
+            }
     }
 
     fun getAiringToday() = liveData(Dispatchers.IO) {

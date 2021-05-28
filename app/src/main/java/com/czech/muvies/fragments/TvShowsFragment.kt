@@ -242,6 +242,79 @@ class TvShowsFragment : Fragment() {
 //            })
 //        }
 
+        viewModel.showsResponse.observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
+
+                Status.LOADING -> {
+                    binding.apply {
+                        showsScroll.visibility = View.GONE
+                        loadingAnimHolder.visibility = View.VISIBLE
+                    }
+                }
+
+                Status.SUCCESS -> {
+
+                    val airingTodayList = mutableListOf<TvShows.TvShowsResult>()
+                    val onAirList = mutableListOf<TvShows.TvShowsResult>()
+                    val popularList = mutableListOf<TvShows.TvShowsResult>()
+                    val topRatedList = mutableListOf<TvShows.TvShowsResult>()
+                    val trendingList = mutableListOf<TvShows.TvShowsResult>()
+
+                    resource.data.let { shows ->
+                        shows?.forEachIndexed { index, it ->
+                            when (it.showCategory) {
+
+                                TvShows.TvShowsResult.TvShowCategory.AIRING_TODAY -> {
+                                    shows[index].let {
+                                        airingTodayList.add(it)
+                                        airingTodayAdapter.updateAiringTodayList(airingTodayList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.ON_AIR -> {
+                                    shows[index].let {
+                                        onAirList.add(it)
+                                        onAirAdapter.updateOnAirList(onAirList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.POPULAR -> {
+                                    shows[index].let {
+                                        popularList.add(it)
+                                        popularTvAdapter.updatePopularTvList(popularList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.TOP_RATED -> {
+                                    shows[index].let {
+                                        topRatedList.add(it)
+                                        topRatedTvAdapter.updateTopRatedTvList(topRatedList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.TRENDING -> {
+                                    shows[index].let {
+                                        trendingList.add(it)
+                                        trendingTvAdapter.updateTrendingTvList(trendingList)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    binding.apply {
+                        showsScroll.visibility = View.VISIBLE
+                        loadingAnimHolder.visibility = View.GONE
+                    }
+
+                }
+
+                Status.ERROR -> {
+
+                }
+            }
+        })
+
         return binding.root
     }
 
