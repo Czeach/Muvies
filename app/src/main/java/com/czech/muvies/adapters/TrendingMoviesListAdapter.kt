@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.trending_movies_list.view.*
 
 typealias trendingSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class TrendingMoviesListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: trendingSItemClickListener):
+class TrendingMoviesListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: trendingSItemClickListener):
     RecyclerView.Adapter<TrendingMoviesListAdapter.TrendingMoviesListVieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingMoviesListVieHolder {
@@ -32,7 +32,7 @@ class TrendingMoviesListAdapter(private var list: MutableList<Movies.MoviesResul
         holder.bind(movies)
     }
 
-    fun updateTrendingMoviesList(moviesList: MutableList<Movies.MoviesResult>) {
+    fun updateTrendingMoviesList(moviesList: List<Movies.MoviesResult>) {
         list = moviesList
         notifyDataSetChanged()
     }

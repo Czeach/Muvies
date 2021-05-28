@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.top_rated_list.view.*
 
 typealias topRatedSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class TopRatedListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: topRatedSItemClickListener):
+class TopRatedListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: topRatedSItemClickListener):
     RecyclerView.Adapter<TopRatedListAdapter.TopRatedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedViewHolder {
@@ -32,7 +32,7 @@ class TopRatedListAdapter(private var list: MutableList<Movies.MoviesResult>, pr
         holder.bind(movie)
     }
 
-    fun updateTopRatedList(movieList: MutableList<Movies.MoviesResult>){
+    fun updateTopRatedList(movieList: List<Movies.MoviesResult>){
         list = movieList
         notifyDataSetChanged()
     }

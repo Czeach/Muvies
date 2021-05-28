@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 
 typealias inTheatersItemClickListenerS = (Movies.MoviesResult) -> Unit
 
-class InTheatersMiniListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: inTheatersItemClickListenerS):
+class InTheatersMiniListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: inTheatersItemClickListenerS):
     RecyclerView.Adapter<InTheatersMiniListAdapter.InTheatersMiniListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InTheatersMiniListViewHolder {
@@ -32,7 +32,7 @@ class InTheatersMiniListAdapter(private var list: MutableList<Movies.MoviesResul
         holder.bind(movie)
     }
 
-    fun updateInTheatreList(movieList: MutableList<Movies.MoviesResult>) {
+    fun updateInTheatreList(movieList: List<Movies.MoviesResult>) {
         list = movieList
         notifyDataSetChanged()
     }

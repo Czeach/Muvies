@@ -11,188 +11,220 @@
             type="com.czech.muvies.viewModels.TvShowsViewModel" />
     </data>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/colorBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loading_anim_holder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-            <ImageButton
-                android:id="@+id/search_shows"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/search"
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                app:lottie_loop="true"
+                app:lottie_repeatMode="restart"
+                app:lottie_fileName="loading.json"
+                app:lottie_autoPlay="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/airing_today_title"
-                style="@style/TextAppearance.AppCompat.ListTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="AIRING TODAY"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_shows" />
-
-            <TextView
-                android:id="@+id/airing_today_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/airing_today_list_recycler"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/airing_today_list_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/airing_today_title" />
-
-            <TextView
-                android:id="@+id/on_air_title"
-                style="@style/TextAppearance.AppCompat.ListTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="ON AIR"
-                app:layout_constraintStart_toStartOf="@+id/airing_today_title"
-                app:layout_constraintTop_toBottomOf="@+id/airing_today_list_recycler" />
-
-            <TextView
-                android:id="@+id/on_air_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/on_air_list_recycler"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/on_air_list_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/on_air_title" />
-
-            <TextView
-                android:id="@+id/popular_tv_title"
-                style="@style/TextAppearance.AppCompat.ListTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="POPULAR SHOWS"
-                app:layout_constraintStart_toStartOf="@+id/airing_today_title"
-                app:layout_constraintTop_toBottomOf="@+id/on_air_list_recycler" />
-
-            <TextView
-                android:id="@+id/popular_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/popular_tv_list_recycler"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popular_tv_list_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/popular_tv_title" />
-
-            <TextView
-                android:id="@+id/top_rated_tv_title"
-                style="@style/TextAppearance.AppCompat.ListTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="TOP RATED SHOWS"
-                app:layout_constraintStart_toStartOf="@+id/popular_tv_title"
-                app:layout_constraintTop_toBottomOf="@+id/popular_tv_list_recycler" />
-
-            <TextView
-                android:id="@+id/top_rated_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/top_rated_tv_list_recycler"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/top_rated_tv_list_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/top_rated_tv_title" />
-
-            <TextView
-                android:id="@+id/trending_tv_title"
-                style="@style/TextAppearance.AppCompat.ListTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="TRENDING SHOWS"
-                app:layout_constraintStart_toStartOf="@+id/top_rated_tv_title"
-                app:layout_constraintTop_toBottomOf="@+id/top_rated_tv_list_recycler" />
-
-            <TextView
-                android:id="@+id/trending_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="SEE ALL"
-                style="@style/TextAppearance.AppCompat.SeeAll"
-                app:layout_constraintBottom_toTopOf="@+id/trending_tv_recycler"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trending_tv_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trending_tv_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/shows_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/search_shows"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/search"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/airing_today_title"
+                        style="@style/TextAppearance.AppCompat.ListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="AIRING TODAY"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/search_shows" />
+
+                    <TextView
+                        android:id="@+id/airing_today_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="SEE ALL"
+                        style="@style/TextAppearance.AppCompat.SeeAll"
+                        app:layout_constraintBottom_toTopOf="@+id/airing_today_list_recycler"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/airing_today_list_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/airing_today_title" />
+
+                    <TextView
+                        android:id="@+id/on_air_title"
+                        style="@style/TextAppearance.AppCompat.ListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="ON AIR"
+                        app:layout_constraintStart_toStartOf="@+id/airing_today_title"
+                        app:layout_constraintTop_toBottomOf="@+id/airing_today_list_recycler" />
+
+                    <TextView
+                        android:id="@+id/on_air_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="SEE ALL"
+                        style="@style/TextAppearance.AppCompat.SeeAll"
+                        app:layout_constraintBottom_toTopOf="@+id/on_air_list_recycler"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/on_air_list_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/on_air_title" />
+
+                    <TextView
+                        android:id="@+id/popular_tv_title"
+                        style="@style/TextAppearance.AppCompat.ListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="POPULAR SHOWS"
+                        app:layout_constraintStart_toStartOf="@+id/airing_today_title"
+                        app:layout_constraintTop_toBottomOf="@+id/on_air_list_recycler" />
+
+                    <TextView
+                        android:id="@+id/popular_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="SEE ALL"
+                        style="@style/TextAppearance.AppCompat.SeeAll"
+                        app:layout_constraintBottom_toTopOf="@+id/popular_tv_list_recycler"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/popular_tv_list_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/popular_tv_title" />
+
+                    <TextView
+                        android:id="@+id/top_rated_tv_title"
+                        style="@style/TextAppearance.AppCompat.ListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="TOP RATED SHOWS"
+                        app:layout_constraintStart_toStartOf="@+id/popular_tv_title"
+                        app:layout_constraintTop_toBottomOf="@+id/popular_tv_list_recycler" />
+
+                    <TextView
+                        android:id="@+id/top_rated_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="SEE ALL"
+                        style="@style/TextAppearance.AppCompat.SeeAll"
+                        app:layout_constraintBottom_toTopOf="@+id/top_rated_tv_list_recycler"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/top_rated_tv_list_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/top_rated_tv_title" />
+
+                    <TextView
+                        android:id="@+id/trending_tv_title"
+                        style="@style/TextAppearance.AppCompat.ListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="TRENDING SHOWS"
+                        app:layout_constraintStart_toStartOf="@+id/top_rated_tv_title"
+                        app:layout_constraintTop_toBottomOf="@+id/top_rated_tv_list_recycler" />
+
+                    <TextView
+                        android:id="@+id/trending_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="SEE ALL"
+                        style="@style/TextAppearance.AppCompat.SeeAll"
+                        app:layout_constraintBottom_toTopOf="@+id/trending_tv_recycler"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/trending_tv_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/trending_tv_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </layout>

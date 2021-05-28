@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.upcoming_list.view.*
 
 typealias upcomingSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class UpcomingListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: upcomingSItemClickListener):
+class UpcomingListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: upcomingSItemClickListener):
     RecyclerView.Adapter<UpcomingListAdapter.UpcomingListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingListViewHolder {
@@ -32,7 +32,7 @@ class UpcomingListAdapter(private var list: MutableList<Movies.MoviesResult>, pr
         holder.bind(movie)
     }
 
-    fun updateUpcomingList(movieList: MutableList<Movies.MoviesResult>) {
+    fun updateUpcomingList(movieList: List<Movies.MoviesResult>) {
         list = movieList
         notifyDataSetChanged()
     }

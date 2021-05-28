@@ -10,14 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.R
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.models.*
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.network.MoviesRespository
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieViewModelFactory
 import com.czech.muvies.viewModels.MoviesViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Suppress("UNCHECKED_CAST")
 class MoviesFragment : Fragment() {
@@ -97,13 +98,15 @@ class MoviesFragment : Fragment() {
 
     private var  TAG = "MoviesFragment"
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         binding = MoviesFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this, MovieViewModelFactory(MoviesApiService.getService()))
+        viewModel = ViewModelProvider(this,
+            MovieViewModelFactory(MoviesApiService.getService(), MoviesRespository(MoviesApiService.getService())))
             .get(MoviesViewModel::class.java)
         binding.lifecycleOwner = this
         binding.moviesViewModel = viewModel
@@ -136,118 +139,76 @@ class MoviesFragment : Fragment() {
             }
         }
 
-        viewModel.apply {
+        viewModel.moviesResponse.observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
+                Status.LOADING -> {
+                    binding.apply {
+                        moviesScroll.visibility = View.GONE
+                        loadingAnimHolder.visibility = View.VISIBLE
+                    }
+                }
 
-            getInTheater().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
+                Status.SUCCESS -> {
 
-                            resource.data.let { credits ->
-                                if (credits != null) {
+                    val inTheatersList = mutableListOf<Movies.MoviesResult>()
+                    val upcomingList = mutableListOf<Movies.MoviesResult>()
+                    val popularList = mutableListOf<Movies.MoviesResult>()
+                    val topRatedList = mutableListOf<Movies.MoviesResult>()
+                    val trendingList = mutableListOf<Movies.MoviesResult>()
 
-                                    inTheatersAdapter.updateInTheatreList(credits.results as MutableList<Movies.MoviesResult>)
+                    resource.data.let { movies ->
+                        movies?.forEachIndexed { index, it ->
+                            when (it.movieCategory) {
 
+                                Movies.MoviesResult.MovieCategory.IN_THEATER -> {
+                                    movies[index].let {
+                                        inTheatersList.add(it)
+                                        inTheatersAdapter.updateInTheatreList(inTheatersList)
+                                    }
+                                }
+
+                                Movies.MoviesResult.MovieCategory.UPCOMING -> {
+                                    movies[index].let {
+                                        upcomingList.add(it)
+                                        upcomingAdapter.updateUpcomingList(upcomingList)
+                                    }
+                                }
+
+                                Movies.MoviesResult.MovieCategory.POPULAR -> {
+                                    movies[index].let {
+                                        popularList.add(it)
+                                        popularAdapter.updatePopularList(popularList)
+                                    }
+                                }
+
+                                Movies.MoviesResult.MovieCategory.TOP_RATED -> {
+                                    movies[index].let {
+                                        topRatedList.add(it)
+                                        topRatedAdapter.updateTopRatedList(topRatedList)
+                                    }
+                                }
+
+                                Movies.MoviesResult.MovieCategory.TRENDING -> {
+                                    movies[index].let {
+                                        trendingList.add(it)
+                                        trendingMoviesAdapter.updateTrendingMoviesList(trendingList)
+                                    }
                                 }
                             }
                         }
+                    }
 
-                        Status.LOADING -> {
-
-                        }
-
-                        Status.ERROR -> {
-                        }
+                    binding.apply {
+                        moviesScroll.visibility = View.VISIBLE
+                        loadingAnimHolder.visibility = View.GONE
                     }
                 }
-            })
 
-            getUpcoming().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
+                Status.ERROR -> {
 
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    upcomingAdapter.updateUpcomingList(credits.results as MutableList<Movies.MoviesResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {
-
-                        }
-                    }
                 }
-            })
-
-            getPopular().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    popularAdapter.updatePopularList(credits.results as MutableList<Movies.MoviesResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
-                    }
-                }
-            })
-
-            getTopRated().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    topRatedAdapter.updateTopRatedList(credits.results as MutableList<Movies.MoviesResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
-                    }
-                }
-            })
-
-            getTrending().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    trendingMoviesAdapter.updateTrendingMoviesList(credits.results as MutableList<Movies.MoviesResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
-                    }
-                }
-            })
-        }
+            }
+        })
 
         return binding.root
     }
