@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -459,6 +460,19 @@ class MovieDetailsFragment : Fragment() {
                                 vote_count.text = "${movieDetails.voteCount.toString()} votes"
 
                                 overview.text = movieDetails.overview
+
+                                overview.setOnClickListener {
+
+                                    if (overview.maxLines != Int.MAX_VALUE) {
+
+                                        overview.ellipsize = null
+                                        overview.maxLines = Int.MAX_VALUE
+                                    } else {
+
+                                        overview.ellipsize = TextUtils.TruncateAt.END
+                                        overview.maxLines = 5
+                                    }
+                                }
                             }
 
                             if (movieDetails != null) {

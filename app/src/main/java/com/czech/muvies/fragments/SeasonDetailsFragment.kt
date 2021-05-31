@@ -2,6 +2,7 @@ package com.czech.muvies.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
 import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
 import com.yarolegovich.discretescrollview.DSVOrientation
+import kotlinx.android.synthetic.main.cast_details_fragment.*
 import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class SeasonDetailsFragment : Fragment() {
@@ -103,11 +105,23 @@ class SeasonDetailsFragment : Fragment() {
 
                             if (seasonDetails != null) {
 
-                                if (seasonDetails.overview == null) {
+                                if (seasonDetails.overview!!.isEmpty()) {
                                     overview_layout.visibility = View.GONE
                                 } else {
                                     overview_layout.visibility = View.VISIBLE
                                     overview.text = seasonDetails.overview
+
+                                    overview.setOnClickListener {
+                                        if (overview.maxLines != Int.MAX_VALUE) {
+
+                                            overview.ellipsize = null
+                                            overview.maxLines = Int.MAX_VALUE
+                                        } else {
+
+                                            overview.ellipsize = TextUtils.TruncateAt.END
+                                            overview.maxLines = 5
+                                        }
+                                    }
                                 }
 
                                 episodeAdapter.updateList(seasonDetails.episodes as List<SeasonDetails.Episode>)

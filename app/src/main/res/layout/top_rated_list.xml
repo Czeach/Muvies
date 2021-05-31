@@ -54,6 +54,8 @@
             android:text=""
             android:textColor="@color/colorAccentLight"
             android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:fontFamily="@font/capriola"
             app:layout_constraintEnd_toEndOf="@+id/cardView7"
             app:layout_constraintStart_toStartOf="@+id/cardView7"

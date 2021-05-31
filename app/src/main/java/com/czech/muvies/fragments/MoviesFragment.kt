@@ -23,6 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Suppress("UNCHECKED_CAST")
 class MoviesFragment : Fragment() {
 
+    @ExperimentalCoroutinesApi
     private lateinit var viewModel: MoviesViewModel
     private lateinit var binding: MoviesFragmentBinding
 

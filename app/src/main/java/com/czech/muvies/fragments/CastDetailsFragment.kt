@@ -2,6 +2,7 @@ package com.czech.muvies.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,8 @@ import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.CastDetailsViewModel
 import com.czech.muvies.viewModels.CastDetailsViewModelFactory
 import kotlinx.android.synthetic.main.cast_details_fragment.*
+import kotlinx.android.synthetic.main.cast_details_fragment.name
+import kotlinx.android.synthetic.main.tv_show_details_fragment.*
 
 class CastDetailsFragment : Fragment() {
 
@@ -152,6 +155,18 @@ class CastDetailsFragment : Fragment() {
                                 birthday.text = "Born on ${Converter.convertDate(personDetails.birthday)}"
 
                                 biography.text = personDetails.biography
+
+                                biography.setOnClickListener {
+                                    if (biography.maxLines != Int.MAX_VALUE) {
+
+                                        biography.ellipsize = null
+                                        biography.maxLines = Int.MAX_VALUE
+                                    } else {
+
+                                        biography.ellipsize = TextUtils.TruncateAt.END
+                                        biography.maxLines = 5
+                                    }
+                                }
                             }
                         }
 
