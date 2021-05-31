@@ -38,6 +38,15 @@ data class TvShows(
         @SerializedName("vote_average")
         val voteAverage: Double = 0.0,
         @SerializedName("vote_count")
-        val voteCount: Int = 0
-    ): Parcelable
+        val voteCount: Int = 0,
+        var showCategory: TvShowCategory? = null
+    ): Parcelable {
+        enum class TvShowCategory {
+            AIRING_TODAY,
+            ON_AIR,
+            POPULAR,
+            TOP_RATED,
+            TRENDING
+        }
+    }
 }

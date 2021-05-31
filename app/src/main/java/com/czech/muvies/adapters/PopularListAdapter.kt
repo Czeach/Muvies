@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.popular_list.view.*
 
 typealias popularSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class PopularListAdapter(private var list: MutableList<Movies.MoviesResult>, private val clickListener: popularSItemClickListener):
+class PopularListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: popularSItemClickListener):
         RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularListViewHolder {
@@ -32,7 +32,7 @@ class PopularListAdapter(private var list: MutableList<Movies.MoviesResult>, pri
         holder.bind(movie)
     }
 
-    fun updatePopularList(movieList: MutableList<Movies.MoviesResult>) {
+    fun updatePopularList(movieList: List<Movies.MoviesResult>) {
         list = movieList
         notifyDataSetChanged()
     }

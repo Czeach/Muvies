@@ -1,5 +1,6 @@
 package com.czech.muvies.adapters
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.czech.muvies.R
 import com.czech.muvies.models.SeasonDetails
 import com.czech.muvies.utils.Converter
 import kotlinx.android.synthetic.main.episodes_list.view.*
+import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
 
@@ -57,6 +59,18 @@ class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerVie
             date.text = Converter.convertDate(list.airDate)
 
             overview.text = list.overview
+
+            overview.setOnClickListener {
+                if (overview.maxLines != Int.MAX_VALUE) {
+
+                    overview.ellipsize = null
+                    overview.maxLines = Int.MAX_VALUE
+                } else {
+
+                    overview.ellipsize = TextUtils.TruncateAt.END
+                    overview.maxLines = 3
+                }
+            }
         }
     }
 }

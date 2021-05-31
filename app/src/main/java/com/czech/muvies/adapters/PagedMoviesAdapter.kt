@@ -11,22 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.databinding.InTheatresMiniListBinding
 import com.czech.muvies.models.Movies
-import com.czech.muvies.models.TvShows
-import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 import kotlinx.android.synthetic.main.paged_list.view.*
 
 typealias pagedMovieClickListener = (Movies.MoviesResult) -> Unit
 
 class PagedMoviesAdapter(private val clickListener: pagedMovieClickListener):
-    PagedListAdapter<Movies.MoviesResult, PagedMoviesAdapter.PagedMoviesViewModel>(diffUtil) {
+    PagedListAdapter<Movies.MoviesResult, PagedMoviesAdapter.PagedMoviesViewHolder>(diffUtil) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagedMoviesViewModel {
-        return PagedMoviesViewModel(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagedMoviesViewHolder {
+        return PagedMoviesViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.paged_list, parent, false))
     }
 
-    override fun onBindViewHolder(holder: PagedMoviesViewModel, position: Int) {
+    override fun onBindViewHolder(holder: PagedMoviesViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
         }
@@ -44,7 +41,7 @@ class PagedMoviesAdapter(private val clickListener: pagedMovieClickListener):
         }
     }
 
-    inner class PagedMoviesViewModel(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class PagedMoviesViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private var poster: ImageView = itemView.poster_image
         private var title: TextView = itemView.title

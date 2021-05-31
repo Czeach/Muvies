@@ -105,6 +105,7 @@
                         android:textColor="@color/colorAccentLight"
                         android:textSize="14sp"
                         android:maxLines="5"
+                        android:ellipsize="end"
                         android:scrollHorizontally="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView"

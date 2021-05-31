@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -484,6 +485,18 @@ class TvShowDetailsFragment() : Fragment() {
                                 homepage.text = showDetails.homepage
 
                                 synopsis.text = showDetails.overview
+
+                                synopsis.setOnClickListener {
+                                    if (synopsis.maxLines != Int.MAX_VALUE) {
+
+                                        synopsis.ellipsize = null
+                                        synopsis.maxLines = Int.MAX_VALUE
+                                    } else {
+
+                                        synopsis.ellipsize = TextUtils.TruncateAt.END
+                                        synopsis.maxLines = 5
+                                    }
+                                }
 
                                 seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
 

@@ -14,6 +14,7 @@ import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
 import com.czech.muvies.models.*
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.network.ShowsRepository
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowsViewModel
 import com.czech.muvies.viewModels.TvShowsViewModelFactory
@@ -99,7 +100,8 @@ class TvShowsFragment : Fragment() {
     ): View? {
 
         binding = TvShowsFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this, TvShowsViewModelFactory(MoviesApiService.getService()))
+        viewModel = ViewModelProvider(this,
+            TvShowsViewModelFactory(MoviesApiService.getService(), ShowsRepository(MoviesApiService.getService())))
             .get(TvShowsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.tvShowsViewModel = viewModel
@@ -132,113 +134,186 @@ class TvShowsFragment : Fragment() {
             }
         }
 
-        viewModel.apply {
+//        viewModel.apply {
+//
+//            getAiringToday().observe(viewLifecycleOwner, Observer {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//
+//                            resource.data.let { credits ->
+//                                if (credits != null) {
+//
+//                                    airingTodayAdapter.updateAiringTodayList(credits.results as MutableList<TvShows.TvShowsResult>)
+//                                }
+//                            }
+//                        }
+//
+//                        Status.LOADING -> {
+//                        }
+//
+//                        Status.ERROR -> {}
+//                    }
+//                }
+//            })
+//
+//            getOnAir().observe(viewLifecycleOwner, Observer {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//
+//                            resource.data.let { credits ->
+//                                if (credits != null) {
+//
+//                                    onAirAdapter.updateOnAirList(credits.results as MutableList<TvShows.TvShowsResult>)
+//                                }
+//                            }
+//                        }
+//
+//                        Status.LOADING -> {
+//                        }
+//
+//                        Status.ERROR -> {}
+//                    }
+//                }
+//            })
+//
+//            getPopular().observe(viewLifecycleOwner, Observer {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//
+//                            resource.data.let { credits ->
+//                                if (credits != null) {
+//
+//                                    popularTvAdapter.updatePopularTvList(credits.results as MutableList<TvShows.TvShowsResult>)
+//                                }
+//                            }
+//                        }
+//
+//                        Status.LOADING -> {
+//                        }
+//
+//                        Status.ERROR -> {}
+//                    }
+//                }
+//            })
+//
+//            getTopRated().observe(viewLifecycleOwner, Observer {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//
+//                            resource.data.let {credits ->
+//                                if (credits != null) {
+//
+//                                    topRatedTvAdapter.updateTopRatedTvList(credits.results as MutableList<TvShows.TvShowsResult>)
+//                                }
+//                            }
+//                        }
+//
+//                        Status.LOADING -> {
+//                        }
+//
+//                        Status.ERROR -> {}
+//                    }
+//                }
+//            })
+//
+//            getTrending().observe(viewLifecycleOwner, Observer {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//
+//                            resource.data.let { credits ->
+//                                if (credits != null) {
+//
+//                                    trendingTvAdapter.updateTrendingTvList(credits.results as MutableList<TvShows.TvShowsResult>)
+//                                }
+//                            }
+//                        }
+//
+//                        Status.LOADING -> {
+//                        }
+//
+//                        Status.ERROR -> {}
+//                    }
+//                }
+//            })
+//        }
 
-            getAiringToday().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
+        viewModel.showsResponse.observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
 
-                            resource.data.let { credits ->
-                                if (credits != null) {
+                Status.LOADING -> {
+                    binding.apply {
+                        showsScroll.visibility = View.GONE
+                        loadingAnimHolder.visibility = View.VISIBLE
+                    }
+                }
 
-                                    airingTodayAdapter.updateAiringTodayList(credits.results as MutableList<TvShows.TvShowsResult>)
+                Status.SUCCESS -> {
+
+                    val airingTodayList = mutableListOf<TvShows.TvShowsResult>()
+                    val onAirList = mutableListOf<TvShows.TvShowsResult>()
+                    val popularList = mutableListOf<TvShows.TvShowsResult>()
+                    val topRatedList = mutableListOf<TvShows.TvShowsResult>()
+                    val trendingList = mutableListOf<TvShows.TvShowsResult>()
+
+                    resource.data.let { shows ->
+                        shows?.forEachIndexed { index, it ->
+                            when (it.showCategory) {
+
+                                TvShows.TvShowsResult.TvShowCategory.AIRING_TODAY -> {
+                                    shows[index].let {
+                                        airingTodayList.add(it)
+                                        airingTodayAdapter.updateAiringTodayList(airingTodayList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.ON_AIR -> {
+                                    shows[index].let {
+                                        onAirList.add(it)
+                                        onAirAdapter.updateOnAirList(onAirList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.POPULAR -> {
+                                    shows[index].let {
+                                        popularList.add(it)
+                                        popularTvAdapter.updatePopularTvList(popularList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.TOP_RATED -> {
+                                    shows[index].let {
+                                        topRatedList.add(it)
+                                        topRatedTvAdapter.updateTopRatedTvList(topRatedList)
+                                    }
+                                }
+
+                                TvShows.TvShowsResult.TvShowCategory.TRENDING -> {
+                                    shows[index].let {
+                                        trendingList.add(it)
+                                        trendingTvAdapter.updateTrendingTvList(trendingList)
+                                    }
                                 }
                             }
                         }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
                     }
-                }
-            })
 
-            getOnAir().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    onAirAdapter.updateOnAirList(credits.results as MutableList<TvShows.TvShowsResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
+                    binding.apply {
+                        showsScroll.visibility = View.VISIBLE
+                        loadingAnimHolder.visibility = View.GONE
                     }
+
                 }
-            })
 
-            getPopular().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
+                Status.ERROR -> {
 
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    popularTvAdapter.updatePopularTvList(credits.results as MutableList<TvShows.TvShowsResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
-                    }
                 }
-            })
-
-            getTopRated().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-
-                            resource.data.let {credits ->
-                                if (credits != null) {
-
-                                    topRatedTvAdapter.updateTopRatedTvList(credits.results as MutableList<TvShows.TvShowsResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
-                    }
-                }
-            })
-
-            getTrending().observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-
-                            resource.data.let { credits ->
-                                if (credits != null) {
-
-                                    trendingTvAdapter.updateTrendingTvList(credits.results as MutableList<TvShows.TvShowsResult>)
-                                }
-                            }
-                        }
-
-                        Status.LOADING -> {
-                        }
-
-                        Status.ERROR -> {}
-                    }
-                }
-            })
-        }
+            }
+        })
 
         return binding.root
     }
