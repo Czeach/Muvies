@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorBackground</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccentDark</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
 
     <style name="TextAppearance.AppCompat.ListTitle" parent="TextAppearance.AppCompat">
@@ -32,4 +33,10 @@
         <item name="android:textOn"></item>
         <item name="android:textOff"></item>
     </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/colorBackground</item>
+
+    </style>
+
 </resources>

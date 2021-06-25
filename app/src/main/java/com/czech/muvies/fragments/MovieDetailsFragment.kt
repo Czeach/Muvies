@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -35,6 +36,7 @@ import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.MovieDetailsViewModel
 import com.czech.muvies.viewModels.MovieDetailsViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
@@ -475,37 +477,59 @@ class MovieDetailsFragment : Fragment() {
                                 }
                             }
 
-                            if (movieDetails != null) {
+                            val favDropdown = binding.favDropdown
 
-                                binding.favMovieButton.setOnCheckedChangeListener { _, isChecked ->
+                            favDropdown.setOnClickListener {
 
-                                    val intent = Intent()
+                                Snackbar.make(requireView(), "more clicked", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null)
 
-                                    if (isChecked) {
+                                val popupMenu = PopupMenu(requireContext(), favDropdown)
+                                popupMenu.menuInflater.inflate(R.menu.fav_popup_menu, popupMenu.menu)
+                                popupMenu.setOnMenuItemClickListener { item ->
+                                    when (item.itemId) {
 
-                                        Toast.makeText(requireContext(), "Checked", Toast.LENGTH_LONG).show()
-
-                                        val toFavorites = ToFavorites(
-                                            movieDetails.id,
-                                            movieDetails.title,
-                                            movieDetails.overview,
-                                            movieDetails.posterPath,
-                                            movieDetails.backdropPath,
-                                            movieDetails.releaseDate,
-                                            movieDetails.voteAverage,
-                                            movieDetails.originalLanguage
-                                        )
-
-                                        intent.putExtra(EXTRA_REPLY, toFavorites)
-
-
-                                    } else if (!isChecked) {
-
-                                        Toast.makeText(requireContext(), "Unchecked", Toast.LENGTH_LONG).show()
+                                        R.id.action_add_to_favs -> {
+                                            Snackbar.make(requireView(), "Add to favs clicked", Snackbar.LENGTH_LONG)
+                                                .setAction("Action", null)
+                                        }
 
                                     }
+                                    true
                                 }
                             }
+
+//                            if (movieDetails != null) {
+//
+//                                binding.favMovieButton.setOnCheckedChangeListener { _, isChecked ->
+//
+//                                    val intent = Intent()
+//
+//                                    if (isChecked) {
+//
+//                                        Toast.makeText(requireContext(), "Checked", Toast.LENGTH_LONG).show()
+//
+//                                        val toFavorites = ToFavorites(
+//                                            movieDetails.id,
+//                                            movieDetails.title,
+//                                            movieDetails.overview,
+//                                            movieDetails.posterPath,
+//                                            movieDetails.backdropPath,
+//                                            movieDetails.releaseDate,
+//                                            movieDetails.voteAverage,
+//                                            movieDetails.originalLanguage
+//                                        )
+//
+//                                        intent.putExtra(EXTRA_REPLY, toFavorites)
+//
+//
+//                                    } else if (!isChecked) {
+//
+//                                        Toast.makeText(requireContext(), "Unchecked", Toast.LENGTH_LONG).show()
+//
+//                                    }
+//                                }
+//                            }
                         }
                         details.visibility = View.VISIBLE
                     }

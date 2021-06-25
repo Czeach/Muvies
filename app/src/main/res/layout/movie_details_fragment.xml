@@ -29,7 +29,8 @@
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -117,16 +118,36 @@
                         app:layout_constraintStart_toEndOf="@+id/rating_bar"
                         app:layout_constraintTop_toTopOf="@+id/rating_bar" />
 
-                    <androidx.appcompat.widget.AppCompatToggleButton
-                        android:id="@+id/fav_movie_button"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="16dp"
+<!--                    <androidx.appcompat.widget.AppCompatToggleButton-->
+<!--                        android:id="@+id/fav_movie_button"-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:background="@drawable/toggle_button_bg"-->
+<!--                        style="@style/toggleButton"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/lang_button" />-->
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/toggle_button_bg"
-                        style="@style/toggleButton"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:background="@color/colorBackgroundTrans"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lang_button" />
+                        app:layout_constraintTop_toTopOf="@+id/lang_button">
+
+                        <ImageButton
+                            android:id="@+id/fav_dropdown"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/more_vert"
+                            tools:ignore="ContentDescription" />
+
+                    </FrameLayout>
 
                     <FrameLayout
                         android:id="@+id/lang_button"
