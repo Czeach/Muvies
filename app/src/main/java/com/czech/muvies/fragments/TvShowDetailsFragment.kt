@@ -446,7 +446,20 @@ class TvShowDetailsFragment() : Fragment() {
         viewModel.getTvShowDetails(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
                 when (resource.status) {
+                    Status.LOADING -> {
+
+                        binding.apply {
+                            loadingSpinner.visibility = View.VISIBLE
+                            details.visibility = View.GONE
+                        }
+                    }
+
                     Status.SUCCESS -> {
+
+                        binding.apply {
+                            loadingSpinner.visibility = View.GONE
+                            details.visibility = View.VISIBLE
+                        }
 
                         resource.data.let { showDetails ->
 
@@ -459,46 +472,59 @@ class TvShowDetailsFragment() : Fragment() {
 
                                 genreAdapter.updateList(showDetails.genres as List<TvShowDetails.Genre>)
 
-                                original_name.text = showDetails.originalName
+                                binding.apply {
 
-                                status.text = showDetails.status
+                                    originalName.text = showDetails.originalName
 
-                                first_date.text = Converter.convertDate(showDetails.firstAirDate)
+                                    status.text = showDetails.status
 
-                                last_date.text = Converter.convertDate(showDetails.lastAirDate)
+                                    firstDate.text = Converter.convertDate(showDetails.firstAirDate)
 
-                                next_date.text = Converter.convertDate(showDetails.nextEpisodeToAir?.airDate)
+                                    lastDate.text = Converter.convertDate(showDetails.lastAirDate)
 
-                                next_episode.text =
-                                    "Season ${showDetails.nextEpisodeToAir?.seasonNumber} episode ${showDetails.nextEpisodeToAir?.episodeNumber}"
+                                    nextDate.text = Converter.convertDate(showDetails.nextEpisodeToAir?.airDate)
 
-                                next_episode.text =
-                                    if (showDetails.nextEpisodeToAir?.airDate == null) ""
-                                else "Season ${showDetails.nextEpisodeToAir.seasonNumber} episode ${showDetails.nextEpisodeToAir.episodeNumber}"
+                                    nextEpisode.text =
+                                        if (showDetails.nextEpisodeToAir?.airDate == null) ""
+                                        else "Season ${showDetails.nextEpisodeToAir.seasonNumber} episode ${showDetails.nextEpisodeToAir.episodeNumber}"
 
-                                vote_count.text = "${showDetails.voteCount} votes"
+                                    voteCount.text = "${showDetails.voteCount} votes"
 
-                                seasons.text =
-                                if (showDetails.numberOfSeasons == 1) "${showDetails.numberOfSeasons} season ${showDetails.numberOfEpisodes} episodes"
-                                    else "${showDetails.numberOfSeasons} seasons ${showDetails.numberOfEpisodes} episodes"
+                                    seasons.text =
+                                        if (showDetails.numberOfSeasons == 1) "${showDetails.numberOfSeasons} season ${showDetails.numberOfEpisodes} episodes"
+                                        else "${showDetails.numberOfSeasons} seasons ${showDetails.numberOfEpisodes} episodes"
 
-                                homepage.text = showDetails.homepage
+                                    homepage.text = showDetails.homepage
 
-                                synopsis.text = showDetails.overview
-
-                                synopsis.setOnClickListener {
-                                    if (synopsis.maxLines != Int.MAX_VALUE) {
-
-                                        synopsis.ellipsize = null
-                                        synopsis.maxLines = Int.MAX_VALUE
+                                    if (showDetails.overview?.isEmpty() == true) {
+                                        binding.textView4.visibility = View.GONE
                                     } else {
+                                        binding.synopsis.text = showDetails.overview
+                                    }
 
-                                        synopsis.ellipsize = TextUtils.TruncateAt.END
-                                        synopsis.maxLines = 5
+                                    synopsis.setOnClickListener {
+                                        if (synopsis.maxLines != Int.MAX_VALUE) {
+
+                                            binding.apply {
+                                                synopsis.ellipsize = null
+                                                synopsis.maxLines = Int.MAX_VALUE
+                                            }
+                                        } else {
+
+                                            binding.apply {
+                                                synopsis.ellipsize = TextUtils.TruncateAt.END
+                                                synopsis.maxLines = 5
+                                            }
+                                        }
                                     }
                                 }
 
-                                seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
+                                if (showDetails.seasons?.isEmpty() == true) {
+                                    binding.textView11.visibility = View.GONE
+                                    binding.seasonsList.visibility = View.GONE
+                                } else {
+                                    seasonsAdapter.updateList(showDetails.seasons as List<TvShowDetails.Season>)
+                                }
 
                                 seasonsAdapter.setUpListener(object : SeasonsAdapter.ItemCLickedListener {
                                     override fun onItemClicked(season: TvShowDetails.Season) {
@@ -516,12 +542,8 @@ class TvShowDetailsFragment() : Fragment() {
                                 })
                             }
                         }
-                        details.visibility = View.VISIBLE
                     }
-                    Status.LOADING -> {
 
-                        details.visibility = View.INVISIBLE
-                    }
                     Status.ERROR -> {
                         Toast.makeText(requireContext(), "error", Toast.LENGTH_LONG).show()
                     }
@@ -531,7 +553,11 @@ class TvShowDetailsFragment() : Fragment() {
 
         viewModel.getSimilarTvShows(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
-            similarAdapter.submitList(it)
+            if (it.isEmpty()) {
+                binding.textView16.visibility = View.GONE
+            } else {
+                similarAdapter.submitList(it)
+            }
         })
 
         viewModel.getCast(showId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -542,7 +568,12 @@ class TvShowDetailsFragment() : Fragment() {
                         resource.data.let {credits ->
                             if (credits != null) {
 
-                                castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
+                                if (credits.cast?.isEmpty() == true) {
+                                    binding.textView17.visibility = View.GONE
+                                    binding.castList.visibility = View.GONE
+                                } else {
+                                    castAdapter.updateList(credits.cast as List<TvShowCredits.Cast>)
+                                }
                             }
                         }
                     }

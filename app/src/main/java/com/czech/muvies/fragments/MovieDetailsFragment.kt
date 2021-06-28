@@ -47,7 +47,9 @@ import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
 import kotlinx.android.synthetic.main.movie_details_fragment.rating_fraction
 import kotlinx.android.synthetic.main.movie_details_fragment.release_year
 import kotlinx.android.synthetic.main.movie_details_fragment.status
+import kotlinx.android.synthetic.main.movie_details_fragment.title
 import kotlinx.android.synthetic.main.movie_details_fragment.vote_count
+import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class MovieDetailsFragment : Fragment() {
     private lateinit var viewModel: MovieDetailsViewModel
@@ -432,7 +434,21 @@ class MovieDetailsFragment : Fragment() {
         viewModel.getMovieDetails(movieId).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let { resource ->
                 when (resource.status) {
+                    Status.LOADING -> {
+
+                        binding.apply {
+                            loadingSpinner.visibility = View.VISIBLE
+                            details.visibility = View.GONE
+                        }
+                    }
+
                     Status.SUCCESS -> {
+
+                        binding.apply {
+
+                            loadingSpinner.visibility = View.GONE
+                            details.visibility = View.VISIBLE
+                        }
 
                         resource.data.let {movieDetails ->
 
@@ -445,34 +461,45 @@ class MovieDetailsFragment : Fragment() {
 
                                 genreAdapter.updateList(movieDetails.genres as List<MovieDetails.Genre>)
 
-                                lang_text.text = movieDetails.originalLanguage
+                                binding.apply {
 
-                                original_Title.text = movieDetails.originalTitle
+                                    langText.text = movieDetails.originalLanguage
 
-                                tag_line.text = movieDetails.tagline
+                                    originalTitle.text = movieDetails.originalTitle
 
-                                homepage.text = movieDetails.homepage
+                                    tagLine.text = movieDetails.tagline
 
-                                status.text = movieDetails.status
+                                    homepage.text = movieDetails.homepage
 
-                                time.text = Converter.convertTime(movieDetails.runtime!!)
+                                    status.text = movieDetails.status
 
-                                release_date.text = Converter.convertDate(movieDetails.releaseDate)
+                                    time.text = Converter.convertTime(movieDetails.runtime!!)
 
-                                vote_count.text = "${movieDetails.voteCount.toString()} votes"
+                                    releaseDate.text = Converter.convertDate(movieDetails.releaseDate)
 
-                                overview.text = movieDetails.overview
+                                    voteCount.text = "${movieDetails.voteCount.toString()} votes"
 
-                                overview.setOnClickListener {
-
-                                    if (overview.maxLines != Int.MAX_VALUE) {
-
-                                        overview.ellipsize = null
-                                        overview.maxLines = Int.MAX_VALUE
+                                    if (movieDetails.overview?.isEmpty() == true) {
+                                        binding.textView4.visibility = View.GONE
                                     } else {
+                                        binding.overview.text = movieDetails.overview
+                                    }
 
-                                        overview.ellipsize = TextUtils.TruncateAt.END
-                                        overview.maxLines = 5
+                                    overview.setOnClickListener {
+
+                                        if (overview.maxLines != Int.MAX_VALUE) {
+
+                                            binding.apply {
+                                                overview.ellipsize = null
+                                                overview.maxLines = Int.MAX_VALUE
+                                            }
+                                        } else {
+
+                                            binding.apply{
+                                                overview.ellipsize = TextUtils.TruncateAt.END
+                                                overview.maxLines = 5
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -531,12 +558,8 @@ class MovieDetailsFragment : Fragment() {
 //                                }
 //                            }
                         }
-                        details.visibility = View.VISIBLE
                     }
-                    Status.LOADING -> {
 
-                        details.visibility = View.GONE
-                    }
                     Status.ERROR -> {
 
                     }
@@ -546,7 +569,12 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getSimilarMovies(movieId).observe(viewLifecycleOwner, Observer {
 
-            similarMoviesAdapter.submitList(it)
+            if (it.isEmpty()) {
+                binding.textView10.visibility = View.GONE
+            } else {
+
+                similarMoviesAdapter.submitList(it)
+            }
         })
 
         viewModel.getCast(movieId).observe(viewLifecycleOwner, Observer {
@@ -557,7 +585,11 @@ class MovieDetailsFragment : Fragment() {
                         resource.data.let {credits ->
                             if (credits != null) {
 
-                                castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
+                                if (credits.cast?.isEmpty() == true) {
+                                    binding.textView17.visibility = View.GONE
+                                } else {
+                                    castAdapter.updateList(credits.cast as List<MovieCredits.Cast>)
+                                }
                             }
                         }
                     }

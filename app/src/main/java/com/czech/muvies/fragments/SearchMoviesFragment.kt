@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.widget.doAfterTextChanged
@@ -69,61 +70,64 @@ class SearchMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        search_movies_et.setOnQueryTextListener(
-            object : SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {
+        binding.apply {
 
-                private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+            searchMoviesEt.setOnQueryTextListener(
+                object : SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {
 
-                private var searchJob: Job? = null
+                    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 
-                override fun onQueryTextSubmit(query: String?): Boolean {
+                    private var searchJob: Job? = null
 
-                    return false
+                    override fun onQueryTextSubmit(query: String?): Boolean {
 
-                }
+                        return false
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-
-                    searchJob?.cancel()
-                    searchJob = coroutineScope.launch {
-                        newText?.let { query ->
-                            delay(300)
-                            if (query.isEmpty()) {
-
-                                searchAdapter.updateSearchList(emptyList())
-
-                            } else {
-                                viewModel.getSearch(query).observe(viewLifecycleOwner, Observer {
-                                    it?.let { resource ->
-                                        when (resource.status) {
-
-                                            Status.SUCCESS -> {
-                                                resource.data.let { credits ->
-                                                    if (credits != null) {
-                                                        searchAdapter.updateSearchList(credits.results as List<SearchMovies.Result>)
-                                                    }
-                                                }
-                                            }
-
-                                            Status.LOADING -> {
-
-                                            }
-
-                                            Status.ERROR -> {
-
-                                            }
-                                        }
-                                    }
-                                })
-                            }
-                        }
                     }
 
-                    return false
+                    override fun onQueryTextChange(newText: String?): Boolean {
 
+                        searchJob?.cancel()
+                        searchJob = coroutineScope.launch {
+                            newText?.let { query ->
+                                delay(300)
+                                if (query.isEmpty()) {
+
+                                    searchAdapter.updateSearchList(emptyList())
+
+                                } else {
+                                    viewModel.getSearch(query).observe(viewLifecycleOwner, Observer {
+                                        it?.let { resource ->
+                                            when (resource.status) {
+
+                                                Status.SUCCESS -> {
+                                                    resource.data.let { credits ->
+                                                        if (credits != null) {
+                                                            searchAdapter.updateSearchList(credits.results as List<SearchMovies.Result>)
+                                                        }
+                                                    }
+                                                }
+
+                                                Status.LOADING -> {
+
+                                                }
+
+                                                Status.ERROR -> {
+
+                                                }
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        }
+
+                        return false
+
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     override fun onAttach(context: Context) {

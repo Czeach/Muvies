@@ -20,11 +20,14 @@
         <SearchView
             android:id="@+id/search_movies_et"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="46dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/search_view_corners"
+            android:iconifiedByDefault="false"
             android:queryHint="Search movies..."
+            android:searchIcon="@drawable/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

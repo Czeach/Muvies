@@ -33,6 +33,7 @@
                 tools:ignore="ContentDescription" />
 
             <FrameLayout
+                android:id="@+id/frameLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/backdrop"
@@ -118,24 +119,24 @@
                         app:layout_constraintStart_toEndOf="@+id/rating_bar"
                         app:layout_constraintTop_toTopOf="@+id/rating_bar" />
 
-<!--                    <androidx.appcompat.widget.AppCompatToggleButton-->
-<!--                        android:id="@+id/fav_movie_button"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:layout_marginEnd="16dp"-->
-<!--                        android:background="@drawable/toggle_button_bg"-->
-<!--                        style="@style/toggleButton"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/lang_button" />-->
+                    <!--                    <androidx.appcompat.widget.AppCompatToggleButton-->
+                    <!--                        android:id="@+id/fav_movie_button"-->
+                    <!--                        android:layout_width="30dp"-->
+                    <!--                        android:layout_height="30dp"-->
+                    <!--                        android:layout_marginTop="16dp"-->
+                    <!--                        android:layout_marginEnd="16dp"-->
+                    <!--                        android:background="@drawable/toggle_button_bg"-->
+                    <!--                        style="@style/toggleButton"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@+id/lang_button" />-->
 
                     <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:background="@color/colorBackgroundTrans"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
-                        android:background="@color/colorBackgroundTrans"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/lang_button">
 
@@ -187,6 +188,28 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loading_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout4">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="loading.json"
+                    app:lottie_loop="true"
+                    app:lottie_repeatMode="restart" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <FrameLayout
                 android:id="@+id/details"

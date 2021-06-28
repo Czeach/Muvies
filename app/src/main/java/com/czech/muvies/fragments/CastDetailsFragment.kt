@@ -1,12 +1,14 @@
 package com.czech.muvies.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -87,9 +89,6 @@ class CastDetailsFragment : Fragment() {
                 layoutManager = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 adapter = showsAdapter
             }
-
-            castMoviesToggle.isChecked = true
-            castShowsToggle.isChecked = false
         }
 
         return binding.root
@@ -111,21 +110,34 @@ class CastDetailsFragment : Fragment() {
             showPerson.id?.let { getPersonDetails(it) }
         }
 
-        binding.castMoviesToggle.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        cast_movies_toggle.setOnCheckedChangeListener { _, isChecked ->
+            when {
+                isChecked -> {
+                    binding.apply {
+                        castMoviesToggle.background = ContextCompat.getDrawable(requireContext(), R.drawable.border)
+                        castShowsToggle.setBackgroundColor(Color.TRANSPARENT)
 
-                cast_movies.visibility = View.VISIBLE
-                cast_shows.visibility = View.GONE
+                        castMovies.visibility = View.VISIBLE
+                        castShows.visibility = View.GONE
+                    }
+                }
+
             }
         }
 
-        binding.castShowsToggle.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                cast_shows.visibility = View.VISIBLE
-                cast_movies.visibility = View.GONE
+        cast_shows_toggle.setOnCheckedChangeListener { _, isChecked ->
+            when {
+                isChecked -> {
+                    binding.apply {
+                        castShowsToggle.setBackgroundColor(Color.TRANSPARENT)
+                        castShowsToggle.background = ContextCompat.getDrawable(requireContext(), R.drawable.border)
+
+                        castShows.visibility = View.VISIBLE
+                        castMovies.visibility = View.GONE
+                    }
+                }
             }
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -133,7 +145,21 @@ class CastDetailsFragment : Fragment() {
         viewModel.getCastDetails(personId).observe(viewLifecycleOwner, Observer {
             it?.let {resource ->
                 when (resource.status) {
+                    Status.LOADING -> {
+
+                        binding.apply {
+                            loadingSpinner.visibility = View.VISIBLE
+                            castLayout.visibility = View.GONE
+                        }
+                    }
+
                     Status.SUCCESS -> {
+
+                        binding.apply {
+                            loadingSpinner.visibility = View.GONE
+                            castLayout.visibility = View.VISIBLE
+                        }
+
                         resource.data.let { personDetails ->
 
                             if (personDetails != null) {
@@ -144,39 +170,43 @@ class CastDetailsFragment : Fragment() {
                                     .error(R.drawable.person_placeholder)
                                     .into(cast_image)
 
-                                name.text = personDetails.name
-
                                 when(personDetails.gender) {
 
-                                    1 -> gender.text = "female"
-                                    2 -> gender.text = "male"
+                                    1 -> binding.gender.text = "female"
+                                    2 -> binding.gender.text = "male"
                                 }
 
-                                birthday.text = "Born on ${Converter.convertDate(personDetails.birthday)}"
+                                binding.apply {
+                                    name.text = personDetails.name
 
-                                biography.text = personDetails.biography
+                                    birthday.text = "Born on ${Converter.convertDate(personDetails.birthday)}"
 
-                                biography.setOnClickListener {
-                                    if (biography.maxLines != Int.MAX_VALUE) {
-
-                                        biography.ellipsize = null
-                                        biography.maxLines = Int.MAX_VALUE
+                                    if (personDetails.biography?.isEmpty() == true) {
+                                        binding.textView.visibility = View.GONE
                                     } else {
+                                        binding.biography.text = personDetails.biography
+                                    }
 
-                                        biography.ellipsize = TextUtils.TruncateAt.END
-                                        biography.maxLines = 5
+                                    biography.setOnClickListener {
+                                        if (biography.maxLines != Int.MAX_VALUE) {
+
+                                            binding.apply {
+                                                biography.ellipsize = null
+                                                biography.maxLines = Int.MAX_VALUE
+                                            }
+                                        } else {
+
+                                            binding.apply {
+                                                biography.ellipsize = TextUtils.TruncateAt.END
+                                                biography.maxLines = 5
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-
-                        bio.visibility = View.VISIBLE
-                    }
-                    Status.LOADING -> {
-                        bio.visibility = View.INVISIBLE
                     }
                     Status.ERROR -> {
-                        bio.visibility = View.GONE
                     }
                 }
             }

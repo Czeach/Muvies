@@ -100,26 +100,45 @@ class SeasonDetailsFragment : Fragment() {
         viewModel.getSeasonDetails(showId, seasonNum).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
+                    Status.LOADING -> {
+                        binding.apply {
+
+                            loadingSpinner.visibility = View.VISIBLE
+                            details.visibility = View.GONE
+                        }
+                    }
+
                     Status.SUCCESS -> {
+
+                        binding.apply {
+                            loadingSpinner.visibility =View.GONE
+                            details.visibility = View.VISIBLE
+                        }
                         resource.data.let { seasonDetails ->
 
                             if (seasonDetails != null) {
 
-                                if (seasonDetails.overview!!.isEmpty()) {
-                                    overview_layout.visibility = View.GONE
+                                if (seasonDetails.overview?.isEmpty() == true) {
+                                    binding.overviewLayout.visibility = View.GONE
                                 } else {
-                                    overview_layout.visibility = View.VISIBLE
-                                    overview.text = seasonDetails.overview
+                                    binding.apply {
+                                        overviewLayout.visibility = View.VISIBLE
+                                        overview.text = seasonDetails.overview
 
-                                    overview.setOnClickListener {
-                                        if (overview.maxLines != Int.MAX_VALUE) {
+                                        overview.setOnClickListener {
+                                            if (overview.maxLines != Int.MAX_VALUE) {
 
-                                            overview.ellipsize = null
-                                            overview.maxLines = Int.MAX_VALUE
-                                        } else {
+                                                binding.apply {
+                                                    overview.ellipsize = null
+                                                    overview.maxLines = Int.MAX_VALUE
+                                                }
+                                            } else {
 
-                                            overview.ellipsize = TextUtils.TruncateAt.END
-                                            overview.maxLines = 5
+                                                binding.apply {
+                                                    overview.ellipsize = TextUtils.TruncateAt.END
+                                                    overview.maxLines = 5
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -127,11 +146,8 @@ class SeasonDetailsFragment : Fragment() {
                                 episodeAdapter.updateList(seasonDetails.episodes as List<SeasonDetails.Episode>)
                             }
                         }
-                        details.visibility = View.VISIBLE
                     }
-                    Status.LOADING -> {
-                        details.visibility = View.INVISIBLE
-                    }
+
                     Status.ERROR -> {
                         details.visibility = View.GONE
                     }
