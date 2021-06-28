@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.upcoming_list.view.*
 
 typealias upcomingSItemClickListener = (Movies.MoviesResult) -> Unit
 
-class UpcomingListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: upcomingSItemClickListener):
+class UpcomingListAdapter(private var list: List<Movies.MoviesResult>, private val clickListener: (Movies.MoviesResult) -> Unit):
     RecyclerView.Adapter<UpcomingListAdapter.UpcomingListViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingListViewHolder {
