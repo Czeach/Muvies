@@ -27,19 +27,14 @@ class MoviesFragment : Fragment() {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var binding: MoviesFragmentBinding
 
-    private val upcomingClickListener by lazy {
-        object : upcomingSItemClickListener {
-            override fun invoke(it: Movies.MoviesResult) {
-                val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                    null, null, null, it, null, null, null,
-                    null, null, null, null, null, null)
-                findNavController().navigate(args)
-            }
 
-        }
-    }
     private var upcomingAdapter =
-        UpcomingListAdapter(arrayListOf(), upcomingClickListener)
+        UpcomingListAdapter(arrayListOf()){
+            val args = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                null, null, null, it, null, null, null,
+                null, null, null, null, null, null)
+            findNavController().navigate(args)
+        }
 
     private val inTheatersItemListener by lazy {
         object : inTheatersItemClickListenerS {
